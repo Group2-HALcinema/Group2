@@ -295,6 +295,6 @@ main div#edit{
     margin: 0  auto;
     background-color: #ccc;
 }
-main div#edit table{
-    position: center;
+main div#edit table tr{
+  margin: 10px;
 }
