@@ -1,0 +1,196 @@
+/* ----------スライダー設定---------- */
+#slider_space{
+    margin: 65px 0 0 0;
+    height: 400px;
+}
+.slider{
+    height: 400px;
+    width: 700px;
+    margin: 0 auto;
+}
+
+.slider div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.slider div img{
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.prev-arrow{
+    bottom: 0;
+    cursor: pointer;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    width: 70px;
+    left: -100px;
+}
+.next-arrow{
+    bottom: 0;
+    cursor: pointer;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    width: 70px;
+    right: -100px;
+}
+
+/* ----------上映中作品＆上映予定作品設定---------- */
+#Screening_list_space{
+    width: 80%;
+    margin: 50px auto 0 auto;
+    display: flex;
+}
+/* #C_rightspace{} */
+#switching{
+    display: flex;
+}
+#S_showing{
+    padding: 7px 0;
+    width: 31.5vw;
+    font-size: 1.1rem;
+    background-color: #222;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+#S_schedule{
+    padding: 7px 0;
+    width: 31.5vw;
+    font-size: 1.1rem;
+    background-color: #222;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    
+    border: #fff 1px solid;
+}
+
+#load-moreIn{
+    background-color: #222;
+    padding: 0 0 1px 0;
+}
+
+#Screening_list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 63vw;
+    height: auto;
+    padding: 20px 0 0 0;
+}
+
+.works{
+    margin: 10px 0 0 0;
+    /* background-color: #fff; */
+    width: 13vw;
+    height: auto;
+}
+.works a{
+    display: flex;
+    flex-wrap: wrap;
+    text-decoration: none;
+    color: #fff;
+}
+.works a figure{
+    margin: 0 auto;
+}
+.works a figure img{
+    width: 11vw;
+}
+
+.works a p{
+    font-size: 0.9rem;
+    width: 13vw;
+    word-wrap: break-word;
+}
+
+#load-more{
+    display: block;
+    margin: 40px auto 25px auto;
+    padding: 10px 20px;
+    font-size: 1.3rem;
+}
+
+
+
+
+
+
+#ticket_btn{
+    background-color: rgb(80, 211, 255);
+    width: 12vw;
+    height: 50vh;
+    margin-left: auto;
+    border: #000000 1px solid;
+    border-radius: 10px;
+}
+#ticket_btn a p{
+    text-align: center;
+    margin: auto 0;
+}
+
+
+/* ----------ニュース＆キャンペーン設定----------- */
+
+#news_campaign{
+    width: 80%;
+    margin: 70px auto 200px auto;
+}
+#news_header{
+    margin: 0 45% 25px 0;
+    width: 24vw;
+    font-size: 2rem;
+    border-bottom: #222 2px solid;
+    padding: 0 10px 0 15px;
+}
+
+#adjust{
+    display: flex;
+    flex-wrap: wrap;
+}
+#news{
+    background-color: white;
+    border: #000000 1px solid;
+    width: 47vw;
+}
+.news_space{
+    padding: 0 0 5px 0;
+    width: 40vw;
+    margin: 15px 0 0 25px;
+    border-bottom: #000000 1px solid;
+}
+.news_space:last-child{
+    padding: 0 0 5px 0;
+    width: 40vw;
+    margin: 15px 0 0 25px;
+    border-bottom: none;
+}
+.day{
+    font-size: 0.7rem;
+}
+.content a{
+    margin: 0 0 0 5px;
+    text-decoration: none;
+    color: #000000;
+    word-wrap: break-word;
+}
+
+
+#campaign_space{
+    background-color: white;
+    margin-left: auto;
+}
+.ittan{
+    margin: 0 0 25px 0;
+}
+.ittan a figure img{
+    width: 26vw;
+}
+
+
