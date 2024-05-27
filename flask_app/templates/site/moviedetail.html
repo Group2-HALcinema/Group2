@@ -10,17 +10,17 @@
 
     <title>名称未設定</title>
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/moviedetail.css">
-    <link rel="stylesheet" href="js/common.js">
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <link rel="stylesheet" href="../../static/css/common.css">
+    <link rel="stylesheet" href="../../static/css/moviedetail.css">
+    <link rel="stylesheet" href="../../static/js/common.js">
     
 
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
-      <h2>ここにロゴ</h2>
+      <div><img src="../../static/images/logo2.png"></div>
     </div>
     <input type="checkbox" id="menu" />
     <label for="menu" class="menu">
@@ -29,13 +29,24 @@
       <span></span>
     </label>
     <nav class="nav">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Works</a></li>
-        <li><a href="#">Contact</a></li>
+      <ul class="navwrap">
+        <li><a href="signin.html">ログイン</a></li>
+        <li><a href="movieList.html">上映中一覧</a></li>
+        <li><a href="comingList.html">公開予定</a></li>
+        <li>
+          <div href="movieList.html">
+            <h6>作品一覧</h6>
+            <ul>
+              <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
+              <li><a href=""><span>A</span>ction</a></li>
+              <li><a href=""><span>L</span>ove</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:0.8vw;" href="screen.html">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="#">サイトマップ</a></li>
       </ul>
-    </nav>
+    </nav>  
     
     
     <main>
@@ -50,7 +61,7 @@
 
           <ul>
             <li id="thumbnail">
-              <div><img src="images/konan.jpg"></div>
+              <div><img src="../../static/images/konan.jpg"></div>
             </li>
             <li id="title">
               <h1>名探偵コナン　１００万ドルの五稜星</h1>
