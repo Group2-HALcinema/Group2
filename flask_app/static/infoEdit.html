@@ -8,11 +8,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>会員情報</title>
+    <title>お客様情報編集</title>
 
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/MemberInfo.css">
-    <link rel="stylesheet" href="../../static/css/common.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/infoEdit.css">
+    <link rel="stylesheet" href="js/common.js">
     
 
   </head>
@@ -40,33 +40,33 @@
     <main>
       <!-- spaceはnavの帳尻合わせのために作ってる -->
       <div class="space"></div>
-      <!-- 中島ここから -->
-      <div id="Info">
 
-        <h1>お客様情報</h1>
-        <table>
-          <tr>
-            <td><img src="../../static/images/ICON_1.jpg" alt="会員画像"></td>
-            <td>
-              <p>ユーザー名</p>
-              <p>メールアドレス</p>
-            </td>
-            <td><a href="../site/infoEdit.html"><button>編集</button></a></td>
-          </tr>
-        </table>
+        <div id="edit">
+
+           <h1>お客様情報編集</h1>
+           <form action="#" method="post"></form>
+                <table>
+                    <tr>
+                        <td><img src="images/ICON_1.jpg" alt="画像"></td>
+                        <td><button>画像選択</button></td>
+                    </tr>
+                    <tr>
+                      <td>    
+                        <p>ユーザー名
+                            <input type="text" name="name"></p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>メールアドレス
+                            <input type="text" name="mailAddress"></p>
+                      </td>
+                    </tr>
+                </table>
+                <p id="button"><a href="MemberInfo.html"><input type="button" value="完了" id="buttn"></a></p>
+            </form>
+            
         </div>
-
-        <div id="Histry">
-        <h1>視聴した映画</h1>
-        <tr>
-          <td><img src="../../static/images/100$_1.jpg" alt="サムネ"></td>
-          <td><img src="../../static/images/GOZKON_1.jpg" alt="サムネ"></td>
-          <td><img src="../../static/images/UMANew_1.jpg" alt="サムネ"></td>
-        </tr>
-
-      </div>
-
-      <!-- ここまで -->
 
       <footer>
         <div class="logo">
