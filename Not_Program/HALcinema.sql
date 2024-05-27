@@ -11,7 +11,7 @@ CREATE TABLE `Account` (
   `MailAddress` varchar(255),
   `PhoneNumber` varchar(13),
   `Birthday` date,
-  `MemberFlg` bit(1) DEFAULT 1,
+  `MemberFlg` bit(1) DEFAULT 0,
   `RegistDate` datetime DEFAULT (now())
 );
 

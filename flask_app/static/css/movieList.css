@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @charset "utf-8";
 html {
   box-sizing: border-box;
@@ -291,6 +292,8 @@ main footer .secondary-links .social li > a:hover {
 }
 
 
+=======
+>>>>>>> dbf5bf0202abf428a1db6b19e1352a24a8b9a1f0
 /* --------------------------------------------上映中作品一覧ページ-------------------------------------------------- */
 .s_WorkSpace{
   width: 65%;
