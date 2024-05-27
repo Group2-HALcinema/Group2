@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_login import LoginManager
+from flask_app import models, views, forms
 
 db = SQLAlchemy()
 
@@ -10,7 +13,11 @@ def create_app():
     
     # DBの設定
     db.init_app(app)
-    from flask_app import models
+    Migrate(app, db)
+    
+    #LoginManager
+    login_manager = LoginManager(app)
+    login_manager.login_view = 'login' 
     
     # Blueprintの設定
     
