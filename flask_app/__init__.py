@@ -1,6 +1,17 @@
 from flask import Flask, render_template, request, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+db = SQLAlchemy()
 
-if __name__ == "__main__":
-    app.run(host="localhost",port=8000,debug=True)
+def create_app():
+    # appの設定
+    app = Flask(__name__,instance_relative_config=True)
+    app.config.from_pyfile('config.py')
+    
+    # DBの設定
+    db.init_app(app)
+    from flask_app import models
+    
+    # Blueprintの設定
+    
+    return app
