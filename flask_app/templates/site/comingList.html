@@ -26,7 +26,7 @@
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
-      <h2>ここにロゴ</h2>
+      <div><a href="top.html"><img src="../../static/images/logo2.png"></a></div>
     </div>
     <input type="checkbox" id="menu" />
     <label for="menu" class="menu">
@@ -35,11 +35,22 @@
       <span></span>
     </label>
     <nav class="nav">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Works</a></li>
-        <li><a href="#">Contact</a></li>
+      <ul class="navwrap">
+        <li class="hoverli"><a href="signin.html">ログイン</a></li>
+        <li><a href="top.html">トップページ</a></li>
+        <li>
+          <div >
+            <a href="movieList.html">上映中一覧</a>
+            <ul>
+              <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
+              <li><a href=""><span>A</span>ction</a></li>
+              <li><a href=""><span>L</span>ove</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="comingList.html">公開予定</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="screen.html">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="#">サイトマップ</a></li>
       </ul>
     </nav>
     
@@ -88,10 +99,13 @@
           </div>
           <div class="s_buttons">
             <div class="s_movieStatus_2"><p>公開予定</p></div>
-            <div class="s_detail"><p>詳細</p></div>
+            <div class="s_detail"><a href="moviedetail.html" style="text-decoration: none;
+              width: 100%;
+              height: auto;
+              display: block;
+              cursor: pointer;">詳細</a></div>
           </div>
         </div>
-        
         <div class="s_MovieBlock">
           <div class="s_imageWrap"><img src="../../static/images/IA33_h_01.webp" alt="ホラー画像"></div>
           <div class="s_MovieInfo">
@@ -101,10 +115,13 @@
           </div>
           <div class="s_buttons">
             <div class="s_movieStatus_2"><p>公開予定</p></div>
-            <div class="s_detail"><p>詳細</p></div>
+            <div class="s_detail"><a href="moviedetail.html" style="text-decoration: none;
+              width: 100%;
+              height: auto;
+              display: block;
+              cursor: pointer;">詳細</a></div>
           </div>
         </div>
-        
         <div class="s_MovieBlock">
           <div class="s_imageWrap"><img src="../../static/images/IA33_h_01.webp" alt="ホラー画像"></div>
           <div class="s_MovieInfo">
@@ -114,9 +131,15 @@
           </div>
           <div class="s_buttons">
             <div class="s_movieStatus_2"><p>公開予定</p></div>
-            <div class="s_detail"><p>詳細</p></div>
+            <div class="s_detail"><a href="moviedetail.html" style="text-decoration: none;
+              width: 100%;
+              height: auto;
+              display: block;
+              cursor: pointer;">詳細</a></div>
           </div>
         </div>
+        
+
 
         <div class="space_2"></div>
 
@@ -128,17 +151,13 @@
           <i class="fa fa-picture-o" aria-hidden="true"></i>
         </div>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Works</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="top.html">トップ</a></li>
+          <li><a href="top.html#news_campaign">お知らせ</a></li>
+          <li><a href="screen.html">スクリーンスペック</a></li>
+          <li><a href="sitemap.html">サイトマップ</a></li>
         </ul>
     
         <div class="secondary-links">
-          <ul>
-            <li><a href="#">Terms and Conditions</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-          </ul>
     
           <ul class="social">
             <li><a href="#">
