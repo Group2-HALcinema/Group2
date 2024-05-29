@@ -86,7 +86,8 @@ body {
 }
 #menu:checked ~ main {
   transform: translateX(10%);
-  width: 90.99%;
+  margin-left: 1.8%;
+  width: 90%;
   transition: transform 500ms ease;
 }
 
@@ -112,8 +113,8 @@ height: 100%;
 .nav {
   position: fixed;
   top: 0;
-  left: -10%;
-  width: 9.2%;
+  left: -11%;
+  width: 11%;
   height: 100vh;
   margin: 0;
   padding: 3.5% 0 0 0;
@@ -161,11 +162,17 @@ nav ul.navwrap li a{
   text-decoration: none;
   
 }
+nav ul.navwrap li a:hover{
+  color: #fd4b4b;
+}
 nav ul.navwrap li div ul li a{
   position: relative;
   color: white;
   font-size: 0.9vw;
   line-height: 8.5%;
+}
+nav ul.navwrap li div ul li a:hover span {
+  color: #fd4b4b;
 }
 nav ul.navwrap li div ul li a span{
   position: relative;
@@ -251,13 +258,13 @@ main footer ul li {
   }
 }
 main footer ul li a {
-  color: rgba(255, 255, 255, 0.7);
+  color: white;
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
 }
 main footer ul li a:focus, main footer ul li a:hover {
-  color: white;
+  color: #fd4b4b;
 }
 @media screen and (min-width: 1024px) {
   main footer .secondary-links {
@@ -294,7 +301,7 @@ main footer .secondary-links .social li > a {
   height: 30px;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 50%;
-  color: #444;
+  color: #fff;
   text-align: center;
   line-height: 30px;
 }
