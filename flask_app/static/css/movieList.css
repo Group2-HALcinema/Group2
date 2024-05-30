@@ -37,8 +37,7 @@
   margin: 10px 0 0 0;
 }
 
-.s_WorkSpace .s_MovieBlock .s_MovieInfo p{
-}
+
 
 .s_WorkSpace .s_MovieBlock .s_buttons{
   width: 20%;
@@ -64,9 +63,68 @@
   opacity: 0.7;
 }
 
+/* HALボタン（チェックボックス） */
+/* スクロール時固定 */
 .space_2{
-  height: 5vw;;
+  display: flex;
+  height: 100px;
+  width: 280px;
+
+  position: sticky;
+  bottom: 0;
+  left: 0;
+
+  margin: 0 0 0 83%;
 }
+
+.space_2 label{
+  display: flex;
+  width: 65px;
+  height: 65px;
+  padding: 10px;
+  margin: 8px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 50px;
+  cursor: pointer;
+
+  font-size: 1.6rem;
+}
+
+.space_2 input{
+  display: none;
+}
+
+/* チェックボックス色 */
+.space_2 input[id="H_1"]:checked+label {
+  background: #8a2be2;
+  color: #FFF;
+}
+.space_2 label[for="H_1"] {
+  background: #c29fe3;
+  color: #000;
+}
+
+.space_2 input[id="A_2"]:checked+label {
+  background: #ee0000;
+  color: #FFF;
+}
+.space_2 label[for="A_2"] {
+  background: #ff6a6a;
+  color: #000;
+}
+
+.space_2 input[id="L_3"]:checked+label {
+  background: #ff69b4;
+  color: #FFF;
+}
+.space_2 label[for="L_3"] {
+  background: #ff99cc;
+  color: #000;
+}
+
 
 
 /* ---------------------スライドショー--------------------------- */
