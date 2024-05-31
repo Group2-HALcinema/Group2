@@ -212,12 +212,12 @@
   transform: rotate(177deg);
 }
 .slick-next {
-  right: -270px;
-  top: 190px;
+  right: -280px;
+  top: 105px;
 }
 .slick-prev {
-  left: -270px;
-  top: 189px;
+  left: -280px;
+  top: 105px;
 }
 .slick-next::before {
   transform: rotate(45deg);
@@ -242,6 +242,7 @@
   margin: auto;
 }
 .slick-dots {
+  text-align: center;
   bottom: -30px;
 }
 .slick-dots li {
