@@ -213,11 +213,11 @@
 }
 .slick-next {
   right: -270px;
-  top: 190px;
+  top: 109px;
 }
 .slick-prev {
   left: -270px;
-  top: 189px;
+  top: 109px;
 }
 .slick-next::before {
   transform: rotate(45deg);
@@ -243,6 +243,7 @@
 }
 .slick-dots {
   bottom: -30px;
+  text-align: center;
 }
 .slick-dots li {
   position: relative;
