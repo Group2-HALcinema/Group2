@@ -4,19 +4,19 @@
     height: 400px;
 }
 .slider{
-    height: 400px;
-    width: 700px;
+    height: 54vh;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .slider div{
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 .slider div img{
     max-height: 100%;
-    max-width: 100%;
+    max-width: 90%;
     object-fit: contain;
     margin: 0 auto;
 }
@@ -27,8 +27,11 @@
     margin: auto;
     position: absolute;
     top: 0;
-    width: 70px;
-    left: -100px;
+    width: 40px;
+    left: 180px;
+    background-color: #aaa;
+    border-radius: 100px;
+    z-index: 5;
 }
 .next-arrow{
     bottom: 0;
@@ -36,9 +39,22 @@
     margin: auto;
     position: absolute;
     top: 0;
-    width: 70px;
-    right: -100px;
+    width: 40px;
+    right: 180px;
+    background-color: #aaa;
+    border-radius: 100px;
+    z-index: 5;
 }
+
+.slider .slick-slide {
+    opacity: 0.6;
+    transition: opacity 0.5s;
+}
+
+.slider .slick-center {
+    opacity: 1;
+}
+
 
 /* ----------上映中作品＆上映予定作品設定---------- */
 #Screening_list_space{
@@ -126,7 +142,7 @@
     background-color: rgb(80, 211, 255);
     width: 12vw;
     height: 50vh;
-    margin-left: auto;
+    margin-left: 5%;
     border: #000000 1px solid;
     border-radius: 10px;
 }
@@ -148,6 +164,7 @@
     font-size: 2rem;
     border-bottom: #222 2px solid;
     padding: 0 10px 0 15px;
+    background-color: #eee;
 }
 
 #adjust{
@@ -156,8 +173,8 @@
 }
 #news{
     background-color: white;
-    border: #000000 1px solid;
-    width: 47vw;
+    border: #222 2px solid;
+    width: 45vw;
 }
 .news_space{
     padding: 0 0 5px 0;
