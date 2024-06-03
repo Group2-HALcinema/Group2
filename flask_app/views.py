@@ -7,7 +7,7 @@ from sqlalchemy.orm import joinedload
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Account.query.get(int(user_id))
 
 #インデックス
 @app.route("/")
@@ -19,7 +19,7 @@ def index():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        user = User(name=form.name.data, pronname=form.pronname.data, mailaddress=form.mailaddress.data, password=form.password.data, phonenumber=form.phonenumber.data, birthday=form.birthday.data)
+        user =Account(name=form.name.data, pronname=form.pronname.data, mailaddress=form.mailaddress.data, password=form.password.data, phonenumber=form.phonenumber.data, birthday=form.birthday.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('register'))
@@ -31,7 +31,7 @@ def signup():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = Account.query.filter_by(username=form.username.data).first()
         if user and user.password == form.password.data:
             login_user(user)
             return redirect(url_for('home'))

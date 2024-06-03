@@ -242,6 +242,7 @@
   margin: auto;
 }
 .slick-dots {
+  text-align: center;
   bottom: -30px;
   text-align: center;
 }
