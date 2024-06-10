@@ -27,20 +27,20 @@ def signup():
 
 
 #ログインページ
-@app.route("/login")
-def login():
-    form = LoginForm()
+@app.route("/signin")
+def signin():
+    form = SigninForm()
     if form.validate_on_submit():
         account = Account.query.filter_by(Name=form.name.data).first()
         if account and account.Password == form.password.data:
             login_user(account)
-            return redirect(url_for('home'))
+            return redirect(url_for('index'))
         else:
             flash('ログインに失敗しました', 'danger')
     return render_template('signin.html', form=form)
 
 #ログアウト
-@app.route('/logout')
-def logout():
+@app.route('/signout')
+def signout():
     session.clear()
     return redirect(url_for('index'))

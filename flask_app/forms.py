@@ -7,7 +7,7 @@ from flask_app.models import *
 
 class SignUpForm(FlaskForm):
     name = StringField('氏名', validators=[DataRequired(), Length(min=2, max=20)])
-    kananame = StringField('カナ', validatord=[DataRequired()])
+    kananame = StringField('カナ', validators=[DataRequired()])
     password  = PasswordField('パスワード', validators=[DataRequired()])
     confirm_password = PasswordField('パスワード確認', validators=[DataRequired(), EqualTo('password')])
     mailaddress = StringField('メールアドレス', validators=[DataRequired()])
@@ -23,7 +23,7 @@ class SignUpForm(FlaskForm):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.sex.choices = [(c.SexID, c.Sex) for c in Sex.query.all()]
     
-class LoginForm(FlaskForm):
+class SigninForm(FlaskForm):
     username = StringField('メールアドレス', validators=[DataRequired()])
     password = PasswordField('パスワード', validators=[DataRequired()])
     submit = SubmitField('ログイン')
