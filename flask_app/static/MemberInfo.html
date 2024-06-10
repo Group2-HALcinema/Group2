@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>会員情報</title>
+
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <link rel="stylesheet" href="../../static/css/MemberInfo.css">
+    <link rel="stylesheet" href="../../static/css/common.css">
+    
+
+  </head>
+  <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
+  <body>
+    <div class="wrap">
+      <h2>ここにロゴ</h2>
+    </div>
+    <input type="checkbox" id="menu" />
+    <label for="menu" class="menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav class="nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Works</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    
+    
+    <main>
+      <!-- spaceはnavの帳尻合わせのために作ってる -->
+      <div class="space"></div>
+      <!-- 中島ここから -->
+      <div id="Info">
+
+        <h1>お客様情報</h1>
+        <table>
+          <tr>
+            <td><img src="../../static/images/ICON_1.jpg" alt="会員画像"></td>
+            <td>
+              <p>ユーザー名</p>
+              <p>メールアドレス</p>
+            </td>
+            <td><a href="../site/infoEdit.html"><button>編集</button></a></td>
+          </tr>
+        </table>
+        </div>
+
+        <div id="Histry">
+        <h1>視聴した映画</h1>
+        <tr>
+          <td><img src="../../static/images/100$_1.jpg" alt="サムネ"></td>
+          <td><img src="../../static/images/GOZKON_1.jpg" alt="サムネ"></td>
+          <td><img src="../../static/images/UMANew_1.jpg" alt="サムネ"></td>
+        </tr>
+
+      </div>
+
+      <!-- ここまで -->
+
+      <footer>
+        <div class="logo">
+          <i class="fa fa-picture-o" aria-hidden="true"></i>
+        </div>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Works</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+    
+        <div class="secondary-links">
+          <ul>
+            <li><a href="#">Terms and Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+    
+          <ul class="social">
+            <li><a href="#">
+              <i class="fa fa-github"></i>
+            </a></li>
+            <li><a href="#">
+              <i class="fa fa-twitter"></i>
+            </a></li>
+            <li><a href="#">
+              <i class="fa fa-codepen"></i>
+            </a></li>
+          </ul>
+        </div>
+      </footer>
+    </main>
+  </body>
+
+</html>

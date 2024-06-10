@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>top</title>
+
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <link rel="stylesheet" href="../../static/css/common.css">
+    <link rel="stylesheet" href="../../static/js/common.js">
+    
+    <link rel="stylesheet" href="../../static/css/top.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
+
+  </head>
+  <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
+  <body>
+    <div class="wrap">
+      <div><a href="top.html"><img src="../../static/images/logo2.png"></a></div>
+    </div>
+    <input type="checkbox" id="menu" checked/>
+    <label for="menu" class="menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav class="nav">
+      <ul class="navwrap">
+        <li class="hoverli"><a href="signin.html">ログイン</a></li>
+        <li class="hoverli"><a href="memberinfo.html">マイページ</a></li>
+        <li><a href="top.html">トップページ</a></li>
+        <li>
+          <div >
+            <a href="movieList.html">上映中一覧</a>
+            <ul>
+              <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
+              <li><a href=""><span>A</span>ction</a></li>
+              <li><a href=""><span>L</span>ove</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="comingList.html">公開予定</a></li>
+        <li><a href="ticketDetails.html">チケット代金</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="screen.html">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="sitemap.html">サイトマップ</a></li>
+      </ul>
+    </nav>
+    <div class="backimg"><img src="../../static/images/eigakan2.jpg" alt=""></div>
+    
+    
+    <main>
+      <!-- spaceはnavの帳尻合わせのために作ってる -->
+      <div class="space"></div>
+      <!-- スライダー -->
+      <div id="slider_space">
+        <div class="slider">
+          <div><img src="../../static/images/sampleC.jpg" alt="slideImg"></div>
+          <div><img src="../../static/images/UMANew_9.jpg" alt="slideImg"></div>
+          <div><img src="../../static/images/sampleC.jpg" alt="slideImg"></div>
+          <div><img src="../../static/images/UMANew_9.jpg" alt="slideImg"></div>
+        </div>
+      </div>
+
+      <!-- 上映中作品＆上映予定作品 -->
+      <div id="Screening_list_space">
+        <div id="C_rightspace">
+          <div id="switching">
+            <div id="S_showing">上映中作品</div>
+            <div id="S_schedule">上映予定作品</div>
+          </div>
+          <div id="load-moreIn">
+            <div id="Screening_list">
+              <!-- -----ロードモア化予定地----- -->
+
+              <div class="works">
+                <a href="#">
+                  <figure>
+                    <img src="../../static/images/sample.jpg" alt="sample">
+                  </figure>
+                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                </a>
+              </div>
+
+              <div class="works">
+                <a href="#">
+                  <figure>
+                    <img src="../../static/images/sample.jpg" alt="sample">
+                  </figure>
+                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）aaaaaaaaaaaaaabbbbbbbbbcccccccddddddddddddddddd</p>
+                </a>
+              </div>
+
+              <div class="works">
+                <a href="#">
+                  <figure>
+                    <img src="../../static/images/sample.jpg" alt="sample">
+                  </figure>
+                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                </a>
+              </div>
+
+              <div class="works">
+                <a href="#">
+                  <figure>
+                    <img src="../../static/images/sample.jpg" alt="sample">
+                  </figure>
+                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                </a>
+              </div>
+
+              <div class="works">
+                <a href="#">
+                  <figure>
+                    <img src="../../static/images/sample.jpg" alt="sample">
+                  </figure>
+                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                </a>
+              </div>
+
+              <div class="works">
+                <a href="#">
+                  <figure>
+                    <img src="../../static/images/sample.jpg" alt="sample">
+                  </figure>
+                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                </a>
+              </div>
+
+              <div class="works">
+                <a href="#">
+                  <figure>
+                    <img src="../../static/images/sample.jpg" alt="sample">
+                  </figure>
+                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                </a>
+              </div>
+
+              <div class="works">
+                <a href="#">
+                  <figure>
+                    <img src="../../static/images/sample.jpg" alt="sample">
+                  </figure>
+                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                </a>
+              </div>
+
+            </div>
+
+            <button id="load-more">もっと見る</button>
+
+          </div>
+        </div>
+        <div id="ticket_btn">
+          <a href="#">
+          <!-- 画像とか挿入予定 -->
+          <p>チケットボタン</p>
+          </a>
+        </div>
+      </div>
+
+
+      
+      <!-- -----------ニュース＆キャンペーン----------- -->
+      <div id="news_campaign">
+        <h5 id="news_header">NEWS & キャンペーン</h5>
+        <div id="adjust">
+          <div id="news">
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！ミッドランドシネマ ドーナツ ファクトリーにて5月1日（水）より
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+
+            <div class="news_space">
+              <p class="day">
+                [2024年05月16日]
+              </p>
+              <p class="content">
+                <a href="#">
+                  5/24(金)より『名探偵コナン 100万ドルの五稜星』“英語字幕版上映”決定！
+                </a>
+              </p>
+            </div>
+            
+
+          </div>
+          <div id="campaign_space">
+            
+            <div class="ittan">
+              <a href="#">
+                <figure>
+                  <img src="../../static/images/sampleB.jpg" alt="sampleB">
+                </figure>
+              </a>
+            </div>
+            
+            <div class="ittan">
+              <a href="#">
+                <figure>
+                  <img src="../../static/images/sampleB.jpg" alt="sampleB">
+                </figure>
+              </a>
+            </div>
+            
+            <div class="ittan">
+              <a href="#">
+                <figure>
+                  <img src="../../static/images/sampleB.jpg" alt="sampleB">
+                </figure>
+              </a>
+            </div>
+            
+            <div class="ittan">
+              <a href="#">
+                <figure>
+                  <img src="../../static/images/sampleB.jpg" alt="sampleB">
+                </figure>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+      <footer>
+        <div class="logo">
+          <i class="fa fa-picture-o" aria-hidden="true"></i>
+        </div>
+        <ul>
+          <li><a href="top.html">トップ</a></li>
+          <li><a href="top.html#news_campaign">お知らせ</a></li>
+          <li><a href="screen.html">スクリーンスペック</a></li>
+          <li><a href="sitemap.html">サイトマップ</a></li>
+        </ul>
+      
+        <div class="secondary-links">
+        
+          <ul class="social">
+            <li><a href="#">
+              <i class="fa fa-github"></i>
+            </a></li>
+            <li><a href="#">
+              <i class="fa fa-twitter"></i>
+            </a></li>
+            <li><a href="#">
+              <i class="fa fa-codepen"></i>
+            </a></li>
+          </ul>
+        </div>
+      </footer>
+    </main>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="../../static/js/top.js"></script>
+
+  </body>
+
+</html>

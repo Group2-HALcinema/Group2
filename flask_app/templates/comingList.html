@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>公開予定作品一覧</title>
+
+    <!-- スライドショー -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <link rel="stylesheet" href="../../static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/movieList.css">
+    <link rel="stylesheet" href="../../static/js/common.js">
+    
+  </head>
+  <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
+  <body>
+    <div class="wrap">
+      <div><a href="top.html"><img src="../../static/images/logo2.png"></a></div>
+    </div>
+    <input type="checkbox" id="menu" checked/>
+    <label for="menu" class="menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav class="nav">
+      <ul class="navwrap">
+        <li class="hoverli"><a href="signin.html">ログイン</a></li>
+        <li class="hoverli"><a href="memberinfo.html">マイページ</a></li>
+        <li><a href="top.html">トップページ</a></li>
+        <li>
+          <div >
+            <a href="movieList.html">上映中一覧</a>
+            <ul>
+              <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
+              <li><a href=""><span>A</span>ction</a></li>
+              <li><a href=""><span>L</span>ove</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="comingList.html">公開予定</a></li>
+        <li><a href="ticketDetails.html">チケット代金</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="screen.html">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="sitemap.html">サイトマップ</a></li>
+      </ul>
+    </nav>
+    
+    
+    <main>
+      <!-- spaceはnavの帳尻合わせのために作ってる -->
+      <div class="space"></div>
+
+      <div class="s_WorkSpace">
+        <div class="s_titleWrap">
+          <h1>公開予定作品一覧</h1>
+        </div>
+
+        <div class="s_sliderBox">
+
+          <div class="slide_container">
+            <div class="slider2">
+              <ul class="slider fadeInTrigger">
+                <li>
+                  <img src="../../static/images/IA33_a_01.jpg" alt="アクション映画画像"/>
+                </li>
+                <li>
+                  <img src="../../static/images/IA33_a_01.jpg" alt="アクション映画画像"/>
+                </li>
+                <li>
+                  <img src="../../static/images/IA33_a_01.jpg" alt="アクション映画画像"/>
+                </li>
+                <li>
+                  <img src="../../static/images/IA33_a_01.jpg" alt="アクション映画画像"/>
+                </li>
+                <li>
+                  <img src="../../static/images/IA33_a_01.jpg" alt="アクション映画画像"/>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="s_MovieBlock">
+          <div class="s_imageWrap"><img src="../../static/images/IA33_h_01.webp" alt="ホラー画像"></div>
+          <div class="s_MovieInfo">
+            <p>映画タイトル</p>
+            <p>キャストキャストキャストキャストキャストキャストキャストキャスト</p>
+            <p>レイティング　指定なし</p>
+          </div>
+          <div class="s_buttons">
+            <div class="s_movieStatus_2"><p>公開予定</p></div>
+            <div class="s_detail"><a href="moviedetail.html" style="text-decoration: none;
+              width: 100%;
+              height: auto;
+              display: block;
+              cursor: pointer;">詳細</a></div>
+          </div>
+        </div>
+        <div class="s_MovieBlock">
+          <div class="s_imageWrap"><img src="../../static/images/IA33_h_01.webp" alt="ホラー画像"></div>
+          <div class="s_MovieInfo">
+            <p>映画タイトル</p>
+            <p>キャストキャストキャストキャストキャストキャストキャストキャスト</p>
+            <p>レイティング　指定なし</p>
+          </div>
+          <div class="s_buttons">
+            <div class="s_movieStatus_2"><p>公開予定</p></div>
+            <div class="s_detail"><a href="moviedetail.html" style="text-decoration: none;
+              width: 100%;
+              height: auto;
+              display: block;
+              cursor: pointer;">詳細</a></div>
+          </div>
+        </div>
+        <div class="s_MovieBlock">
+          <div class="s_imageWrap"><img src="../../static/images/IA33_h_01.webp" alt="ホラー画像"></div>
+          <div class="s_MovieInfo">
+            <p>映画タイトル</p>
+            <p>キャストキャストキャストキャストキャストキャストキャストキャスト</p>
+            <p>レイティング　指定なし</p>
+          </div>
+          <div class="s_buttons">
+            <div class="s_movieStatus_2"><p>公開予定</p></div>
+            <div class="s_detail"><a href="moviedetail.html" style="text-decoration: none;
+              width: 100%;
+              height: auto;
+              display: block;
+              cursor: pointer;">詳細</a></div>
+          </div>
+        </div>
+        
+
+
+        <div class="space_2"></div>
+
+      </div>
+
+
+      <footer>
+        <div class="logo">
+          <i class="fa fa-picture-o" aria-hidden="true"></i>
+        </div>
+        <ul>
+          <li><a href="top.html">トップ</a></li>
+          <li><a href="top.html#news_campaign">お知らせ</a></li>
+          <li><a href="screen.html">スクリーンスペック</a></li>
+          <li><a href="sitemap.html">サイトマップ</a></li>
+        </ul>
+    
+        <div class="secondary-links">
+    
+          <ul class="social">
+            <li><a href="#">
+              <i class="fa fa-github"></i>
+            </a></li>
+            <li><a href="#">
+              <i class="fa fa-twitter"></i>
+            </a></li>
+            <li><a href="#">
+              <i class="fa fa-codepen"></i>
+            </a></li>
+          </ul>
+        </div>
+      </footer>
+    </main>
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/js/6-1-7.js"></script>
+    <script src="../../static/js/movielist.js"></script>
+
+  </body>
+
+</html>

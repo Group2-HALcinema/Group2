@@ -1,0 +1,19 @@
+
+
+/* 以下メイン */
+main div#Info {
+  position: relative;
+  width: 60%;
+  margin: 0  auto;
+  background-color: #ccc;
+}
+main div#info h1{
+  border-bottom: 5px solid #000;
+}
+
+main div#Histry {
+  position: relative;
+  width: 60%;
+  margin: 10%  auto;
+  background-color: #ccc;
+}
