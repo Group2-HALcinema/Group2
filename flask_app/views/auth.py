@@ -14,35 +14,35 @@ def load_user(user_id):
 #インデックス
 @auth_bp.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("top.html")
 
 #アカウント作成
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        user =Account(name=form.name.data, pronname=form.pronname.data, mailaddress=form.mailaddress.data, password=form.password.data, phonenumber=form.phonenumber.data, birthday=form.birthday.data)
-        db.session.add(user)
+        account =Account(Name=form.name.data, Kananame=form.kananame.data, MailAddress=form.mailaddress.data, Password=form.password.data, Phonenumber=form.phonenumber.data, Birthday=form.birthday.data)
+        db.session.add(account)
         db.session.commit()
-        return redirect(url_for('register'))
+        return redirect(url_for('signup'))
     return render_template('signup.html', form=form)
 
 
 #ログインページ
-@app.route("/login")
-def login():
-    form = LoginForm()
+@app.route("/signin")
+def signin():
+    form = SigninForm()
     if form.validate_on_submit():
-        user = Account.query.filter_by(username=form.username.data).first()
-        if user and user.password == form.password.data:
-            login_user(user)
-            return redirect(url_for('home'))
+        account = Account.query.filter_by(Name=form.name.data).first()
+        if account and account.Password == form.password.data:
+            login_user(account)
+            return redirect(url_for('index'))
         else:
             flash('ログインに失敗しました', 'danger')
-    return render_template('login.html', form=form)
+    return render_template('signin.html', form=form)
 
 #ログアウト
-@app.route('/logout')
-def logout():
+@app.route('/signout')
+def signout():
     session.clear()
     return redirect(url_for('index'))

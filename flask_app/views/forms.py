@@ -7,10 +7,11 @@ from flask_app.models import *
 
 class SignUpForm(FlaskForm):
     name = StringField('氏名', validators=[DataRequired(), Length(min=2, max=20)])
-    pronname = StringField('カナ', validatord=[DataRequired()])
+    kananame = StringField('カナ', validators=[DataRequired()])
     password  = PasswordField('パスワード', validators=[DataRequired()])
     confirm_password = PasswordField('パスワード確認', validators=[DataRequired(), EqualTo('password')])
     mailaddress = StringField('メールアドレス', validators=[DataRequired()])
+    sex = SelectField('性別', coerce=int)
     phonenumber = StringField('電話番号', validators=[DataRequired(), Length(min=6, max=13)])
     birthday = DateField('生年月日', format='%Y/%m/%d')
     submit = SubmitField('サインアップ')
@@ -18,7 +19,11 @@ class SignUpForm(FlaskForm):
         if field.data == self.name.data:
             raise flash("氏名と同じパスワードは使用できません")
     
-class LoginForm(FlaskForm):
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.sex.choices = [(c.SexID, c.Sex) for c in Sex.query.all()]
+    
+class SigninForm(FlaskForm):
     username = StringField('メールアドレス', validators=[DataRequired()])
     password = PasswordField('パスワード', validators=[DataRequired()])
     submit = SubmitField('ログイン')
