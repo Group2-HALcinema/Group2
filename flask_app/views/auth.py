@@ -46,3 +46,36 @@ def signin():
 def signout():
     session.clear()
     return redirect(url_for('index'))
+
+@app.route('/comingList')
+def cominglist():
+    return render_template('comingList.html')
+
+@app.route('/infoedit')
+def intoedit():
+    return render_template('infoEdit.html')
+
+@app.route('/memberinfo')
+def memberifo():
+    return render_template('Memberinfo.html')
+
+@app.route('/moviedetail')
+def moviedetail():
+    return render_template('moviedetail.html')
+
+@app.route('/movielist')
+def movielist():
+    return render_template('movieList.html')
+
+@app.route('/screen')
+def screen():
+    return render_template('screen.html')
+
+@app.route('/sitemap')
+def sitemap():
+    return render_template('sitemap.html')
+
+@app.route('/ticketdetail')
+def ticketdetail():
+    return render_template('ticketDetail.html')
+
