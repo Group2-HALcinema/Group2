@@ -32,9 +32,10 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 2.8vw;
-  height: 2.8vw;
+  width: 3vw;
+  height: 3vw;
   margin-left: 2%;
+  margin-top: 0.3%;
   border-radius: 50%;
   transition: transform 250ms ease;
   cursor: pointer;
@@ -44,7 +45,7 @@ body {
   position: relative;
   display: block;
   width: 50%;
-  height: 2px;
+  height: 0.1vw;
   background-color: #fff;
   float: left;
   transform-origin: center center;
@@ -96,8 +97,8 @@ body {
   position: fixed;
   display: flex;
   width: 100vw;
-  height: 3vw;
-  background-color: #444;
+  height: 3vw;  
+  background-color: rgba(34, 0, 0,0.8);
   z-index: 200;
 }
 .wrap div{
@@ -118,7 +119,7 @@ height: 100%;
   height: 100vh;
   margin: 0;
   padding: 3.5% 0 0 0;
-  background-color: #444;
+  background-color: rgb(2, 2, 38);
   transition: left 500ms ease;
   z-index: 100;
 }
@@ -145,7 +146,6 @@ nav ul.navwrap li div h6{
 nav ul.navwrap li div ul{
   margin-left: 18%;
   width: 82%;
-  background-color: #444;
 }
 nav ul.navwrap li div ul li {
   display: block;
@@ -163,7 +163,7 @@ nav ul.navwrap li a{
   
 }
 nav ul.navwrap li a:hover{
-  color: #fd4b4b;
+  color: #ea0a51;
 }
 nav ul.navwrap li div ul li a{
   position: relative;
@@ -241,11 +241,6 @@ main footer ul::after {
     margin-bottom: 0;
     margin-left: 16px;
   }
-  main footer ul::after {
-    clear: both;
-    content: "";
-    display: block;
-  }
 }
 main footer ul li {
   list-style: none;
@@ -307,4 +302,24 @@ main footer .secondary-links .social li > a {
 }
 main footer .secondary-links .social li > a:hover {
   background-color: white;
+}
+.backimg{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    /* z-index: -1; */
+    
+}
+@media (min-width: 769px) {
+  .backimg img{
+      width: auto;
+      height: 100%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .backimg img{
+      width: 100%;
+      height: auto;
+  }
 }

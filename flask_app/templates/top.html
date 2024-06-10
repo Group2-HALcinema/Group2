@@ -25,7 +25,7 @@
     <div class="wrap">
       <div><a href="top.html"><img src="../../static/images/logo2.png"></a></div>
     </div>
-    <input type="checkbox" id="menu" />
+    <input type="checkbox" id="menu" checked/>
     <label for="menu" class="menu">
       <span></span>
       <span></span>
@@ -33,7 +33,10 @@
     </label>
     <nav class="nav">
       <ul class="navwrap">
+
         <li class="hoverli"><a href="{{ url_for('signin') }}">ログイン</a></li>
+        <li class="hoverli"><a href="memberinfo.html">マイページ</a></li>
+
         <li><a href="top.html">トップページ</a></li>
         <li>
           <div >

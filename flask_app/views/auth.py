@@ -1,16 +1,18 @@
-from flask import render_template, url_for, redirect, flash, session, request
+from flask import Blueprint, render_template, url_for, redirect, flash, session, request
 from flask_app import app, login_manager
 from flask_app.models import *
-from flask_app.forms import *
+from flask_app.views.forms import *
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.orm import joinedload
+
+auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @login_manager.user_loader
 def load_user(user_id):
     return Account.query.get(int(user_id))
 
 #インデックス
-@app.route("/")
+@auth_bp.route("/")
 def index():
     return render_template("top.html")
 

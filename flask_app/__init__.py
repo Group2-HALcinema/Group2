@@ -15,4 +15,6 @@ Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login' 
 
-from flask_app import views
+#Blueprintの登録
+from flask_app.views.auth import auth_bp
+app.register_blueprint(auth_bp)
