@@ -1,3 +1,9 @@
+
+# ===================
+# BPでエラーがでる
+# ===================
+
+
 from flask import Flask
 from flask_app.models import *
 from flask_migrate import Migrate
@@ -13,8 +19,9 @@ Migrate(app, db)
 
 #LoginManager
 login_manager = LoginManager(app)
-login_manager.login_view = 'login' 
+login_manager.login_view = 'signin' 
 
 #Blueprintの登録
-from flask_app.views.auth import auth_bp
-app.register_blueprint(auth_bp)
+# from flask_app.views.auth import auth_bp
+# app.register_blueprint(auth_bp)
+from flask_app.views import auth
