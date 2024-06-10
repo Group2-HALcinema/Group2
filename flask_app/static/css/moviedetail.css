@@ -7,54 +7,42 @@ main footer{
   margin-top: auto;
 }
 main #wrap {
-    width: 80%;
+    width: 90%;
     margin: 4.5% auto;
-    background-color: #4a4a4a;
+    background-color: rgb(2, 2, 38);
     color: #fff;
     border-radius: 5px;
 }
 main #wrap div{
-    height: 25vw;
+    height: 28vw;
     display: flex;
 }
 main #wrap div ul{
-    width: 35%;
+    width: 45%;
 }
 main #wrap div ul li{
     flex-grow: 1;
-    list-style:none;
+    display: inline-block;
 }
 main #wrap div ul li#thumbnail{
     position: relative;
     align-items: center;
-    height: 70%;
-    margin-top: 3%;
+    list-style:none;
+    width: 100%;
+    height: 100%;
 }
 main #wrap div ul li#thumbnail div{
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    height: 90%;
-    background-color: aquamarine;
+    width: 100%;
+    height: 85%;
 }
 main #wrap div ul li#thumbnail div img{
     /*コレ*/max-width: 100%;
     /*コレ*/height: auto;
-
-}
-main #wrap div ul li#title{
-    height: 30%;
-}
-main #wrap div ul li#title h1{
-    padding-left: 1.6vw;
-    padding-top: 0.5vw;
-    font-size: 1.35vw;
+    object-fit: contain;
 }
 main #wrap div #Synopsis{
     flex-flow: column;
-    width: 65%;
+    width: 55%;
 }
 main #wrap div #Synopsis h2{
     height: 70%;
@@ -84,7 +72,8 @@ main #wrap div #Synopsis section div ul li p{
     font-size: 1.1vw;  
 }
 main #schedule {
-    width: 80%;
+    background-color: rgb(2, 2, 38);
+    width: 85%;
     margin: 0 auto 2% auto;
 }
 main #schedule h2{
@@ -93,13 +82,12 @@ main #schedule h2{
     font-size: 1.3vw;
     font-weight: 800;
     text-align: left;
-    background-color: #4a4a4a;
-    color: #fff;
+    color: #ffffff;
 }
 main #schedule span #scheduleday {
     display: flex;
     margin: 3% auto;
-    width: 95%;
+    width: 90%;
     background-color: #4a4a4a;
 }
 main #schedule span #scheduleday div{
@@ -116,9 +104,11 @@ main #schedule span #scheduleday div span p{
     text-align: center;
 }
 main #schedule span #scheduletime{
-    width: 100%;
+    width: 95%;
     background-color: #4a4a4a;
+    margin: 0 auto;
     margin-bottom: 10%;
+    
 }
 main #schedule span #scheduletime #screenbody{
     padding: 0 3%;
