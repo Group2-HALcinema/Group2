@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, flash, session, request
 from flask_app import app, login_manager
 from flask_app.models import *
-from flask_app.forms import *
+from flask_app.views.forms import *
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.orm import joinedload
 
