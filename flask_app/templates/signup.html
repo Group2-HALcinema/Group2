@@ -31,6 +31,26 @@
           <img src="../../static/images/logo2.png" alt="ロゴ">
         </div>
         <div class="div_signup">
+          <form method="post">
+            <h1>新規登録</h1>
+            <div class="div_signupform">
+                <b>ユーザーID</b><br>
+                {{ form.name }}
+            </div>
+            <div class="div_signupform">
+                <b>メールアドレス</b><br>
+                {{ form.mailaddress }}
+            </div>
+            <div class="div_signupform">
+                <b>パスワード</b><br>
+                {{ form.password }}
+            </div>
+            <div class="div_signupform">
+                <b>パスワード再入力</b><br>
+                {{ form.confirm_password }}
+            </div>
+          </form>
+          <!--
           <h1>新規登録</h1>
           <div class="div_signupform">
               <b>ユーザーID</b>
@@ -48,6 +68,7 @@
               <b>パスワード再入力</b>
               <input>
           </div>
+        -->
           <a href="signin.html"><button>新規登録</button></a>
           <!-- <hr> -->
           <a href="{{ url_for('signin') }}"><button>ログインへ</button></a>
