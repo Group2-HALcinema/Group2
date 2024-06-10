@@ -15,4 +15,4 @@ Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login' 
 
-from flask_app import views
+from flask_app.views import auth
