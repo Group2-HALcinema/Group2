@@ -32,14 +32,24 @@
 
         <div class="div_signin">
           <h1>ログイン</h1>
-          <div class="div_signinform">
+          <form method="post">
+            <b>
+              ユーザーID<br>
+              {{ form.username }}<br>
+            </b>
+            <b>
+              パスワード<br>
+              {{ form.password }}
+            </b>
+          </form>
+          <!--<div class="div_signinform">
               <b>ユーザーID</b>
               <input>
           </div>
           <div class="div_signinform">
               <b>パスワード</b>
               <input>
-          </div>
+          </div> -->
           <p>パスワードを忘れた方はこちら</p>
           <a  href="top.html"><button>ログイン</button></a>
           <!-- <hr> -->
