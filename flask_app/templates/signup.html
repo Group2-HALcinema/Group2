@@ -32,10 +32,13 @@
         </div>
         <div class="div_signup">
           <form method="post">
+            {{ form.hidden_tag() }}
             <h1>新規登録</h1>
             <div class="div_signupform">
-                <b>ユーザーID</b><br>
+                <b>氏名</b><br>
                 {{ form.name }}
+                <b>カナ</b><br>
+                {{ form.kananame }}
             </div>
             <div class="div_signupform">
                 <b>メールアドレス</b><br>
@@ -48,7 +51,14 @@
             <div class="div_signupform">
                 <b>パスワード再入力</b><br>
                 {{ form.confirm_password }}
+            <!--<div class="div_signupform">-->
+                <b>性別</b><br>
+                {{ form.sex }}
+            <!--<div class="div_signupform">-->
+                <b>電話番号</b><br>
+                {{ form.phonenumber }}
             </div>
+            {{ form.submit() }}
           </form>
           <!--
           <h1>新規登録</h1>
@@ -69,7 +79,7 @@
               <input>
           </div>
         -->
-          <a href="signin.html"><button>新規登録</button></a>
+          <!--<a href="signin.html"><button>新規登録</button></a>
           <!-- <hr> -->
           <a href="{{ url_for('signin') }}"><button>ログインへ</button></a>
         </div>

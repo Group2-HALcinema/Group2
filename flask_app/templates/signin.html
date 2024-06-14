@@ -33,14 +33,16 @@
         <div class="div_signin">
           <h1>ログイン</h1>
             <form method="post">
+              {{ form.hidden_tag() }}
               <b>
                 ユーザーID<br>
-                {{ form.username }}<br>
+                {{ form.name }}<br>
               </b>
               <b>
                 パスワード<br>
                 {{ form.password }}
               </b>
+              {{ form.submit() }}
             </form>
           <!--<div class="div_signinform">
               <b>ユーザーID</b>
@@ -51,8 +53,8 @@
               <input>
           </div> -->
           <p>パスワードを忘れた方はこちら</p>
-          <a  href="top.html"><button>ログイン</button></a>
-          <!-- <hr> -->
+          <!--<a  href="top.html"><button>ログイン</button></a>
+          <! <hr> -->
           <a href="{{ url_for('signup') }}"><button>新規登録へ</button></a>
         </div>
       </div>
