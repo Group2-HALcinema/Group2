@@ -81,5 +81,5 @@ def sitemap():
 
 @app.route('/ticketdetail')
 def ticketdetail():
-    return render_template('ticketDetail.html')
+    return render_template('ticketDetails.html')
 
