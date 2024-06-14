@@ -25,6 +25,7 @@ main #wrap div ul li{
     display: inline-block;
 }
 main #wrap div ul li#thumbnail{
+    margin-left: 1.5%;
     position: relative;
     align-items: center;
     list-style:none;
@@ -32,8 +33,14 @@ main #wrap div ul li#thumbnail{
     height: 100%;
 }
 main #wrap div ul li#thumbnail div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     width: 100%;
-    height: 85%;
+    height: 90%;
 }
 main #wrap div ul li#thumbnail div img{
     /*コレ*/max-width: 100%;
@@ -49,10 +56,17 @@ main #wrap div #Synopsis h2{
     font-size: 1.15vw;
     font-weight: 400;
     padding: 3% 3% 0 3%;
+    text-align: justify;
 }
 main #wrap div #Synopsis section{
     display: flex;
     height: 30%;
+}
+main #wrap div #Synopsis section h2{
+    font-size: 1.5vw;
+    font-weight: 800;
+    text-align: justify;    
+
 }
 main #wrap div #Synopsis section ul{
     padding: 1% 3% 0 3%;
