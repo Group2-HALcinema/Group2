@@ -1,0 +1,237 @@
+#Wrap{
+    width: 80vw;
+    margin: 0 auto;
+}
+
+
+#flexArea{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+
+/* タイトル＆datetime */
+#buy_main{
+    margin: 30px auto 0 auto;
+    width: 50vw;
+    height: 160px;
+    background-color: #fff;
+    border: #000 1px solid;
+    border-radius: 0;
+}
+#title{
+    margin: 3% 0 0 5%;
+    padding: 0 0 15px 0;
+}
+#titleName{
+    font-size: 1.9rem;
+}
+#dateTime{
+    display: flex;
+}
+#day{
+    margin: 5px 0 0 10%;
+    font-size: 1.5rem;
+}
+#time{
+    margin: 0 0 0 20%;
+    font-size: 1.9rem;
+    font-weight: 600;
+}
+
+
+/* スクリーンとシート番号 */
+#seat{
+    margin: 50px auto 0 auto;
+    width: 50vw;
+    height: 150px;
+    background-color: #fff;
+    border: #000 1px solid;
+    border-radius: 0;
+
+    display: flex;
+}
+#screen{
+    margin: auto;
+    width: 300px;
+}
+#screen p{
+    font-size: 1.6rem;
+    margin: 0 auto;
+    text-align: center;
+}
+#seatNumber{
+    margin: auto;
+    width: 500px;
+}
+#seatNumber p{
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 0 auto;
+    text-align: center;
+/* 要素数が多くなったら text-align: center;　にするかも*/
+
+    word-break: break-word;
+    white-space: normal;
+}
+
+
+
+
+/* 金額区分と合計金額 */
+#total_price{
+    margin: 50px auto 0 auto;
+    width: 50vw;
+    height: 250px;
+    background-color: #fff;
+    border: #000 1px solid;
+    border-radius: 0;
+
+    display: flex;
+}
+#classiFication{
+    width: 28vw;
+    display: flex;
+}
+#classF{
+    width: 21vw;
+    margin: auto 0 auto 0;
+}
+#classF table{
+    margin: auto;
+}
+#classF table tr td{
+    font-size: 1.3rem;
+}
+#classF table tr .cl{
+    padding: 3px 40px 3px 0;
+}
+#classF table tr .qu{
+    padding: 0 0 0 0;
+}
+#classF table tr .pl{
+    padding: 0 0 0 40px;
+}
+
+
+#total{
+    width: 7vw;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+#total p{
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+
+#priceArea{
+    width: 22vw;
+    display: flex;
+}
+#price{
+    margin: auto;
+    width: 18vw;
+    display: flex;
+
+    justify-content: space-between;
+}
+#priceG{
+    font-size: 2rem;
+}
+#priceY{
+    font-size: 2rem;
+}
+
+
+
+/* 決済方法の確認欄 */
+
+#payment{
+    margin: 50px auto 50px auto;
+    width: 50vw;
+    height: 250px;
+    background-color: #fff;
+    border: #000 1px solid;
+}
+
+
+.submit-button{
+    background-color: red;
+    width: 8vw;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 auto 50px auto;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+}
+
+
+
+
+
+
+
+
+
+/* ステップバー */
+.stepBar {
+    display: flex;
+    width: 55%;
+    position: relative;
+    margin: 50px auto 10px auto;
+    text-align: center;
+  }
+  ol.stepBar li {
+    list-style: none;
+    position: relative;
+    width: 33.333%;
+  }
+  .stepBar li:after {
+    background: #D0E1F9;
+    content: "";
+    width: calc(100% - 24px);
+    height: 5%;
+    position: absolute;
+    left: calc(-50% + 12px);
+    border-left-color: #D0E1F9;
+    top: 34%;
+    z-index: -1;
+  }
+  .stepBar li:first-child:after {
+    display: none;
+  }
+  .stepBar li span {
+    background: #D0E1F9;
+    color: #ffffff;
+    display: inline-block;
+    height: 5vw;
+    margin-bottom: 0.2vw;
+    line-height: 2.5vw;
+    width: 5vw;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    font-size: 2.5vw;
+    font-weight: 900;
+    text-align: center;
+  }
+  ol.stepBar li span p{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+  .stepBar .visited span {
+    background: #4D648D;
+  }
+  /* pバーここまで */
