@@ -1,9 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.schema import ForeignKey
+from datetime import datetime
+from flask_login import UserMixin
+from pytz import timezone
+
+japan_tz = timezone('Asia/Tokyo')
 
 db = SQLAlchemy()
 
-class Account(db.Model):
+class Account(db.Model, UserMixin):
     __tablename__ = 'account'
     AccountID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     AccountNumber = db.Column(db.String(8))
@@ -15,9 +20,12 @@ class Account(db.Model):
     PhoneNumber = db.Column(db.String(13))
     Birthday = db.Column(db.Date)
     MemberFlg = db.Column(db.Boolean(1), server_default="0")
-    RegistDate = db.Column(db.DateTime, server_default="NOW()")
+    RegistDate = db.Column(db.DateTime, default=datetime.now(japan_tz))
     
     sex = db.relationship('Sex', backref='account')
+    
+    def get_id(self):
+        return str(self.AccountID)
     
 class Address(db.Model):
     __tablename__ = 'address'

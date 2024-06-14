@@ -25,15 +25,19 @@ def index():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
-        account =Account(Name=form.name.data, Kananame=form.kananame.data, MailAddress=form.mailaddress.data, Password=form.password.data, Phonenumber=form.phonenumber.data, Birthday=form.birthday.data)
+        account =Account(Name=form.name.data, KanaName=form.kananame.data, MailAddress=form.mailaddress.data, Password=form.password.data, PhoneNumber=form.phonenumber.data, Birthday=form.birthday.data)
         db.session.add(account)
         db.session.commit()
-        return redirect(url_for('signup'))
+        return redirect(url_for('signin'))
+    else:
+        for fieldName, errorMessages in form.errors.items():
+            for err in errorMessages:
+                print(f'Error in {fieldName}: {err}', 'danger')
     return render_template('signup.html', form=form)
 
 
 #ログインページ
-@app.route("/signin")
+@app.route("/signin", methods=['GET', 'POST'])
 def signin():
     form = SigninForm()
     if form.validate_on_submit():
@@ -60,7 +64,7 @@ def intoedit():
     return render_template('infoEdit.html')
 
 @app.route('/memberinfo')
-def memberifo():
+def memberinfo():
     return render_template('Memberinfo.html')
 
 @app.route('/moviedetail')
@@ -82,4 +86,14 @@ def sitemap():
 @app.route('/ticketdetail')
 def ticketdetail():
     return render_template('ticketDetail.html')
+
+@app.route('/seibetutukuru', methods=['GET', 'POST'])
+def seibetutukuru():
+    seibetu = request.form.get('seibetutukuru')
+    
+    if seibetu:
+        seibetu = Sex(Sex=seibetu)
+        db.session.add(seibetu)
+        db.session.commit()
+    return render_template('seibetutukuru.html')
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>性別作る</title>
+</head>
+<body>
+    <h2>性別一覧</h2>
+    <ul>
+        {% for sex in seibetus %}
+            <li>
+                {{ sex.sex }}
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>性別追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}">
+        <input type="text" name="seibetutukuru" placeholder="性別">
+        <button type="submit">追加</button>
+    </form>
+
+</body>
