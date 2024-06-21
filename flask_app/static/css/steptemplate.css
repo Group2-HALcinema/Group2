@@ -1,0 +1,55 @@
+/* ステップバー */
+.stepBar {
+  display: flex;
+  width: 55%;
+  position: relative;
+  margin: 20px auto;
+  text-align: center;
+}
+ol.stepBar li {
+  list-style: none;
+  position: relative;
+  width: 33.333%;
+  font-weight: 510;
+}
+.stepBar li:after {
+  background: #D0E1F9;
+  content: "";
+  width: calc(100% - 24px);
+  height: 5%;
+  position: absolute;
+  left: calc(-50% + 12px);
+  border-left-color: #D0E1F9;
+  top: 34%;
+  z-index: -1;
+}
+.stepBar li:first-child:after {
+  display: none;
+}
+.stepBar li span {
+  background: #D0E1F9;
+  color: #ffffff;
+  display: inline-block;
+  height: 5vw;
+  margin-bottom: 0.2vw;
+  line-height: 2.5vw;
+  width: 5vw;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  font-size: 2.5vw;
+  font-weight: 900;
+  text-align: center;
+}
+ol.stepBar li span p{
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.stepBar .visited span {
+  background: #4D648D;
+}
+/* pバーここまで */
