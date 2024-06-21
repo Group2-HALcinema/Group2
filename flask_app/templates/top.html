@@ -54,7 +54,7 @@
         <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
-    <div class="backimg"><img src="../../static/images/eigakan2.jpg" alt=""></div>
+    <div class="backimg"><img src="{{url_for('static', filename='images/eigakan2.jpg')}}" alt=""></div>
     
     
     <main>
@@ -400,10 +400,10 @@
           <i class="fa fa-picture-o" aria-hidden="true"></i>
         </div>
         <ul>
-          <li><a href="top.html">トップ</a></li>
+          <li><a href="{{url_for('index')}}">トップ</a></li>
           <li><a href="top.html#news_campaign">お知らせ</a></li>
-          <li><a href="screen.html">スクリーンスペック</a></li>
-          <li><a href="sitemap.html">サイトマップ</a></li>
+          <li><a href="{{url_for('screan')}}">スクリーンスペック</a></li>
+          <li><a href="{{url_for('sitemap')}}">サイトマップ</a></li>
         </ul>
       
         <div class="secondary-links">
