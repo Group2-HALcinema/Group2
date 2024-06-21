@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>購入完了ページ</title>
+
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/js/common.js">
+    <link rel="stylesheet" href="../static/css/stepbar.css">
+    <link rel="stylesheet" href="../static/css/buycomp.css">
+
+  </head>
+  <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
+  <body>
+    <div class="wrap">
+      <div><a href="top.html"><img src="../static/images/logo2.png"></a></div>
+    </div>
+   
+      
+    <div class="backimg"><img src="../static/images/eigakan2.jpg" alt=""></div>
+
+    <main>
+
+      <!-- spaceはnavの帳尻合わせのために作ってる -->
+      <div class="space"></div>
+        <!-- ここからkondo -->
+        <!-- 〇バー -->
+        <ol class="stepBar">
+          <li><span><p>1</p></span><br>入力</li>
+          <li><span><P>2</P></span><br>確認</li>
+          <li class="visited"><span><p>3</p></span><br>購入完了</li>
+        </ol>
+        <!-- 〇バー ここまで -->
+        <div id="compwrap">
+          <h2>ご購入ありがとうございました。</h2><br />
+          <div class="button-wrap">
+
+            <div class="p-color">
+              <p>購入したチケット情報は </p>
+            </div>
+            <div class="light-button">
+              <!-- htmlを入れる -->
+              <button class="bt">
+                <div class="light-holder">
+                  <div class="light"></div>
+                </div>
+                <div class="button-holder">
+              
+                  <a href="#">チケット購入情報</a>
+                </div>
+              </button>
+            </div>
+            <div class="p-color2">
+              <p>から閲覧が可能です。</p>
+            </div>
+          </div>
+
+        </div>
+        <button class="Btn" onclick="location.href='top.html'">
+        </button>
+    </main>
+  </body>
+
+</html>
