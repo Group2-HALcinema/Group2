@@ -65,7 +65,7 @@ def intoedit():
 
 @app.route('/memberinfo')
 def memberinfo():
-    return render_template('Memberinfo.html')
+    return render_template('Memberinfo.html', user=current_user)
 
 @app.route('/moviedetail')
 def moviedetail():
