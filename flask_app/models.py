@@ -102,3 +102,14 @@ class Reservation(db.Model):
     showing = db.relationship('Showing', backref='reservation')
     price = db.relationship('Price', backref='reservation')
     discount = db.relationship('Discount', backref='reservation')
+
+class Seat(db.Model):
+    SeatID = db.Column(db.Integer,primary_key=True)
+    Row = db.Column(db.String(1), nullable=False)
+    Number = db.Column(db.Integer, nullable=False)
+    ScreenID = db.Column(db.Integer, ForeignKey('screen.ScreenID'))
+    
+    screen = db.relationship('Screen', backref='seat')
+
+
+
