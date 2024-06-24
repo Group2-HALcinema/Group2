@@ -43,7 +43,7 @@
         <li><a href="{{ url_for('index') }}">トップページ</a></li>
         <li>
           <div >
-            <a href="{{ url_for('movielist') }}">上映中一覧</a>
+            <a href="{{ url_for('views.movielist') }}">上映中一覧</a>
             <ul>
               <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
               <li><a href=""><span>A</span>ction</a></li>
@@ -51,10 +51,10 @@
             </ul>
           </div>
         </li>
-        <li><a href="{{ url_for('cominglist') }}">公開予定</a></li>
-        <li><a href="{{ url_for('ticketdetail') }}">チケット代金</a></li>
-        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="{{ url_for('screen') }}">スクリーンスペック</a></li>
-        <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('sitemap') }}">サイトマップ</a></li>
+        <li><a href="{{ url_for('views.cominglist') }}">公開予定</a></li>
+        <li><a href="{{ url_for('views.ticketdetail') }}">チケット代金</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="{{ url_for('views.screen') }}">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('views.sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
     
@@ -103,7 +103,7 @@
           </div>
           <div class="s_buttons">
             <div class="s_movieStatus_2"><p>公開予定</p></div>
-            <div class="s_detail"><a href="{{url_for('moviedetail')}}" style="text-decoration: none;
+            <div class="s_detail"><a href="{{url_for('views.moviedetail')}}" style="text-decoration: none;
               width: 100%;
               height: auto;
               display: block;
@@ -119,7 +119,7 @@
           </div>
           <div class="s_buttons">
             <div class="s_movieStatus_2"><p>公開予定</p></div>
-            <div class="s_detail"><a href="{{url_for('moviedetail')}}" style="text-decoration: none;
+            <div class="s_detail"><a href="{{url_for('views.moviedetail')}}" style="text-decoration: none;
               width: 100%;
               height: auto;
               display: block;
@@ -135,7 +135,7 @@
           </div>
           <div class="s_buttons">
             <div class="s_movieStatus_2"><p>公開予定</p></div>
-            <div class="s_detail"><a href="{{url_for('moviedetail')}}" style="text-decoration: none;
+            <div class="s_detail"><a href="{{url_for('views.moviedetail')}}" style="text-decoration: none;
               width: 100%;
               height: auto;
               display: block;
@@ -157,8 +157,8 @@
         <ul>
           <li><a href="{{url_for('index')}}">トップ</a></li>
           <li><a href="top.html#news_campaign">お知らせ</a></li>
-          <li><a href="{{url_for('screen')}}">スクリーンスペック</a></li>
-          <li><a href="{{url_for('sitemap')}}">サイトマップ</a></li>
+          <li><a href="{{url_for('views.screen')}}">スクリーンスペック</a></li>
+          <li><a href="{{url_for('views.sitemap')}}">サイトマップ</a></li>
         </ul>
     
         <div class="secondary-links">

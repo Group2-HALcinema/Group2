@@ -5,6 +5,7 @@ from flask_app.models import *
 from flask_app.views.forms import *
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.orm import joinedload
+from .views import views_bp # ブループリントをインポート
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -55,37 +56,9 @@ def signout():
     session.clear()
     return redirect(url_for('index'))
 
-@app.route('/comingList')
-def cominglist():
-    return render_template('comingList.html')
-
-@app.route('/infoedit')
-def intoedit():
-    return render_template('infoEdit.html')
-
 @app.route('/memberinfo')
 def memberinfo():
     return render_template('Memberinfo.html', user=current_user)
-
-@app.route('/moviedetail')
-def moviedetail():
-    return render_template('moviedetail.html')
-
-@app.route('/movielist')
-def movielist():
-    return render_template('movieList.html')
-
-@app.route('/screen')
-def screen():
-    return render_template('screen.html')
-
-@app.route('/sitemap')
-def sitemap():
-    return render_template('sitemap.html')
-
-@app.route('/ticketdetail')
-def ticketdetail():
-    return render_template('ticketDetails.html')
 
 @app.route('/seibetutukuru', methods=['GET', 'POST'])
 def seibetutukuru():
@@ -97,3 +70,4 @@ def seibetutukuru():
         db.session.commit()
     return render_template('seibetutukuru.html')
 
+app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録
