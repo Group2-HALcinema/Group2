@@ -90,10 +90,16 @@ def ticketdetail():
 @app.route('/seibetutukuru', methods=['GET', 'POST'])
 def seibetutukuru():
     seibetu = request.form.get('seibetutukuru')
+    capa = request.form.get('capacity')
     
     if seibetu:
         seibetu = Sex(Sex=seibetu)
         db.session.add(seibetu)
         db.session.commit()
+    elif capa:
+        capa = Screen(Capacity=capa)
+        db.session.add(capa)
+        db.session.commit()
+    
     return render_template('seibetutukuru.html')
 
