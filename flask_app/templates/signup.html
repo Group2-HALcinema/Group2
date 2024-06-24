@@ -10,11 +10,11 @@
 
     <title>アカウント作成ページ</title>
 
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/js/common.js">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.js')}}">
 
-    <link rel="stylesheet" href="../../static/css/sign.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/sign.css')}}">
     
 
   </head>
@@ -28,7 +28,7 @@
 
       <div class="signwrap">
         <div class="sign_logo">
-          <img src="../../static/images/logo2.png" alt="ロゴ">
+          <img src="{{url_for('static', filename='images/logo2.png')}}" alt="ロゴ">
         </div>
         <div class="div_signup">
           <form method="post">
@@ -79,7 +79,7 @@
               <input>
           </div>
         -->
-          <!--<a href="signin.html"><button>新規登録</button></a>
+          <!--<a href="signin.html"><button>新規登録</button></a> -->
           <!-- <hr> -->
           <a href="{{ url_for('signin') }}"><button>ログインへ</button></a>
         </div>
