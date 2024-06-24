@@ -91,14 +91,19 @@ def ticketdetail():
 def seibetutukuru():
     seibetu = request.form.get('seibetutukuru')
     capa = request.form.get('capacity')
+    agelimit = request.form.get('agelimit')
     
     if seibetu:
         seibetu = Sex(Sex=seibetu)
         db.session.add(seibetu)
         db.session.commit()
-    elif capa:
+    if capa:
         capa = Screen(Capacity=capa)
         db.session.add(capa)
+        db.session.commit()
+    if agelimit:
+        agelimit = AgeLimit(AgeLimit=agelimit)
+        db.session.add(agelimit)
         db.session.commit()
     
     return render_template('seibetutukuru.html')

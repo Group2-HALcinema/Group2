@@ -105,7 +105,9 @@ class Reservation(db.Model):
 
 class Seat(db.Model):
     SeatID = db.Column(db.Integer,primary_key=True)
+    # 行に対応(アルファベット表記を数字に変更)
     Row = db.Column(db.String(1), nullable=False)
+    # 列に対応
     Number = db.Column(db.Integer, nullable=False)
     ScreenID = db.Column(db.Integer, ForeignKey('screen.ScreenID'))
     
