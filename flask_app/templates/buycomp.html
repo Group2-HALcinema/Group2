@@ -10,21 +10,21 @@
 
     <title>購入完了ページ</title>
 
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/common.css">
-    <link rel="stylesheet" href="../static/js/common.js">
-    <link rel="stylesheet" href="../static/css/stepbar.css">
-    <link rel="stylesheet" href="../static/css/buycomp.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stepbar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/buycomp.css')}}">
 
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
-      <div><a href="top.html"><img src="../static/images/logo2.png"></a></div>
+      <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
    
       
-    <div class="backimg"><img src="../static/images/eigakan2.jpg" alt=""></div>
+    <div class="backimg"><img src="{{url_for('static', filename='images/eigakan2.jpg')}}" alt=""></div>
 
     <main>
 
@@ -53,7 +53,7 @@
                 </div>
                 <div class="button-holder">
               
-                  <a href="#">チケット購入情報</a>
+                  <a href="{{ url_for(' # ') }}">チケット購入情報</a>
                 </div>
               </button>
             </div>
@@ -63,7 +63,7 @@
           </div>
 
         </div>
-        <button class="Btn" onclick="location.href='top.html'">
+        <button class="Btn" onclick="location.href='{{url_for(index)}}'">
         </button>
     </main>
   </body>
