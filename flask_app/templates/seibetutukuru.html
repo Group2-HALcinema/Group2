@@ -18,5 +18,31 @@
         <input type="text" name="seibetutukuru" placeholder="性別">
         <button type="submit">追加</button>
     </form>
+    <h2>キャパ一覧</h2>
+    <ul>
+        {% for capa in capas %}
+            <li>
+                {{ capa.capa }}
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>キャパ追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}">
+        <input type="text" name="capacity" placeholder="キャパ">
+        <button type="submit">追加</button>
+    </form>
+    <h2>年齢制限一覧</h2>
+    <ul>
+        {% for agelimit in agelimits %}
+            <li>
+                {{ agelimit.agelimit }}
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>年齢制限追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}">
+        <input type="text" name="agelimit" placeholder="年齢制限">
+        <button type="submit">追加</button>
+    </form>
 
 </body>
