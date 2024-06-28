@@ -10,16 +10,16 @@
 
     <title>会員情報</title>
 
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/MemberInfo.css">
-    <link rel="stylesheet" href="../../static/css/common.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/MemberInfo.css')}}">
     
 
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
-      <div><a href="top.html"><img src="../../static/images/logo2.png"></a></div>
+      <div><a href="{{url_for('top')}}"><img src="{{url_for('static',filename='images/logo2.png')}}"></a></div>
     </div>
     <input type="checkbox" id="menu" checked/>
     <label for="menu" class="menu">
@@ -29,12 +29,12 @@
     </label>
     <nav class="nav">
       <ul class="navwrap">
-        <li class="hoverli"><a href="signin.html">ログイン</a></li>
-        <li class="hoverli"><a href="memberinfo.html">マイページ</a></li>
-        <li><a href="top.html">トップページ</a></li>
+        <li class="hoverli"><a href="{{url_for('siginin')}}">ログイン</a></li>
+        <li class="hoverli"><a href="{{url_for('memberinfo')}}">マイページ</a></li>
+        <li><a href="{{url_for('top')}}">トップページ</a></li>
         <li>
           <div >
-            <a href="movieList.html">上映中一覧</a>
+            <a href="{{url_for('views.movielist')}}">上映中一覧</a>
             <ul>
               <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
               <li><a href=""><span>A</span>ction</a></li>
@@ -42,10 +42,10 @@
             </ul>
           </div>
         </li>
-        <li><a href="comingList.html">公開予定</a></li>
-        <li><a href="ticketDetails.html">チケット代金</a></li>
-        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="screen.html">スクリーンスペック</a></li>
-        <li><a style="padding: 0.7vw 1.1vw;" href="sitemap.html">サイトマップ</a></li>
+        <li><a href="{{url_for('viwes.cominglist')}}">公開予定</a></li>
+        <li><a href="{{url_for('views.ticketDetails')}}">チケット代金</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="{{url_for('views.screen')}}">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="{{url_for('views.sitmap')}}">サイトマップ</a></li>
       </ul>
     </nav>
     
@@ -59,12 +59,12 @@
         <h1>お客様情報</h1>
         <table>
           <tr>
-            <td><img src="../../static/images/ICON_1.jpg" alt="会員画像"></td>
+            <td><img src="{{url_for('static', filename='images/ICON1.jpg')}}" alt="会員画像"></td>
             <td>
               <p>{{ user.Name }}</p>
               <p>{{ user.MailAddress }}</p>
             </td>
-            <td><a href="../site/infoEdit.html"><button>編集</button></a></td>
+            <td><a href="{{url_for('views.infoEdit')}}"><button>編集</button></a></td>
           </tr>
         </table>
         </div>
@@ -72,9 +72,9 @@
         <div id="Histry">
         <h1>視聴した映画</h1>
         <tr>
-          <td><img src="../../static/images/100$_1.jpg" alt="サムネ"></td>
-          <td><img src="../../static/images/GOZKON_1.jpg" alt="サムネ"></td>
-          <td><img src="../../static/images/UMANew_1.jpg" alt="サムネ"></td>
+          <td><img src="{{url_for('static', filename='images/100$_1.jpg')}}" alt="サムネ"></td>
+          <td><img src="{{url_for('static', filename='images/GOZKON_1.jpg')}}" alt="サムネ"></td>
+          <td><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></td>
         </tr>
 
       </div>
@@ -86,10 +86,10 @@
           <i class="fa fa-picture-o" aria-hidden="true"></i>
         </div>
         <ul>
-          <li><a href="top.html">トップ</a></li>
-          <li><a href="top.html#news_campaign">お知らせ</a></li>
-          <li><a href="screen.html">スクリーンスペック</a></li>
-          <li><a href="sitemap.html">サイトマップ</a></li>
+          <li><a href="{{url_for('top')}}">トップ</a></li>
+          <li><a href="{{url_for('top')}}#news_campaign">お知らせ</a></li>
+          <li><a href="{{url_for('views.screen')}}">スクリーンスペック</a></li>
+          <li><a href="{{url_for('views.sitmap')}}">サイトマップ</a></li>
         </ul>
       
         <div class="secondary-links">
