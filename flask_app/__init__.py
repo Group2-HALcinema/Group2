@@ -1,8 +1,6 @@
-
 # ===================
 # BPでエラーがでてます
 # ===================
-
 
 from flask import Flask
 from flask_app.models import *
@@ -27,5 +25,11 @@ login_manager.login_view = 'signin'
 
 #Blueprintの登録
 from flask_app.views.auth import auth_bp
+from flask_app.views.views import views_bp
+
 app.register_blueprint(auth_bp)
-from flask_app.views import views
+app.register_blueprint(views_bp, name=views_bp)
+
+
+
+

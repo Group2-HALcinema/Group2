@@ -1,0 +1,33 @@
+.seat-map {
+    display: grid;
+    grid-template-columns: repeat(10, 30px); /* 列数を調整 */
+    grid-gap: 5px;
+    justify-content: center;
+}
+
+.seat {
+    width: 30px;
+    height: 30px;
+    background-color: #ccc; /* 空席の色 */
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
+
+.seat.selected {
+    background-color: #f00; /* 選択済み */
+}
+
+.seat.reserved {
+    background-color: #aaa; /* 予約済み */
+    cursor: not-allowed;
+}
+
+.screen {
+    width: 70%;
+    height: 30px;
+    background-color: #ddd;
+    margin: 20px auto;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+}
