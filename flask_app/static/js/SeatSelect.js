@@ -81,8 +81,6 @@ $(document).ready(function() {
                 // サーバーからエラーメッセージを取得できる場合は表示する
                 if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
                     $('#error-message').text(jqXHR.responseJSON.message);
-                } else {
-                    $('#error-message').text('予約に失敗しました。しばらく時間をおいてから再度お試しください。');
                 }
             }
         });

@@ -20,37 +20,34 @@ def SeatSelect():
     seats = Seat.query.all()
     return render_template('SeatSelect.html', seats=seats)
 
+from sqlalchemy.exc import IntegrityError
+
 @views_bp.route('/reserve_seat', methods=['POST'])
 @login_required
 def reserve_seat():
-    # 座席選択処理
     selected_seat_id = request.get_json()['seat_id']
     seat = Seat.query.get(selected_seat_id)
 
     if seat and not seat.is_reserved:
-        # ログイン中のユーザー情報を取得
         account_id = current_user.AccountID
-        # 予約処理
         try:
             reservation = Reservation(
                 AccountID=account_id,
-                ShowingID=1,  # 上映IDは仮の値、必要に応じて変更
+                ShowingID=1,
                 SeatNumber=str(seat.Row) + str(seat.Number),
-                PriceID=1,  # 料金IDは仮の値、必要に応じて変更
-                DiscountID=1  # 割引IDは仮の値、必要に応じて変更
+                PriceID=1,
+                DiscountID=1
             )
             db.session.add(reservation)
             db.session.commit()
-            print("a")
             return jsonify({'status': 'success', 'message': '座席を予約しました'})
-        
-        except IntegrityError:
+        except IntegrityError as e:
             db.session.rollback()
-            print("b")
+            print(f"IntegrityError: {e}")
             return jsonify({'status': 'error', 'message': '予約に失敗しました'}), 500
     else:
-        print("c")
         return jsonify({'status': 'error', 'message': 'この座席は予約できません'}), 400
+
 
 
 @views_bp.route('/comingList')
