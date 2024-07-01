@@ -10,12 +10,12 @@
 
     <title>購入確認画面</title>
 
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/common.css">
-    <link rel="stylesheet" href="../static/js/common.js">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.js')}}">
 
-    <link rel="stylesheet" href="../static/css/buyCheck.css">
-    
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stepbar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/buyCheck.css')}}">
 
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
@@ -49,6 +49,7 @@
       </ul>
     </nav>
     
+    <div class="backimg"><img src="{{url_for('static', filename='images/eigakan2.jpg')}}" alt=""></div>
     
     <main>
       <!-- spaceはnavの帳尻合わせのために作ってる -->
@@ -116,7 +117,10 @@
 
               <div id="payment"></div>
 
-              <input type="submit" class="submit-button" value="購入する">
+              <div id="btnArea">
+                <input type="submit" class="submit-button" value="入力へ戻る" id="">
+                <input type="submit" class="submit-button" value="購入する"   id="">
+              </div>
 
             </div>
 
