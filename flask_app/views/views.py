@@ -58,7 +58,7 @@ def cominglist():
     return render_template('comingList.html')
 
 @views_bp.route('/infoedit')
-def intoedit():
+def infoedit():
     return render_template('infoEdit.html')
 
 @views_bp.route('/moviedetail')
