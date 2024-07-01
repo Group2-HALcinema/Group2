@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>座席選択</title>
+
+    <link rel="stylesheet" href=" ../static/css/reset.css">
+    <link rel="stylesheet" href=" ../static/css/common.css">
+    <link rel="stylesheet" href=" ../static/css/SeatSelect.css">
+    <link rel="stylesheet" href="../static/js/common.js">
+
+</head>
+<body>
+    <div class="screen">スクリーンはこちら</div>
+    <div class="seat-map" id="seat-map">
+        <!-- 座席情報はJavaScriptで動的に生成 -->
+    </div>
+
+    <div id="error-message" style="color: red;"></div>
+    <button id="reserve-button">予約する</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='/js/SeatSelect.js')}}"></script>
+</body>
+</html>

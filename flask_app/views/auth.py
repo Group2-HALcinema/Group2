@@ -52,6 +52,7 @@ def signin():
 
 #ログアウト
 @app.route('/signout')
+@login_required
 def signout():
     session.clear()
     return redirect(url_for('index'))
