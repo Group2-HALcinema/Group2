@@ -38,7 +38,7 @@
         <li><a href="{{ url_for('index') }}">トップページ</a></li>
         <li>
           <div >
-            <a href="{{ url_for('movielist') }}">上映中一覧</a>
+            <a href="{{ url_for('views.movielist') }}">上映中一覧</a>
             <ul>
               <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
               <li><a href=""><span>A</span>ction</a></li>
@@ -46,10 +46,10 @@
             </ul>
           </div>
         </li>
-        <li><a href="{{ url_for('comingList') }}">公開予定</a></li>
-        <li><a href="{{ url_for('ticketdetail') }}">チケット代金</a></li>
-        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="{{ url_for('screen') }}">スクリーンスペック</a></li>
-        <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('sitemap') }}">サイトマップ</a></li>
+        <li><a href="{{ url_for('views.cominglist') }}">公開予定</a></li>
+        <li><a href="{{ url_for('views.ticketdetail') }}">チケット代金</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="{{ url_for('views.screen') }}">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('views.sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
     
@@ -74,7 +74,7 @@
               <tr>
                 <td>1・2・3</td>
                 <td>14.3m x 6.0m</td>
-                <td>20x20<br/>
+                <td>20x10<br/>
                 (400席)
                 </td>
 
@@ -134,7 +134,7 @@
                               <p><img src="{{url_for('static', filename='HALシネマ_座席レイアウト_スクリーン45.png')}}" alt="スクリーン画像4_5"></p>
                             </p>
                           </div>
-                          <!-- / モーダル内のコンテンツ -->
+                          <!--  モーダル内のコンテンツ -->
                 
                         </div>
                       </div>
@@ -196,8 +196,8 @@
         <ul>
           <li><a href="{{url_for('index')}}">トップ</a></li>
           <li><a href="{{url_for('index')}}l#news_campaign">お知らせ</a></li>
-          <li><a href="{{url_for('screen')}}">スクリーンスペック</a></li>
-          <li><a href="{{url_for('sitemap')}}">サイトマップ</a></li>
+          <li><a href="{{url_for('views.screen')}}">スクリーンスペック</a></li>
+          <li><a href="{{url_for('views.sitemap')}}">サイトマップ</a></li>
         </ul>
     
         <div class="secondary-links">
