@@ -65,6 +65,9 @@ def seibetutukuru():
     seibetu = request.form.get('seibetutukuru')
     capa = request.form.get('capacity')
     agelimit = request.form.get('agelimit')
+    a = request.form.get('a')
+    b = request.form.get('b')
+    c = request.form.get('c')
     
     if seibetu:
         seibetu = Sex(Sex=seibetu)
@@ -78,6 +81,10 @@ def seibetutukuru():
         agelimit = AgeLimit(AgeLimit=agelimit)
         db.session.add(agelimit)
         db.session.commit()
+        
+    # if a:
+    # if b:
+    # if c:
     
     return render_template('seibetutukuru.html')
 
