@@ -56,11 +56,11 @@
       <div class="space"></div>
 
         <div id="Wrap">
-            <ol class="stepBar">
-              <li><span><p>1</p></span><br>入力</li>
-              <li><span><P>2</P></span><br>確認</li>
-              <li class="visited"><span><p>3</p></span><br>購入完了</li>
-            </ol>
+            <ul class="progressbar">
+              <li class="active">チケット情報</li>
+              <li class="complete">お支払方法</li>
+              <li>購入完了</li>
+            </ul>
 
             <div id="flexArea">
               <div id="buy_main">
@@ -118,8 +118,11 @@
               <div id="payment"></div>
 
               <div id="btnArea">
-                <input type="submit" class="submit-button" value="入力へ戻る" id="">
-                <input type="submit" class="submit-button" value="購入する"   id="">
+
+                <button class="modal-close" id=""></button>
+                <button class="modal-ok" id=""></button>
+                <!-- <input type="submit" class="modal-close" value="入力へ戻る" id=""> -->
+                <!-- <input type="submit" class="modal-ok" value="購入する"   id=""> -->
               </div>
 
             </div>

@@ -132,3 +132,8 @@ def buyCheck():
 @views_bp.route('/buycomp')
 def buycomp():
     return render_template('buycomp.html')
+
+# お支払確認ページ　ついかこんどう
+@views_bp.route('/paycheck')
+def paycheck():
+    return render_template('paycheck.html')
