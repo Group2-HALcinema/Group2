@@ -58,10 +58,12 @@ def SeatSelect():
 @login_required
 def reserve_seat():
     try:
-        selected_seat_id = request.form.get('seat_id')  # formから取得
+        selected_seat_ids = request.form.getlist('seat_ids[]')  # リストとして取得
         showing_id = request.form.get('showing_id')  # formから取得
 
-        seat = Seat.query.get(selected_seat_id)
+        for selected_seat_id in selected_seat_ids:
+            seat = Seat.query.get(int(selected_seat_id))  # IDを整数に変換
+        
         if not seat:
             print(f"Seat not found for ID: {selected_seat_id}") # seat が None の場合に出力
         elif seat.is_reserved:
