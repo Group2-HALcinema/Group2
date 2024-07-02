@@ -8,7 +8,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>名称未設定</title>
+    <title>映画詳細</title>
 
     <link rel="stylesheet" href=" ../static/css/reset.css">
     <link rel="stylesheet" href=" ../static/css/common.css">
@@ -20,6 +20,7 @@
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
+
       <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
     <input type="checkbox" id="menu" checked/>
@@ -167,7 +168,7 @@
                 <h6>screen5</h6>
                 <div class="screenwrap">
                   <div>
-                    <a>
+                    <a href="{{ url_for('views.SeatSelect') }}">
                       <p class="time"><span class="starttime">9:40</span>~<span class="endtime">11:45</span></p>
                       <p class="info">　</p>
                       <p class="status">販売中</p>

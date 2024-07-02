@@ -5,22 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>座席選択</title>
 
-    <link rel="stylesheet" href=" ../static/css/reset.css">
-    <link rel="stylesheet" href=" ../static/css/common.css">
-    <link rel="stylesheet" href=" ../static/css/SeatSelect.css">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/SeatSelect.css">
     <link rel="stylesheet" href="../static/js/common.js">
-
 </head>
 <body>
     <div class="screen">スクリーンはこちら</div>
     <div class="seat-map" id="seat-map">
-        <!-- 座席情報はJavaScriptで動的に生成 -->
+        <table>
+            {% for seat in seats %}
+                {% if loop.index0 % 20 == 0 %}
+                    <tr>
+                {% endif %}
+                <td class="seat {{ 'reserved' if seat.reserved }}" data-seat-id="{{ seat.id }}">
+                    {{ seat.row }}{{ seat.number }}
+                </td>
+                {% if loop.index % 20 == 0 or loop.last %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
     </div>
 
     <div id="error-message" style="color: red;"></div>
     <button id="reserve-button">予約する</button>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="{{url_for('static', filename='/js/SeatSelect.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            // 座席選択処理
+            var selectedSeatId = null;
+            $('.seat:not(.reserved)').on('click', function() {
+                $('.seat.selected').removeClass('selected');
+                $(this).addClass('selected');
+                selectedSeatId = $(this).data('seat-id');
+            });
+
+            // 予約ボタンクリック処理
+            $('#reserve-button').click(function() {
+                if (selectedSeatId === null) {
+                    $('#error-message').text('座席を選択してください');
+                    return;
+                } else {
+                    $('#error-message').text('');
+                }
+
+                $.ajax({
+                    url: '/views/reserve_seat',
+                    type: 'POST',
+                    data: { 
+                        seat_id: selectedSeatId,
+                        showing_id: 1 // 上映IDは適宜設定してください 
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            alert(response.message);
+                            $('.seat.selected').addClass('reserved').removeClass('selected');
+                            selectedSeatId = null;
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR, textStatus, errorThrown);
+
+                        var errorMessage = '予約に失敗しました。しばらく時間をおいてから再度お試しください。';
+                        if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
+                            errorMessage = jqXHR.responseJSON.message;
+                        } else if (jqXHR.status === 400) {
+                            errorMessage = 'リクエストが無効です。入力内容を確認してください。';
+                        } else if (jqXHR.status === 500) {
+                            errorMessage = 'サーバーエラーが発生しました。';
+                        }
+                        $('#error-message').text(errorMessage);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
