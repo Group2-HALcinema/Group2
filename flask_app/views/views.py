@@ -95,6 +95,7 @@ def reserve_seat():
         return jsonify({'status': 'error', 'message': str(e)}), 500  # エラーメッセージを返す
 
 
+
 @views_bp.route('/comingList')
 def cominglist():
     return render_template('comingList.html')
