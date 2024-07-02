@@ -61,14 +61,16 @@ def signout():
 def memberinfo():
     return render_template('Memberinfo.html', user=current_user)
 
+#いろいろつくる
 @app.route('/seibetutukuru', methods=['GET', 'POST'])
 def seibetutukuru():
     seibetu = request.form.get('seibetutukuru')
     capa = request.form.get('capacity')
     agelimit = request.form.get('agelimit')
-    a = request.form.get('a')
-    b = request.form.get('b')
-    c = request.form.get('c')
+    # a = request.form.get('a')
+    # b = request.form.get('b')
+    # c = request.form.get('c')
+    # zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
     
     if seibetu:
         seibetu = Sex(Sex=seibetu)
@@ -84,8 +86,23 @@ def seibetutukuru():
         db.session.commit()
         
     # if a:
+    #     for row in range(1, 11):
+    #         for col in range(1, 21):
+    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+    #             db.session.add(seat)
+    #     db.session.commit()
     # if b:
+    #     for row in range(1, 11):
+    #         for col in range(1, 13):
+    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+    #             db.session.add(seat)
+    #     db.session.commit()
     # if c:
+    #     for row in range(1, 8):
+    #         for col in range(1, 11):
+    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+    #             db.session.add(seat)
+    #     db.session.commit()
     
     return render_template('seibetutukuru.html')
 
