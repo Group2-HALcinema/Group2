@@ -2,14 +2,14 @@
 # BPでエラーがでてます
 # ===================
 
+import sys
+# __pycashe__を作らなくする
+sys.dont_write_bytecode = True
+
 from flask import Flask
 from flask_app.models import *
 from flask_migrate import Migrate
 from flask_login import LoginManager
-import sys
-
-# __pycashe__を作らなくする
-sys.dont_write_bytecode = True
 
 # appの設定
 app = Flask(__name__,instance_relative_config=True)

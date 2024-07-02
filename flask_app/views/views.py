@@ -17,36 +17,82 @@ def load_user(user_id):
 # 座席指定ページ
 @views_bp.route('/SeatSelect')
 def SeatSelect():
-    seats = Seat.query.all()
-    return render_template('SeatSelect.html', seats=seats)
+    # # データベースから座席データを取得
+    # seats = Seat.query.all()
 
-from sqlalchemy.exc import IntegrityError
+    # # 座席データをHTMLに渡すためのリストを作成
+    # seat_data = []
+    # for seat in seats:
+    #     seat_data.append({
+    #         'id': seat.id,
+    #         'row': seat.Row,
+    #         'number': seat.Number,
+    #         'reserved': seat.is_reserved,
+    #     })
+
+    
+    # 10行20列の座席データ (A1-A20, B1-B20, ..., J1-J20)
+    rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    columns = 20
+
+    # 座席データをHTMLに渡すためのリストを作成
+    seat_data = []
+    id = 1
+    for row in rows:
+        for number in range(1, columns + 1):
+            # データベースから予約状況を取得
+            seat = Seat.query.filter_by(Row=row, Number=number).first()
+            reserved = seat.is_reserved if seat else False  # seat が None の場合は予約なし
+
+            seat_data.append({
+                'id': id,
+                'row': row,
+                'number': number,
+                'reserved': reserved,
+            })
+            id += 1
+
+    return render_template('SeatSelect.html', seats=seat_data)
 
 @views_bp.route('/reserve_seat', methods=['POST'])
 @login_required
 def reserve_seat():
-    selected_seat_id = request.get_json()['seat_id']
-    seat = Seat.query.get(selected_seat_id)
+    try:
+        selected_seat_id = request.form.get('seat_id')  # formから取得
+        showing_id = request.form.get('showing_id')  # formから取得
 
-    if seat and not seat.is_reserved:
+        seat = Seat.query.get(selected_seat_id)
+        if not seat:
+            print(f"Seat not found for ID: {selected_seat_id}") # seat が None の場合に出力
+        elif seat.is_reserved:
+            print(f"Seat already reserved: {seat.id}") # seat が予約済みの場合に出力
+
+        seat = Seat.query.get(selected_seat_id)
+        if not seat or seat.is_reserved:
+            return jsonify({'status': 'error', 'message': 'この座席は予約できません'}), 400
+
         account_id = current_user.AccountID
-        try:
-            reservation = Reservation(
-                AccountID=account_id,
-                ShowingID=1,
-                SeatNumber=str(seat.Row) + str(seat.Number),
-                PriceID=1,
-                DiscountID=1
-            )
-            db.session.add(reservation)
-            db.session.commit()
-            return jsonify({'status': 'success', 'message': '座席を予約しました'})
-        except IntegrityError as e:
-            db.session.rollback()
-            print(f"IntegrityError: {e}")
-            return jsonify({'status': 'error', 'message': '予約に失敗しました'}), 500
-    else:
-        return jsonify({'status': 'error', 'message': 'この座席は予約できません'}), 400
+
+        reservation = Reservation(
+            AccountID=account_id,
+            ShowingID=showing_id, 
+            SeatNumber=str(seat.Row) + str(seat.Number),
+            # PriceID=...,  # 必要に応じて設定
+            # DiscountID=...  # 必要に応じて設定
+        )
+        db.session.add(reservation)
+
+        # 座席を予約済みにする
+        seat.is_reserved = True
+        db.session.commit()
+
+        return jsonify({'status': 'success', 'message': '座席を予約しました'})
+    
+    except Exception as e:
+        db.session.rollback()
+        print(f"An error occurred: {e}")  # エラーログを出力
+        # return jsonify({'status': 'error', 'message': '予約に失敗しました'}), 500
+        return jsonify({'status': 'error', 'message': str(e)}), 500  # エラーメッセージを返す
 
 
 
@@ -87,3 +133,8 @@ def buyCheck():
 @views_bp.route('/buycomp')
 def buycomp():
     return render_template('buycomp.html')
+
+# お支払確認ページ　ついかこんどう
+@views_bp.route('/paycheck')
+def paycheck():
+    return render_template('paycheck.html')
