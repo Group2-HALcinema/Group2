@@ -61,6 +61,7 @@ def signout():
 def memberinfo():
     return render_template('Memberinfo.html', user=current_user)
 
+#いろいろつくる
 @app.route('/seibetutukuru', methods=['GET', 'POST'])
 def seibetutukuru():
     seibetu = request.form.get('seibetutukuru')
