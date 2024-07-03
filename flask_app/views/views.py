@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Blueprint, request, jsonify, session, redirect, url_for
 from flask_login import login_user, current_user, login_required
-from ..models import db, Seat, Reservation, Account
+from ..models import db, Seat, Reservation, Account, Showing, Screen
 from sqlalchemy.exc import IntegrityError
 
 views_bp = Blueprint('views', __name__, url_prefix='/views')
@@ -14,87 +14,96 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../instance/HALcinema.db'  # 
 def load_user(user_id):
     return Account.query.get(int(user_id))
 
+
 # 座席指定ページ
 @views_bp.route('/SeatSelect')
 def SeatSelect():
-    # # データベースから座席データを取得
-    # seats = Seat.query.all()
+    # URLパラメータからshowingIDを取得
+    showing_id = request.args.get('showing_id')
 
-    # # 座席データをHTMLに渡すためのリストを作成
-    # seat_data = []
-    # for seat in seats:
-    #     seat_data.append({
-    #         'id': seat.id,
-    #         'row': seat.Row,
-    #         'number': seat.Number,
-    #         'reserved': seat.is_reserved,
-    #     })
-
+    if not showing_id:
+        return jsonify({'status': 'error', 'message': 'URLパラメータに上映IDがありません.'}), 400
     
-    # 10行20列の座席データ (A1-A20, B1-B20, ..., J1-J20)
-    rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-    columns = 20
+    # Showingテーブルからscreen_idを取得
+    showing = Showing.query.get(showing_id)
+    screen_id = showing.screen.ScreenID if showing else None
+
+    if not screen_id:
+        return jsonify({'status': 'error', 'message': '指定された上映IDに対応するスクリーンIDが見つかりません.'}), 400
+
+    # データベースからスクリーンIDに一致する座席データを取得
+    seats = Seat.query.filter_by(ScreenID=screen_id).all()
+
+    # ShowingIDで予約済み座席を絞り込む
+    reserved_seats = Reservation.query.filter(Reservation.ShowingID == showing_id).all()
+    reserved_seat_numbers = [str(seat.SeatNumber) for seat in reserved_seats]
 
     # 座席データをHTMLに渡すためのリストを作成
     seat_data = []
-    id = 1
-    for row in rows:
-        for number in range(1, columns + 1):
-            # データベースから予約状況を取得
-            seat = Seat.query.filter_by(Row=row, Number=number).first()
-            reserved = seat.is_reserved if seat else False  # seat が None の場合は予約なし
+    for seat in seats:
+        seat_data.append({
+            'id': seat.SeatID,
+            'row': seat.Row,
+            'number': seat.Number,
+            'ScreenID': seat.ScreenID,
+            'reserved': str(seat.Row) + str(seat.Number) in reserved_seat_numbers  # 予約済みかどうかを追加
+        })
 
-            seat_data.append({
-                'id': id,
-                'row': row,
-                'number': number,
-                'reserved': reserved,
-            })
-            id += 1
+    # リクエストが AJAX リクエストかどうか判定
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        # AJAX リクエストの場合、JSON 形式でレスポンス
+        return jsonify({'status': 'success', 'seats': seat_data})
+    else:
+        # それ以外の場合は、従来通り HTML をレンダリング
+        return render_template('SeatSelect.html', seats=seat_data, showing_id=showing_id)
 
-    return render_template('SeatSelect.html', seats=seat_data)
 
+
+
+# 座席予約機能
 @views_bp.route('/reserve_seat', methods=['POST'])
 @login_required
 def reserve_seat():
     try:
+        # フロントエンドから選択された座席IDのリストと上映IDを取得
         selected_seat_ids = request.form.getlist('seat_ids[]')  # リストとして取得
-        showing_id = request.form.get('showing_id')  # formから取得
+        showing_id = request.form.get('showing_id')
 
+        # 選択された各座席に対して予約処理を実行
         for selected_seat_id in selected_seat_ids:
-            seat = Seat.query.get(int(selected_seat_id))  # IDを整数に変換
+            # 座席IDを整数に変換してデータベースから座席情報を取得
+            seat = Seat.query.get(int(selected_seat_id))  
+
+            # 選択された座席が既に予約済みかどうかを確認
+            existing_reservation = Reservation.query.filter_by(
+                ShowingID=showing_id,
+                SeatNumber=str(seat.Row) + str(seat.Number)
+            ).first()
+
+            # 既に予約済みの場合はエラーメッセージを返す
+            if existing_reservation:
+                print(existing_reservation)
+                return jsonify({'status': 'error', 'message': '選択された座席は既に予約されています'}), 400
+
+            # ログイン中のユーザーのアカウントIDを取得
+            account_id = current_user.AccountID
+
+            # 新しい予約を作成
+            reservation = Reservation(
+                AccountID=account_id,
+                ShowingID=showing_id, 
+                SeatNumber=str(seat.Row) + str(seat.Number)
+            )
+            db.session.add(reservation)
         
-        if not seat:
-            print(f"Seat not found for ID: {selected_seat_id}") # seat が None の場合に出力
-        elif seat.is_reserved:
-            print(f"Seat already reserved: {seat.id}") # seat が予約済みの場合に出力
-
-        seat = Seat.query.get(selected_seat_id)
-        if not seat or seat.is_reserved:
-            return jsonify({'status': 'error', 'message': 'この座席は予約できません'}), 400
-
-        account_id = current_user.AccountID
-
-        reservation = Reservation(
-            AccountID=account_id,
-            ShowingID=showing_id, 
-            SeatNumber=str(seat.Row) + str(seat.Number),
-            # PriceID=...,  # 必要に応じて設定
-            # DiscountID=...  # 必要に応じて設定
-        )
-        db.session.add(reservation)
-
-        # 座席を予約済みにする
-        seat.is_reserved = True
         db.session.commit()
-
-        return jsonify({'status': 'success', 'message': '座席を予約しました'})
+        # リダイレクト先URLをヘッダーに含めて返す
+        return jsonify({'status': 'success', 'redirect_url': url_for('views.reservation_complete')}), 200
     
     except Exception as e:
         db.session.rollback()
         print(f"An error occurred: {e}")  # エラーログを出力
-        # return jsonify({'status': 'error', 'message': '予約に失敗しました'}), 500
-        return jsonify({'status': 'error', 'message': str(e)}), 500  # エラーメッセージを返す
+        return jsonify({'status': 'error', 'message': '予約に失敗しました'}), 500
 
 
 
@@ -106,12 +115,17 @@ def cominglist():
 def infoedit():
     return render_template('infoEdit.html')
 
+# 映画詳細ページ
 @views_bp.route('/moviedetail')
 def moviedetail():
     return render_template('moviedetail.html')
 
+# 上映中一覧ページ
 @views_bp.route('/movielist')
 def movielist():
+    # 上映中の映画と上映情報を取得
+    # showings = db.session.query(Showing, Movie).join(Movie).all()
+    # return render_template('movieList.html', showings=showings)
     return render_template('movieList.html')
 
 @views_bp.route('/screen')
@@ -140,3 +154,8 @@ def buycomp():
 @views_bp.route('/paycheck')
 def paycheck():
     return render_template('paycheck.html')
+
+# 予約完了画面
+@views_bp.route('/reservation_complete')
+def reservation_complete():
+    return render_template('reservation_complete.html')

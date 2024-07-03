@@ -1,29 +1,73 @@
 $(document).ready(function() {
-    var selectedSeats = []; // 選択された座席のIDを格納する配列
+    var selectedSeats = []; 
 
-    // 座席選択処理
-    $('.seat:not(.reserved)').on('click', function() {
-        var seatId = $(this).data('seat-id');
-        var seatNumber = $(this).text(); 
-    
-        // 選択状態をトグル
-        if ($(this).hasClass('selected')) { 
-            $(this).removeClass('selected');
-            selectedSeats = selectedSeats.filter(id => id !== seatId); // 選択解除
-        } else {
-            $(this).addClass('selected');
-            selectedSeats.push(seatId); // 選択状態に追加
-        }
-    
-        // 選択された座席の表示を更新
-        updateSelectedSeatDisplay();
-    });
+    // showingIdを正しい値で設定
+    var showingId = document.getElementById('showing-id').value; 
 
-    // 選択された座席の表示を更新する関数
+    // 関数: 予約済み座席のスタイルを更新
+    function updateReservedSeats() {
+        $.ajax({
+            url: '/views/SeatSelect',
+            type: 'GET',
+            data: { showing_id: showingId },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                     // response.seats を updateSeatStyles に渡す
+                    updateSeatStyles(response.seats);
+                } else {
+                    console.error("Error from server:", response.message);
+                    $('#error-message').text(response.message);
+                }
+            },
+            error: function(error) {
+                console.error("Failed to get reserved seats:", error);
+                $('#error-message').text('座席情報の取得に失敗しました。しばらく時間をおいてから再度お試しください。');
+            }
+        });
+    }
+
+    // 関数: 座席のスタイルを更新
+    function updateSeatStyles(seats) {
+        $('.seat').each(function() {
+            var seatId = $(this).data('seat-id');
+            var seat = seats.find(seat => seat.id === seatId);
+
+            if (seat && seat.reserved) {
+                $(this).addClass('reserved')
+                .css({
+                    'background-color': 'darkgray',
+                    'cursor': 'not-allowed'
+                })
+                .off('click');
+            } else {
+                $(this).removeClass('reserved')
+                .css({
+                    'background-color': '',
+                    'cursor': 'pointer'
+                })
+                .on('click', function() {
+                    var seatId = $(this).data('seat-id');
+                    
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                        selectedSeats = selectedSeats.filter(id => id !== seatId);
+                    } else {
+                        $(this).addClass('selected');
+                        selectedSeats.push(seatId);
+                    }
+
+                    updateSelectedSeatDisplay();
+                });
+            }
+        });
+    }
+
+
+    // 選択された座席の表示を更新
     function updateSelectedSeatDisplay() {
         var selectedSeatText = '選択された座席: ';
         if (selectedSeats.length > 0) {
-            // 選択された座席番号の配列を作成
             var selectedSeatNumbers = selectedSeats.map(function(seatId) {
                 return $('.seat[data-seat-id="' + seatId + '"]').text().trim();
             });
@@ -34,6 +78,10 @@ $(document).ready(function() {
         $('#selected-seat').text(selectedSeatText);
     }
 
+    // ページ読み込み時と定期的に予約状況を更新
+    updateReservedSeats();
+    // setInterval(updateReservedSeats, 5000); // 5秒ごとに更新
+
     // 予約ボタンクリック処理
     $('#reserve-button').click(function() {
         if (selectedSeats.length === 0) {
@@ -43,34 +91,29 @@ $(document).ready(function() {
             $('#error-message').text('');
         }
 
+        console.log("Selected Seat IDs:", selectedSeats);
+
         $.ajax({
             url: '/views/reserve_seat',
             type: 'POST',
             data: { 
-                seat_ids: JSON.stringify(selectedSeats), // 配列として送信
-                showing_id: 1 // 上映IDは適宜設定してください 
+                'seat_ids[]': selectedSeats, 
+                'showing_id': showingId 
             },
+            traditional: true,
             success: function(response) {
-                if (response.status === 'success') {
-                    alert(response.message);
-                    $('.seat.selected').addClass('reserved').removeClass('selected');
-                    selectedSeatId = null;
+                if(response.status === 'success') {
+                    selectedSeats = [];
+                    updateSelectedSeatDisplay();
+                
+                    window.location.href = response.redirect_url;
                 } else {
                     alert(response.message);
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error(jqXHR, textStatus, errorThrown);
-
-                var errorMessage = '予約に失敗しました。しばらく時間をおいてから再度お試しください。';
-                if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
-                    errorMessage = jqXHR.responseJSON.message;
-                } else if (jqXHR.status === 400) {
-                    errorMessage = 'リクエストが無効です。入力内容を確認してください。';
-                } else if (jqXHR.status === 500) {
-                    errorMessage = 'サーバーエラーが発生しました。';
-                }
-                $('#error-message').text(errorMessage);
+            error: function(error) {
+                console.error("Reservation failed:", error);
+                $('#error-message').text('予約に失敗しました。しばらく時間をおいてから再度お試しください。');
             }
         });
     });
