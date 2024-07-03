@@ -29,3 +29,6 @@ class SigninForm(FlaskForm):
     name = StringField('メールアドレス', validators=[DataRequired()])
     password = PasswordField('パスワード', validators=[DataRequired()])
     submit = SubmitField('ログイン')
+
+class DeleteAllForm(FlaskForm):
+    submit = SubmitField('すべて削除')

@@ -46,7 +46,7 @@ class Sex(db.Model):
 class Movie(db.Model):
     __tablename__ = 'movie'
     MovieID = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    Movie = db.Column(db.String(50))
+    MovieTitle = db.Column(db.String(50))  # 混乱を招くためカラム名を変更
     MovieThum = db.Column(db.String(255))
     AgeLimitID = db.Column(db.Integer, ForeignKey('agelimit.AgeLimitID'))
     MD = db.Column(db.String(50))
@@ -92,9 +92,10 @@ class Discount(db.Model):
 class Reservation(db.Model):
     __tablename__ = 'reservation'
     ReservationID = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    AccountID = db.Column(db.Integer, ForeignKey('account.AccountID'))
-    ShowingID = db.Column(db.Integer, ForeignKey('showing.ShowingID'))
-    SeatNumber = db.Column(db.String(3))
+    AccountID = db.Column(db.Integer, ForeignKey('account.AccountID')) #
+    ShowingID = db.Column(db.Integer, ForeignKey('showing.ShowingID')) #
+    SeatNumber = db.Column(db.String(3)) #
+
     PriceID = db.Column(db.Integer, ForeignKey('price.PriceID'))
     DiscountID = db.Column(db.Integer, ForeignKey('discount.DiscountID'))
     

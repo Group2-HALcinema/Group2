@@ -60,4 +60,49 @@
         <button type="submit">追加</button>
     </form>
 
+
+    <h2>Showingにデータ追加</h2>
+    <form method="POST">
+        <label for="movie_id">Movie ID:</label>
+        <input type="number" id="movie_id" name="movie_id" required><br><br>
+
+        <label for="screen_id">Screen ID:</label>
+        <input type="number" id="screen_id" name="screen_id" required><br><br>
+
+        <button type="submit">追加</button>
+    </form>
+
+
+    <p></p>
+    <h2>予約テーブルのリスト表示</h2>
+    <p>このボタン押すとレコード全部消えるよ</p>
+    <form action="{{ url_for('seibetutukuru') }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit() }}
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>ReservationID</th>
+                <th>AccountID</th>
+                <th>ShowingID</th>
+                <th>SeatNumber</th>
+                <th>PriceID</th>
+                <th>DiscountID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.ReservationID }}</td>
+                <td>{{ reservation.AccountID }}</td>
+                <td>{{ reservation.ShowingID }}</td>
+                <td>{{ reservation.SeatNumber }}</td>
+                <td>{{ reservation.PriceID }}</td>
+                <td>{{ reservation.DiscountID }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </body>

@@ -84,7 +84,7 @@ def seibetutukuru():
         agelimit = AgeLimit(AgeLimit=agelimit)
         db.session.add(agelimit)
         db.session.commit()
-        
+
     # if a:
     #     for row in range(1, 11):
     #         for col in range(1, 21):
@@ -103,7 +103,27 @@ def seibetutukuru():
     #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
     #             db.session.add(seat)
     #     db.session.commit()
+
+    # 上映テーブルにデータを入れるやつ　佐藤
+    # if request.method == 'POST':
+    #     movie_id = request.form['movie_id']
+    #     screen_id = request.form['screen_id']
+    #     if movie_id and screen_id:
+    #         new_showing = Showing(MovieID=movie_id, ScreenID=screen_id)
+    #         db.session.add(new_showing)
+    #         db.session.commit()
+
+
+    # 予約テーブルのレコード全消し 佐藤
+    # この機能を使うときは、上映テーブルにデータ入れるやつをコメントアウトしないと動かん　治す気力はない　ほかの機能止まったらごめん
+    form = DeleteAllForm()
+    if form.validate_on_submit():
+        db.session.query(Reservation).delete()
+        db.session.commit()
+        return redirect(url_for('seibetutukuru'))
+
+    reservations = Reservation.query.all()
     
-    return render_template('seibetutukuru.html')
+    return render_template('seibetutukuru.html', reservations=reservations, form=form)
 
 app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録
