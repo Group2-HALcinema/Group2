@@ -14,6 +14,8 @@ from flask_login import LoginManager
 # appの設定
 app = Flask(__name__,instance_relative_config=True)
 app.config.from_pyfile('config.py')
+app.config['UPLOAD_FOLDER'] = 'static/images/movieimages/'  # 画像を保存するフォルダー
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}  # 許可するファイル拡張子
 
 # DBの設定
 db.init_app(app)

@@ -6,6 +6,8 @@ from flask_app.views.forms import *
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.orm import joinedload
 from .views import views_bp # ブループリントをインポート
+from werkzeug.utils import secure_filename
+import os
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -59,14 +61,32 @@ def signout():
 
 @app.route('/memberinfo')
 def memberinfo():
-    return render_template('Memberinfo.html', user=current_user)
+    reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
+    return render_template('Memberinfo.html', user=current_user, reservations=reservations)
 
+def allowedfile(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 #いろいろつくる
 @app.route('/seibetutukuru', methods=['GET', 'POST'])
 def seibetutukuru():
     seibetu = request.form.get('seibetutukuru')
     capa = request.form.get('capacity')
     agelimit = request.form.get('agelimit')
+    movie = request.form.get('movie')
+    agelimitdayo = request.form.get('agelimitdayo')
+    # ファイルアップロードの処理
+    #未完成
+    if 'movie_image' in request.files:
+        file = request.files['movie_image']
+        if file.filename != '':
+            if file and allowedfile(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                movie_image = filename  # ファイル名だけを保存するように修正
+            else:
+                flash('許可されていないファイルタイプです。', 'error')
+        else:
+            flash('ファイルが選択されていません。', 'error')
     # a = request.form.get('a')
     # b = request.form.get('b')
     # c = request.form.get('c')
@@ -83,6 +103,10 @@ def seibetutukuru():
     if agelimit:
         agelimit = AgeLimit(AgeLimit=agelimit)
         db.session.add(agelimit)
+        db.session.commit()
+    if movie:
+        movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieImage=movie_image)
+        db.session.add(movie)
         db.session.commit()
 
     # if a:
@@ -123,7 +147,8 @@ def seibetutukuru():
         return redirect(url_for('seibetutukuru'))
 
     reservations = Reservation.query.all()
+    agelimits = AgeLimit.query.all()
     
-    return render_template('seibetutukuru.html', reservations=reservations, form=form)
+    return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, form=form)
 
 app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録

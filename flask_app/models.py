@@ -54,6 +54,7 @@ class Movie(db.Model):
     Overview = db.Column(db.String(2000))
     StartDate = db.Column(db.Date)
     FinishDate = db.Column(db.Date)
+    MovieImage = db.Column(db.String(255))
     
     agelimit = db.relationship('AgeLimit', backref='movie')
     

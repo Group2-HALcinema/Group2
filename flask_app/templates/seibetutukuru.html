@@ -44,7 +44,18 @@
         <input type="text" name="agelimit" placeholder="年齢制限">
         <button type="submit">追加</button>
     </form>
-    <h2>a</h2>
+    <h2>映画追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
+        <input type="text" name="movie" placeholder="映画">
+        <input type="file" name="movie_image">
+        <select name="agelimitdayo">
+            {% for limit in agelimits %}
+                <option value="{{ limit.AgeLimitID }}">{{ limit.AgeLimit }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">追加</button>
+    </form>
+    <!--<h2>a</h2>
     <form method="POST" action="{{ url_for('seibetutukuru') }}">
         <input type="text" name="a" placeholder="年齢制限">
         <button type="submit">追加</button>
@@ -59,6 +70,7 @@
         <input type="text" name="c" placeholder="年齢制限">
         <button type="submit">追加</button>
     </form>
+-->
 
 
     <h2>Showingにデータ追加</h2>
