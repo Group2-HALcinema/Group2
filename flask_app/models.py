@@ -42,21 +42,37 @@ class Sex(db.Model):
     __tablename__ = 'sex'
     SexID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     Sex = db.Column(db.String(4))
-    
+
+class MovieCategory(db.Model):
+    __tablename__ = 'moviecategory'
+    MovieCategoryID = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    CategoryName = db.Column(db.String(200))
+
 class Movie(db.Model):
     __tablename__ = 'movie'
     MovieID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     MovieTitle = db.Column(db.String(50))  # 混乱を招くためカラム名を変更
     MovieThum = db.Column(db.String(255))
     AgeLimitID = db.Column(db.Integer, ForeignKey('agelimit.AgeLimitID'))
+    MovieCategoryID = db.Column(db.Integer, ForeignKey('moviecategory.MovieCategoryID'))
     MD = db.Column(db.String(50))
     MS = db.Column(db.String(50))
     Overview = db.Column(db.String(2000))
     StartDate = db.Column(db.Date)
     FinishDate = db.Column(db.Date)
-    MovieImage = db.Column(db.String(255))
+    MovieImageLength = db.Column(db.String(255))
+    MovieImageSide = db.Column(db.String(255))
     
     agelimit = db.relationship('AgeLimit', backref='movie')
+    moviecategory = db.relationship('MovieCategory', backref='movie')
+
+class Cast(db.Model):
+    __tablename__ = 'cast'
+    CastD = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    CastName = db.Column(db.String(100))
+    MovieID = db.Column(db.Integer, ForeignKey('movie.MovieID'))
+    
+    movie = db.relationship('Movie', backref='cast')
     
 class AgeLimit(db.Model):
     __tablename__ = 'agelimit'

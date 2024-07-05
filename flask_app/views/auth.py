@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, url_for, redirect, flash, session, request
-from flask import render_template, url_for, redirect, flash, session, request
+from flask import render_template, url_for, redirect, flash, session, request, current_app
 from flask_app import app, login_manager
 from flask_app.models import *
 from flask_app.views.forms import *
@@ -7,6 +7,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.orm import joinedload
 from .views import views_bp # ブループリントをインポート
 from werkzeug.utils import secure_filename
+from PIL import Image
 import os
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -64,8 +65,20 @@ def memberinfo():
     reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
     return render_template('Memberinfo.html', user=current_user, reservations=reservations)
 
-def allowedfile(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+# def allowedfile(filename):
+#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+def save_image(form_picture):
+    random_hex = os.urandom(8).hex()
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    image_path = os.path.join(current_app.root_path, 'static/images/movieimages', picture_fn)
+
+    i = Image.open(form_picture)
+    i.save(image_path)
+
+    return picture_fn
+
 #いろいろつくる
 @app.route('/seibetutukuru', methods=['GET', 'POST'])
 def seibetutukuru():
@@ -74,19 +87,29 @@ def seibetutukuru():
     agelimit = request.form.get('agelimit')
     movie = request.form.get('movie')
     agelimitdayo = request.form.get('agelimitdayo')
-    # ファイルアップロードの処理
-    #未完成
-    if 'movie_image' in request.files:
-        file = request.files['movie_image']
-        if file.filename != '':
-            if file and allowedfile(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                movie_image = filename  # ファイル名だけを保存するように修正
-            else:
-                flash('許可されていないファイルタイプです。', 'error')
+    moviecategory = request.form.get('moviecategory')
+    moviecategorydayo = request.form.get('moviecategorydayo')
+    cast = request.form.get('cast')
+    moviedayo = request.form.get('moviedayo')
+    
+    movie_imagelength = None
+    movie_imageside = None
+
+    if 'movie_imagelength' in request.files:
+        file = request.files['movie_imagelength']
+        movie_imagelength = save_image(file)
+        if movie_imageside:
+            print(f"ファイルが保存されました: {movie_imagelength}")
         else:
-            flash('ファイルが選択されていません。', 'error')
+            flash('ファイルの保存に失敗しました。', 'error')
+
+    if 'movie_imageside' in request.files:
+        file = request.files['movie_imageside']
+        movie_imageside = save_image(file)
+        if movie_imageside:
+            print(f"ファイルが保存されました: {movie_imageside}")
+        else:
+            flash('ファイルの保存に失敗しました。', 'error')
     # a = request.form.get('a')
     # b = request.form.get('b')
     # c = request.form.get('c')
@@ -105,8 +128,16 @@ def seibetutukuru():
         db.session.add(agelimit)
         db.session.commit()
     if movie:
-        movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieImage=movie_image)
+        movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside)
         db.session.add(movie)
+        db.session.commit()
+    if moviecategory:
+        moviecategory = MovieCategory(CategoryName=moviecategory)
+        db.session.add(moviecategory)
+        db.session.commit()
+    if cast:
+        cast = Cast(CastName=cast, MovieID=moviedayo)
+        db.session.add(cast)
         db.session.commit()
 
     # if a:
@@ -129,13 +160,13 @@ def seibetutukuru():
     #     db.session.commit()
 
     # 上映テーブルにデータを入れるやつ　佐藤
-    if request.method == 'POST':
-        movie_id = request.form['movie_id']
-        screen_id = request.form['screen_id']
-        if movie_id and screen_id:
-            new_showing = Showing(MovieID=movie_id, ScreenID=screen_id)
-            db.session.add(new_showing)
-            db.session.commit()
+    # if request.method == 'POST':
+    #     movie_id = request.form['movie_id']
+    #     screen_id = request.form['screen_id']
+    #     if movie_id and screen_id:
+    #         new_showing = Showing(MovieID=movie_id, ScreenID=screen_id)
+    #         db.session.add(new_showing)
+    #         db.session.commit()
 
 
     # 予約テーブルのレコード全消し 佐藤
@@ -148,7 +179,9 @@ def seibetutukuru():
 
     reservations = Reservation.query.all()
     agelimits = AgeLimit.query.all()
+    moviecategorys = MovieCategory.query.all()
+    movies = Movie.query.all()
     
-    return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, form=form)
+    return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, form=form)
 
 app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録

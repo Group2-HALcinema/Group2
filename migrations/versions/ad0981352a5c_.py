@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 579b1f1e0690
+Revision ID: ad0981352a5c
 Revises: 
-Create Date: 2024-07-01 15:28:15.567889
+Create Date: 2024-07-05 10:45:14.993201
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '579b1f1e0690'
+revision = 'ad0981352a5c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,6 +28,11 @@ def upgrade():
     sa.Column('DiscountName', sa.String(length=30), nullable=True),
     sa.Column('Discount', sa.Float(), nullable=True),
     sa.PrimaryKeyConstraint('DiscountID')
+    )
+    op.create_table('moviecategory',
+    sa.Column('MovieCategoryID', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('CategoryName', sa.String(length=200), nullable=True),
+    sa.PrimaryKeyConstraint('MovieCategoryID')
     )
     op.create_table('price',
     sa.Column('PriceID', sa.Integer(), autoincrement=True, nullable=False),
@@ -62,15 +67,18 @@ def upgrade():
     )
     op.create_table('movie',
     sa.Column('MovieID', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('Movie', sa.String(length=50), nullable=True),
+    sa.Column('MovieTitle', sa.String(length=50), nullable=True),
     sa.Column('MovieThum', sa.String(length=255), nullable=True),
     sa.Column('AgeLimitID', sa.Integer(), nullable=True),
+    sa.Column('MovieCategoryID', sa.Integer(), nullable=True),
     sa.Column('MD', sa.String(length=50), nullable=True),
     sa.Column('MS', sa.String(length=50), nullable=True),
     sa.Column('Overview', sa.String(length=2000), nullable=True),
     sa.Column('StartDate', sa.Date(), nullable=True),
     sa.Column('FinishDate', sa.Date(), nullable=True),
+    sa.Column('MovieImageLength', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['AgeLimitID'], ['agelimit.AgeLimitID'], ),
+    sa.ForeignKeyConstraint(['MovieCategoryID'], ['moviecategory.MovieCategoryID'], ),
     sa.PrimaryKeyConstraint('MovieID')
     )
     op.create_table('seat',
@@ -127,6 +135,7 @@ def downgrade():
     op.drop_table('sex')
     op.drop_table('screen')
     op.drop_table('price')
+    op.drop_table('moviecategory')
     op.drop_table('discount')
     op.drop_table('agelimit')
     # ### end Alembic commands ###
