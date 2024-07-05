@@ -6,6 +6,7 @@ from sqlalchemy.exc import IntegrityError
 views_bp = Blueprint('views', __name__, url_prefix='/views')
 
 from flask_app import login_manager, app
+print("a")
 
 @login_manager.user_loader
 def load_user(user_id):
