@@ -1,22 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="ja">
-
   <head>
-
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>会員情報</title>
-
     <link rel="stylesheet" href="{{url_for('static',filename='css/reset.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/MemberInfo.css')}}">
-    
-
   </head>
-  <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
       <div><a href="{{url_for('index')}}"><img src="{{url_for('static',filename='images/logo2.png')}}"></a></div>
@@ -51,11 +42,9 @@
     
     
     <main>
-      <!-- spaceはnavの帳尻合わせのために作ってる -->
       <div class="space"></div>
-      <!-- 中島ここから -->
-      <div id="Info">
 
+      <div id="Info">
         <h1>お客様情報</h1>
         <table>
           <tr>
@@ -67,32 +56,36 @@
             <td><a href="{{url_for('views.infoedit')}}"><button>編集</button></a></td>
           </tr>
         </table>
-        </div>
+      </div>
 
-        <h1>予約詳細</h1>
-    
-        <table>
+      <h1>予約詳細</h1>
+
+      <table>
+        {% if reservations %}
           {% for reservation in reservations %}
           <tr>
-              {{ reservation.showing.movie.MovieImage }}
-              <img src="{{ url_for('static', filename='images/' ~ reservation.showing.movie.MovieImage) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100">
-              <p>映画タイトル:{{ reservation.showing.movie.MovieTitle }}</p>
-              <p>座席番号:{{ reservation.SeatNumber }}</p>
+              <td><img src="{{ url_for('static', filename='images/' ~ reservation.showing.movie.MovieImageLength) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100"></td>
+              <td>
+                <p>映画タイトル:{{ reservation.showing.movie.MovieTitle }}</p>
+                <p>座席番号:{{ reservation.SeatNumber }}</p>
+              </td>
           </tr>
           {% endfor %}
-        </table>
+        {% else %}
+          <tr>
+            <td colspan="2">チケットの予約はありません。</td> 
+          </tr>
+        {% endif %}
+      </table>
 
-        <div id="Histry">
+      <div id="Histry">
         <h1>視聴した映画</h1>
         <tr>
           <td><img src="{{url_for('static', filename='images/100$_1.jpg')}}" alt="サムネ"></td>
           <td><img src="{{url_for('static', filename='images/GOZKON_1.jpg')}}" alt="サムネ"></td>
           <td><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></td>
         </tr>
-
       </div>
-
-      <!-- ここまで -->
 
       <footer>
         <div class="logo">
@@ -106,7 +99,6 @@
         </ul>
       
         <div class="secondary-links">
-        
           <ul class="social">
             <li><a href="#">
               <i class="fa fa-github"></i>
@@ -122,5 +114,4 @@
       </footer>
     </main>
   </body>
-
 </html>
