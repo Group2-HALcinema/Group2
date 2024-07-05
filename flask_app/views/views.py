@@ -7,9 +7,6 @@ views_bp = Blueprint('views', __name__, url_prefix='/views')
 
 from flask_app import login_manager, app
 
-# 座席指定機能作成途中　佐藤
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../instance/HALcinema.db'  # データベースのURLを設定
-
 @login_manager.user_loader
 def load_user(user_id):
     return Account.query.get(int(user_id))
