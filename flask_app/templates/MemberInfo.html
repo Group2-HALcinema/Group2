@@ -74,6 +74,8 @@
         <table>
           {% for reservation in reservations %}
           <tr>
+              {{ reservation.showing.movie.MovieImage }}
+              <img src="{{ url_for('static', filename='images/' ~ reservation.showing.movie.MovieImage) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100">
               <p>映画タイトル:{{ reservation.showing.movie.MovieTitle }}</p>
               <p>座席番号:{{ reservation.SeatNumber }}</p>
           </tr>
