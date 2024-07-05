@@ -35,7 +35,7 @@
     <ul>
         {% for agelimit in agelimits %}
             <li>
-                {{ agelimit.agelimit }}
+                {{ agelimit.AgeLimit }}
             </li>
         {% endfor %}
     </ul>
@@ -44,17 +44,53 @@
         <input type="text" name="agelimit" placeholder="年齢制限">
         <button type="submit">追加</button>
     </form>
-    <h2>映画追加</h2>
-    <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
+    <!--<form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
         <input type="text" name="movie" placeholder="映画">
         <input type="file" name="movie_image">
+
+        <button type="submit">追加</button>
+    </form>-->
+    <h2>映画カテゴリー一覧</h2>
+    <ul>
+        {% for agelimit in moviecategorys %}
+            <li>
+                {{ agelimit.CategoryName }}
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>映画カテゴリー追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}">
+        <input type="text" name="moviecategory" placeholder="映画カテゴリー">
+        <button type="submit">追加</button>
+    </form>
+    <h2>映画追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
+        <input type="text" name="movie" placeholder="映画"><br>
+        <p>縦画像</p><input type="file" name="movie_imagelength"><br>
+        <p>横画像</p><input type="file" name="movie_imageside"><br>
         <select name="agelimitdayo">
             {% for limit in agelimits %}
                 <option value="{{ limit.AgeLimitID }}">{{ limit.AgeLimit }}</option>
             {% endfor %}
         </select>
+        <select name="moviecategorydayo">
+            {% for category in moviecategorys %}
+                <option value="{{ category.MovieCategoryID }}">{{ category.CategoryName }}</option>
+            {% endfor %}
+        </select>
         <button type="submit">追加</button>
     </form>
+    <h2>キャスト追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
+        <input type="text" name="cast" placeholder="キャスト"><br>
+        <select name="moviedayo">
+            {% for movie in movies %}
+                <option value="{{ movie.MovieID }}">{{ movie.MovieTitle }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">追加</button>
+    </form>
+
     <!--<h2>a</h2>
     <form method="POST" action="{{ url_for('seibetutukuru') }}">
         <input type="text" name="a" placeholder="年齢制限">
