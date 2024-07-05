@@ -34,11 +34,11 @@
       <div class="space"></div>
         <!-- ここからkondo -->
         <!-- 〇バー -->
-        <ol class="stepBar">
-          <li><span><p>1</p></span><br>入力</li>
-          <li><span><P>2</P></span><br>確認</li>
-          <li class="visited"><span><p>3</p></span><br>購入完了</li>
-        </ol>
+            <ul class="progressbar">
+              <li class="complete">チケット情報</li>
+              <li class="complete">お支払方法</li>
+              <li class="active">購入完了</li>
+            </ul>
         <!-- 〇バー ここまで -->
         <div id="compwrap">
           <h2>ご購入ありがとうございました。</h2><br />
@@ -55,7 +55,7 @@
                 </div>
                 <div class="button-holder">
               
-                  <a href="{{ url_for(' # ') }}">チケット購入情報</a>
+                  <a href="">チケット購入情報</a>
                 </div>
               </button>
             </div>
@@ -65,7 +65,8 @@
           </div>
 
         </div>
-        <button class="Btn" onclick="location.href='{{url_for(index)}}'">
+        <button class="Btn">
+          <a href="{{ url_for('index') }}"></a>
         </button>
     </main>
   </body>
