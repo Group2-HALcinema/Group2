@@ -129,13 +129,13 @@ def seibetutukuru():
     #     db.session.commit()
 
     # 上映テーブルにデータを入れるやつ　佐藤
-    # if request.method == 'POST':
-    #     movie_id = request.form['movie_id']
-    #     screen_id = request.form['screen_id']
-    #     if movie_id and screen_id:
-    #         new_showing = Showing(MovieID=movie_id, ScreenID=screen_id)
-    #         db.session.add(new_showing)
-    #         db.session.commit()
+    if request.method == 'POST':
+        movie_id = request.form['movie_id']
+        screen_id = request.form['screen_id']
+        if movie_id and screen_id:
+            new_showing = Showing(MovieID=movie_id, ScreenID=screen_id)
+            db.session.add(new_showing)
+            db.session.commit()
 
 
     # 予約テーブルのレコード全消し 佐藤
