@@ -21,33 +21,9 @@
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
-      <div><a href="top.html"><img src="../static/images/logo2.png"></a></div>
+
+      <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
-    <input type="checkbox" id="menu" />
-    <label for="menu" class="menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
-    <nav class="nav">
-      <ul class="navwrap">
-        <li class="hoverli"><a href="signin.html">ログイン</a></li>
-        <li><a href="top.html">トップページ</a></li>
-        <li>
-          <div >
-            <a href="movieList.html">上映中一覧</a>
-            <ul>
-              <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
-              <li><a href=""><span>A</span>ction</a></li>
-              <li><a href=""><span>L</span>ove</a></li>
-            </ul>
-          </div>
-        </li>
-        <li><a href="comingList.html">公開予定</a></li>
-        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="screen.html">スクリーンスペック</a></li>
-        <li><a style="padding: 0.7vw 1.1vw;" href="#">サイトマップ</a></li>
-      </ul>
-    </nav>
     
     <div class="backimg"><img src="{{url_for('static', filename='images/eigakan2.jpg')}}" alt=""></div>
     
@@ -58,7 +34,7 @@
         <div id="Wrap">
             <ul class="progressbar">
               <li class="active">チケット情報</li>
-              <li class="complete">お支払方法</li>
+              <li>お支払方法</li>
               <li>購入完了</li>
             </ul>
 
@@ -119,8 +95,8 @@
 
               <div id="btnArea">
 
-                <button class="modal-close" id=""></button>
-                <button class="modal-ok" id=""></button>
+                <button class="modal-close" id="" ><a ></a></button>
+                <button class="modal-ok" id=""><a href="{{ url_for('views.paycheck') }}"></a></button>
                 <!-- <input type="submit" class="modal-close" value="入力へ戻る" id=""> -->
                 <!-- <input type="submit" class="modal-ok" value="購入する"   id=""> -->
               </div>
@@ -131,72 +107,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <footer>
-        <div class="logo">
-          <i class="fa fa-picture-o" aria-hidden="true"></i>
-        </div>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Works</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-    
-        <div class="secondary-links">
-          <ul>
-            <li><a href="#">Terms and Conditions</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-          </ul>
-    
-          <ul class="social">
-            <li><a href="#">
-              <i class="fa fa-github"></i>
-            </a></li>
-            <li><a href="#">
-              <i class="fa fa-twitter"></i>
-            </a></li>
-            <li><a href="#">
-              <i class="fa fa-codepen"></i>
-            </a></li>
-          </ul>
-        </div>
-      </footer>
     </main>
   </body>
 

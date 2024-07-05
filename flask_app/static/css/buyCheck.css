@@ -210,10 +210,14 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition-duration: 1s;
+    transition-duration: 1s; 
     overflow: hidden;
   }
-   
+  .modal-ok a,.modal-close a{
+    z-index: 2;
+    height:100%;
+    width: 100%;
+  }
   .modal-close::before ,.modal-ok::before{
     position: absolute;
     color: #ffd277;

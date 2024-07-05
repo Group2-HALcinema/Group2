@@ -10,7 +10,7 @@
 
     <title>お支払確認ページ</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/common.js') }}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='css/paycheck.css')}}">
@@ -24,7 +24,7 @@
   <body>
 
     <div class="wrap">
-      <div><a href="top.html"><img src="{{url_for('static', filename='images/logo.png')}}"></a></div>
+      <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
     <div class="backimg"><img src="{{url_for('static', filename='images/eigakan2.jpg')}}" alt=""></div>
 
@@ -37,8 +37,8 @@
         <!-- stepバー div spaceの下に追記 liのclass位置変更で色が変わる -->
         <ul class="progressbar">
           <li class="complete">チケット情報</li>
-          <li class="complate">お支払方法</li>
-          <li class="activate">購入完了</li>
+          <li class="active">お支払方法</li>
+          <li>購入完了</li>
         </ul>
 
         <!-- stepバー ここまで -->
@@ -68,7 +68,7 @@
         </div>
           
         <div class="button-div">
-          <button class="btn back"></button>
+          <button class="btn back"><a href="{{ url_for('views.buyCheck') }}"></a></button>
           <button class="btn modal__trigger"></button>
         </div>
       </div>
@@ -100,7 +100,7 @@
                 
               <div class="goldbtn">
                 <button class="modal-close"></button>
-                <button class="modal-ok"></button> 
+                <button class="btn modal-ok"><a href="{{ url_for('views.buycomp') }}"></a></button> 
               </div>
 
               </div>
