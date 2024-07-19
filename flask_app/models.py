@@ -52,21 +52,30 @@ class Movie(db.Model):
     __tablename__ = 'movie'
     MovieID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     MovieTitle = db.Column(db.String(50))  # 混乱を招くためカラム名を変更
-    MovieThum = db.Column(db.String(255))
+    
     AgeLimitID = db.Column(db.Integer, ForeignKey('agelimit.AgeLimitID'))
     MovieCategoryID = db.Column(db.Integer, ForeignKey('moviecategory.MovieCategoryID'))
+    
     MD = db.Column(db.String(50))
     MS = db.Column(db.String(50))
     Overview = db.Column(db.String(2000))
+    ShowTimes = db.Column(db.Integer)
+    
+    
     StartDate = db.Column(db.Integer, ForeignKey('calendar2024.id'))
     FinishDate = db.Column(db.Integer, ForeignKey('calendar2024.id'))
+    
     MovieImageLength = db.Column(db.String(255))
     MovieImageSide = db.Column(db.String(255))
-    ShowTimes = db.Column(db.Integer)
     
     agelimit = db.relationship('AgeLimit', backref='movie')
     moviecategory = db.relationship('MovieCategory', backref='movie')
-    calendar = db.relationship('Calendar2024', backref='movie')
+    start_calendar = db.relationship('Calendar2024', 
+                                   foreign_keys=[StartDate], 
+                                   backref='start_movies')
+    finish_calendar = db.relationship('Calendar2024', 
+                                    foreign_keys=[FinishDate], 
+                                    backref='finish_movies')
 
 class Cast(db.Model):
     __tablename__ = 'cast'
