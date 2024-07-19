@@ -86,7 +86,10 @@ def reserve_seat():
                 return jsonify({'status': 'error', 'message': '選択された座席は既に予約されています'}), 400
 
             # ログイン中のユーザーのアカウントIDを取得
-            account_id = current_user.AccountID
+            if current_user.is_authenticated:
+                account_id = current_user.AccountID
+            else:
+                account_id = 30
 
             # 新しい予約を作成
             reservation = Reservation(
