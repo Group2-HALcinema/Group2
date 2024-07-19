@@ -112,6 +112,17 @@
           </ul>
         </div>
       </footer>
+
+      <!-- 個人情報編集form -->
+      <form action="/forms/prof_update" method="post">
+        <input type="text" name="Name" id="Name" value="{{ user.Name }}">
+        <input type="text" name="KanaName" id="KanaName" value="{{ user.KanaName }}">
+        <input type="password" name="Password" id="Password" value="{{user.Password}}">
+        <input type="text" name="MailAddress" id="MailAddress" value="{{user.MailAddress}}">
+        <input type="text" name="PhoneNumber" id="PhoneNumber" value="{{user.PhoneNumber}}">
+        <input type="submit" value="変更">
+      </form>
+
     </main>
   </body>
 </html>
