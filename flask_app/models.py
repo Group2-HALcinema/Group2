@@ -58,14 +58,15 @@ class Movie(db.Model):
     MD = db.Column(db.String(50))
     MS = db.Column(db.String(50))
     Overview = db.Column(db.String(2000))
-    StartDate = db.Column(db.Date)
-    FinishDate = db.Column(db.Date)
+    StartDate = db.Column(db.Integer, ForeignKey('calendar2024.id'))
+    FinishDate = db.Column(db.Integer, ForeignKey('calendar2024.id'))
     MovieImageLength = db.Column(db.String(255))
     MovieImageSide = db.Column(db.String(255))
     ShowTimes = db.Column(db.Integer)
     
     agelimit = db.relationship('AgeLimit', backref='movie')
     moviecategory = db.relationship('MovieCategory', backref='movie')
+    calendar = db.relationship('Calendar2024', backref='movie')
 
 class Cast(db.Model):
     __tablename__ = 'cast'
