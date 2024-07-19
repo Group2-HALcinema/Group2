@@ -28,10 +28,8 @@ login_manager.login_view = 'signin'
 #Blueprintの登録
 from flask_app.views.auth import auth_bp
 from flask_app.views.views import views_bp
+from flask_app.views.forms import forms_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(views_bp, name=views_bp)
-
-
-
-
+app.register_blueprint(forms_bp)
