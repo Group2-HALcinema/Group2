@@ -52,17 +52,15 @@
         <h1>お客様情報</h1>
         <table>
           <tr>
-            <td><img src="{{url_for('static', filename='images/ICON1.jpg')}}" alt="会員画像"></td>
             <td>
-              <p>{{ user.Name }}</p>
-              <p>{{ user.MailAddress }}</p>
+              <p>ユーザー名：{{ user.Name }}</p>
+              <p>メールアドレス：{{ user.MailAddress }}</p>
             </td>
-            <td><a href="{{url_for('views.infoedit')}}"><button>編集</button></a></td>
           </tr>
         </table>
         
         <!-- 個人情報編集form -->
-        <form method="post">
+        <form method="post" action="{{ url_for('memberinfo') }}">
           {{ form.hidden_tag() }}
           <h1>情報更新</h1>
           <div class="form-group">
