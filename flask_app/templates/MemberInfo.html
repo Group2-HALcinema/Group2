@@ -60,6 +60,48 @@
             <td><a href="{{url_for('views.infoedit')}}"><button>編集</button></a></td>
           </tr>
         </table>
+        
+        <!-- 個人情報編集form -->
+        <form method="post">
+          {{ form.hidden_tag() }}
+          <h1>情報更新</h1>
+          <div class="form-group">
+              {{ form.name.label }}
+              {{ form.name(class="form-control") }}
+              {% for error in form.name.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+              
+              {{ form.kananame.label }}
+              {{ form.kananame(class="form-control") }}
+              {% for error in form.kananame.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
+
+              {{ form.mailaddress.label }}
+              {{ form.mailaddress(class="form-control", type="email") }}
+              {% for error in form.mailaddress.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
+              {{ form.password.label }}
+              {{ form.password(class="form-control", type="password") }}
+              {% for error in form.password.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
+              {{ form.phonenumber.label }}
+              {{ form.phonenumber(class="form-control") }}
+              {% for error in form.phonenumber.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          {{ form.submit() }}
+        </form>
       </div>
  
       <h1>予約詳細</h1>
@@ -116,16 +158,6 @@
           </ul>
         </div>
       </footer>
-
-      <!-- 個人情報編集form -->
-      <form action="/forms/prof_update" method="post">
-        <input type="text" name="Name" id="Name" value="{{ user.Name }}">
-        <input type="text" name="KanaName" id="KanaName" value="{{ user.KanaName }}">
-        <input type="password" name="Password" id="Password" value="{{user.Password}}">
-        <input type="text" name="MailAddress" id="MailAddress" value="{{user.MailAddress}}">
-        <input type="text" name="PhoneNumber" id="PhoneNumber" value="{{user.PhoneNumber}}">
-        <input type="submit" value="変更">
-      </form>
 
     </main>
   </body>
