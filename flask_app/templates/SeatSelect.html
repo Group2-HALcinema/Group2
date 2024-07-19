@@ -14,15 +14,23 @@
     <div class="screen">スクリーンはこちら</div>
     <div class="seat-map" id="seat-map">
         <table>
+            {% if screen_id == 3 %}
+                スクリーン3はこちら
+            {% elif screen_id == 2 %}
+                スクリーン2はこちら
+            {% else %}
+                その他のスクリーンはこちら
+            {% endif %}
+
             {% for seat in seats %}
                 {% if loop.index0 % 20 == 0 %}
-                    <tr>
+                <tr>
                 {% endif %}
                 <td class="seat reserved" data-seat-id="{{ seat.id }}"> 
                     {{ seat.row }}{{ seat.number }}
                 </td>
                 {% if loop.index % 20 == 0 or loop.last %}
-                    </tr>
+                </tr>
                 {% endif %}
             {% endfor %}
         </table>

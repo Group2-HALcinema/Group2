@@ -58,7 +58,7 @@ def signin():
 @login_required
 def signout():
     session.clear()
-    return redirect(url_for('signin'))
+    return redirect(url_for('index'))
 
 @app.route('/memberinfo')
 def memberinfo():
