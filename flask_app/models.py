@@ -62,6 +62,7 @@ class Movie(db.Model):
     FinishDate = db.Column(db.Date)
     MovieImageLength = db.Column(db.String(255))
     MovieImageSide = db.Column(db.String(255))
+    ShowTimes = db.Column(db.Integer)
     
     agelimit = db.relationship('AgeLimit', backref='movie')
     moviecategory = db.relationship('MovieCategory', backref='movie')
@@ -71,14 +72,14 @@ class Cast(db.Model):
     CastD = db.Column(db.Integer, primary_key=True, autoincrement=True)
     CastName = db.Column(db.String(100))
     MovieID = db.Column(db.Integer, ForeignKey('movie.MovieID'))
-    
+
     movie = db.relationship('Movie', backref='cast')
-    
+
 class AgeLimit(db.Model):
     __tablename__ = 'agelimit'
     AgeLimitID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     AgeLimit = db.Column(db.String(5))
-    
+
 class Screen(db.Model):
     __tablename__ = 'screen'
     ScreenID = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -87,12 +88,15 @@ class Screen(db.Model):
 class Showing(db.Model):
     __tablename__ = 'showing'
     ShowingID = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    ShowDatetime = db.Column(db.DateTime)
+    ShowDate = db.Column(db.Integer, ForeignKey('calendar2024.id'))
+    ShowTime = db.Column(db.Integer, ForeignKey('showtime.id'))
     MovieID = db.Column(db.Integer, ForeignKey('movie.MovieID'))
     ScreenID = db.Column(db.Integer, ForeignKey('screen.ScreenID'))
     
     movie = db.relationship('Movie', backref='showing')
     screen = db.relationship('Screen', backref='showing')
+    calender = db.relationship('Calendar2024', backref='showing')
+    showtime = db.relationship('ShowTime', backref='showing')
     
 class Price(db.Model):
     __tablename__ = 'price'
@@ -131,5 +135,15 @@ class Seat(db.Model):
     
     screen = db.relationship('Screen', backref='seat')
 
+class Calendar2024(db.Model):
+    __tablename__ = 'calendar2024'
+    id = db.Column(db.Integer, primary_key=True)
+    day = db.Column(db.Date, nullable=False, unique=True)
 
-
+# TIME 型で時刻を保存するモデル
+class ShowTime(db.Model):
+    __tablename__ = 'showtime'
+    id = db.Column(db.Integer, primary_key=True)
+    kubunmei = db.Column(db.String(80), nullable=False)
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)
