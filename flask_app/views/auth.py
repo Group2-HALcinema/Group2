@@ -61,10 +61,54 @@ def signout():
     session.clear()
     return redirect(url_for('signin'))
 
-@app.route('/memberinfo')
+
+@app.route('/memberinfo', methods=["GET", "POST"])
 def memberinfo():
+    """ユーザーの個人情報を更新する."""
+    # current_user から Account オブジェクトを取得
+    user_data = Account.query.filter_by(AccountID=int(current_user.get_id())).first()
+    
     reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
-    return render_template('Memberinfo.html', user=current_user, reservations=reservations)
+
+    # ログイン済みユーザーかどうかを確認
+    if not current_user.is_authenticated:
+        flash('このページにアクセスするにはログインしてください。', 'danger')
+        return redirect(url_for('signup'))
+
+    form = AccountForm() 
+
+    if request.method == 'GET':
+        # フォームにユーザーデータを設定
+        form.name.data = user_data.Name
+        form.kananame.data = user_data.KanaName
+        form.mailaddress.data = user_data.MailAddress
+        form.phonenumber.data = user_data.PhoneNumber
+
+    if form.validate_on_submit():
+        try:
+            # データベースからユーザーデータを取得
+            user_data = Account.query.filter_by(AccountID=int(current_user.get_id())).first()
+
+            # ユーザー情報を更新
+            user_data.Name = form.name.data
+            user_data.kananame = form.kananame.data
+            user_data.MailAddress = form.mailaddress.data
+
+            # パスワードが設定されていれば更新
+            if form.password.data:
+                user_data.password = form.password.data
+            user_data.phonenumber = form.phonenumber.data
+
+            print(user_data.Name)
+            db.session.commit()
+            flash('プロフィールが更新されました。', 'success')
+
+            return redirect(url_for('memberinfo'))  # ホーム画面など適切なページへリダイレクト
+        except Exception as e:
+            db.session.rollback()
+            flash('プロフィールの更新に失敗しました。', 'danger')
+            print(e)  # エラー内容をログ出力
+    return render_template('Memberinfo.html', user=current_user, reservations=reservations, form=form)
 
 # def allowedfile(filename):
 #     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
