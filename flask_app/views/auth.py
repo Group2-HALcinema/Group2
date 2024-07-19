@@ -8,6 +8,7 @@ from sqlalchemy.orm import joinedload
 from .views import views_bp # ブループリントをインポート
 from werkzeug.utils import secure_filename
 from PIL import Image
+from datetime import date, timedelta
 import os
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -140,24 +141,24 @@ def seibetutukuru():
         db.session.add(cast)
         db.session.commit()
 
-    if a:
-        for row in range(1, 11):
-            for col in range(1, 21):
-                seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
-                db.session.add(seat)
-        db.session.commit()
-    if b:
-        for row in range(1, 11):
-            for col in range(1, 13):
-                seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
-                db.session.add(seat)
-        db.session.commit()
-    if c:
-        for row in range(1, 8):
-            for col in range(1, 11):
-                seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
-                db.session.add(seat)
-        db.session.commit()
+    # if a:
+    #     # for row in range(1, 11):
+    #     #     for col in range(1, 21):
+    #     #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+    #     #         db.session.add(seat)
+    #     # db.session.commit()
+    # if b:
+    #     for row in range(1, 11):
+    #         for col in range(1, 13):
+    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+    #             db.session.add(seat)
+    #     db.session.commit()
+    # if c:
+    #     for row in range(1, 8):
+    #         for col in range(1, 11):
+    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+    #             db.session.add(seat)
+    #     db.session.commit()
 
     # 上映テーブルにデータを入れるやつ　佐藤
     # if request.method == 'POST':
@@ -185,3 +186,20 @@ def seibetutukuru():
     return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, form=form)
 
 app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録
+
+# def create_calendar2024():
+#     start_date = date(2024, 1, 1)
+#     end_date = date(2024, 12, 31)
+#     delta = end_date - start_date
+    
+#     for i in range(delta.days + 1):
+#         day = start_date + timedelta(days=i)
+#         if not Calendar2024.query.filter_by(day=day).first():
+#             calendar_day = Calendar2024(day=day)
+#             db.session.add(calendar_day)
+    
+#     db.session.commit()
+# @app.before_first_request
+# def initialize_database():
+#     db.create_all()
+#     create_calendar2024()
