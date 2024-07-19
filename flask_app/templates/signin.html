@@ -10,11 +10,11 @@
 
     <title>ログインページ</title>
 
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/js/common.js">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.js')}}">
 
-    <link rel="stylesheet" href="../../static/css/sign.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/sign.css')}}">
     
 
   </head>
@@ -27,23 +27,35 @@
       
       <div class="signwrap">
         <div class="sign_logo">
-          <img src="../../static/images/logo2.png" alt="ロゴ">
+          <img src="{{url_for('static', filename='images/logo2.png')}}" alt="ロゴ">
         </div>
 
         <div class="div_signin">
           <h1>ログイン</h1>
-          <div class="div_signinform">
+            <form method="post">
+              {{ form.hidden_tag() }}
+              <b>
+                ユーザーID<br>
+                {{ form.name }}<br>
+              </b>
+              <b>
+                パスワード<br>
+                {{ form.password }}
+              </b>
+              {{ form.submit() }}
+            </form>
+          <!--<div class="div_signinform">
               <b>ユーザーID</b>
               <input>
           </div>
           <div class="div_signinform">
               <b>パスワード</b>
               <input>
-          </div>
+          </div> -->
           <p>パスワードを忘れた方はこちら</p>
-          <a  href="top.html"><button>ログイン</button></a>
-          <!-- <hr> -->
-          <a href="signup.html"><button>新規登録へ</button></a>
+          <!--<a  href="top.html"><button>ログイン</button></a>
+          <! <hr> -->
+          <a href="{{ url_for('signup') }}"><button>新規登録へ</button></a>
         </div>
       </div>
 

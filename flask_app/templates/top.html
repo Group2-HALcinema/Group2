@@ -10,11 +10,11 @@
 
     <title>top</title>
 
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/js/common.js">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
     
-    <link rel="stylesheet" href="../../static/css/top.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/top.css')}}">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
@@ -23,7 +23,7 @@
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
-      <div><a href="top.html"><img src="../../static/images/logo2.png"></a></div>
+      <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
     <input type="checkbox" id="menu" checked/>
     <label for="menu" class="menu">
@@ -33,12 +33,18 @@
     </label>
     <nav class="nav">
       <ul class="navwrap">
-        <li class="hoverli"><a href="signin.html">ログイン</a></li>
-        <li class="hoverli"><a href="memberinfo.html">マイページ</a></li>
-        <li><a href="top.html">トップページ</a></li>
+
+        {% if current_user.is_authenticated %}
+        <li class="hoverli"><a href="{{ url_for('signout') }}">ログアウト</a></li>
+        <li class="hoverli"><a href="{{ url_for('memberinfo') }}">マイページ</a></li>
+        {% else %}
+        <li class="hoverli"><a href="{{ url_for('signin') }}">ログイン</a></li>
+        {% endif %} 
+
+        <li><a href="{{ url_for('index') }}">トップページ</a></li>
         <li>
           <div >
-            <a href="movieList.html">上映中一覧</a>
+            <a href="{{ url_for('views.movielist') }}">上映中一覧</a>
             <ul>
               <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
               <li><a href=""><span>A</span>ction</a></li>
@@ -46,13 +52,13 @@
             </ul>
           </div>
         </li>
-        <li><a href="comingList.html">公開予定</a></li>
-        <li><a href="ticketDetails.html">チケット代金</a></li>
-        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="screen.html">スクリーンスペック</a></li>
-        <li><a style="padding: 0.7vw 1.1vw;" href="sitemap.html">サイトマップ</a></li>
+        <li><a href="{{ url_for('views.cominglist') }}">公開予定</a></li>
+        <li><a href="{{ url_for('views.ticketdetail') }}">チケット代金</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="{{ url_for('views.screen') }}">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('views.sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
-    <div class="backimg"><img src="../../static/images/eigakan2.jpg" alt=""></div>
+    <div class="backimg"><img src="{{url_for('static', filename='images/eigakan2.jpg')}}" alt=""></div>
     
     
     <main>
@@ -61,10 +67,10 @@
       <!-- スライダー -->
       <div id="slider_space">
         <div class="slider">
-          <div><img src="../../static/images/sampleC.jpg" alt="slideImg"></div>
-          <div><img src="../../static/images/UMANew_9.jpg" alt="slideImg"></div>
-          <div><img src="../../static/images/sampleC.jpg" alt="slideImg"></div>
-          <div><img src="../../static/images/UMANew_9.jpg" alt="slideImg"></div>
+          <div><img src="{{url_for('static', filename='images/sampleC.jpg')}}" alt="slideImg"></div>
+          <div><img src="{{url_for('static', filename='images/UMANew_9.jpg')}}" alt="slideImg"></div>
+          <div><img src="{{url_for('static', filename='images/sampleC.jpg')}}" alt="slideImg"></div>
+          <div><img src="{{url_for('static', filename='images/UMANew_9.jpg')}}" alt="slideImg"></div>
         </div>
       </div>
 
@@ -82,7 +88,7 @@
               <div class="works">
                 <a href="#">
                   <figure>
-                    <img src="../../static/images/sample.jpg" alt="sample">
+                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
                   </figure>
                   <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
                 </a>
@@ -91,7 +97,7 @@
               <div class="works">
                 <a href="#">
                   <figure>
-                    <img src="../../static/images/sample.jpg" alt="sample">
+                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
                   </figure>
                   <p>名探偵コナン 100万ドルの五稜星（みちしるべ）aaaaaaaaaaaaaabbbbbbbbbcccccccddddddddddddddddd</p>
                 </a>
@@ -100,7 +106,7 @@
               <div class="works">
                 <a href="#">
                   <figure>
-                    <img src="../../static/images/sample.jpg" alt="sample">
+                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
                   </figure>
                   <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
                 </a>
@@ -109,7 +115,7 @@
               <div class="works">
                 <a href="#">
                   <figure>
-                    <img src="../../static/images/sample.jpg" alt="sample">
+                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
                   </figure>
                   <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
                 </a>
@@ -118,7 +124,7 @@
               <div class="works">
                 <a href="#">
                   <figure>
-                    <img src="../../static/images/sample.jpg" alt="sample">
+                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
                   </figure>
                   <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
                 </a>
@@ -127,7 +133,7 @@
               <div class="works">
                 <a href="#">
                   <figure>
-                    <img src="../../static/images/sample.jpg" alt="sample">
+                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
                   </figure>
                   <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
                 </a>
@@ -136,7 +142,7 @@
               <div class="works">
                 <a href="#">
                   <figure>
-                    <img src="../../static/images/sample.jpg" alt="sample">
+                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
                   </figure>
                   <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
                 </a>
@@ -145,7 +151,7 @@
               <div class="works">
                 <a href="#">
                   <figure>
-                    <img src="../../static/images/sample.jpg" alt="sample">
+                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
                   </figure>
                   <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
                 </a>
@@ -356,7 +362,7 @@
             <div class="ittan">
               <a href="#">
                 <figure>
-                  <img src="../../static/images/sampleB.jpg" alt="sampleB">
+                  <img src="{{url_for('static', filename='images/sampleB.jpg')}}" alt="sampleB">
                 </figure>
               </a>
             </div>
@@ -364,7 +370,7 @@
             <div class="ittan">
               <a href="#">
                 <figure>
-                  <img src="../../static/images/sampleB.jpg" alt="sampleB">
+                  <img src="{{url_for('static', filename='images/sampleB.jpg')}}" alt="sampleB">
                 </figure>
               </a>
             </div>
@@ -372,7 +378,7 @@
             <div class="ittan">
               <a href="#">
                 <figure>
-                  <img src="../../static/images/sampleB.jpg" alt="sampleB">
+                  <img src="{{url_for('static', filename='images/sampleB.jpg')}}" alt="sampleB">
                 </figure>
               </a>
             </div>
@@ -380,7 +386,7 @@
             <div class="ittan">
               <a href="#">
                 <figure>
-                  <img src="../../static/images/sampleB.jpg" alt="sampleB">
+                  <img src="{{url_for('static', filename='images/sampleB.jpg')}}" alt="sampleB">
                 </figure>
               </a>
             </div>
@@ -398,10 +404,10 @@
           <i class="fa fa-picture-o" aria-hidden="true"></i>
         </div>
         <ul>
-          <li><a href="top.html">トップ</a></li>
+          <li><a href="{{url_for('index')}}">トップ</a></li>
           <li><a href="top.html#news_campaign">お知らせ</a></li>
-          <li><a href="screen.html">スクリーンスペック</a></li>
-          <li><a href="sitemap.html">サイトマップ</a></li>
+          <li><a href="{{url_for('views.screen')}}">スクリーンスペック</a></li>
+          <li><a href="{{url_for('views.sitemap')}}">サイトマップ</a></li>
         </ul>
       
         <div class="secondary-links">
@@ -424,7 +430,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="../../static/js/top.js"></script>
+    <script src="{{url_for('static', filename='/js/top.js')}}"></script>
 
   </body>
 

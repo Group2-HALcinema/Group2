@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>購入確認画面</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.js')}}">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stepbar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/buyCheck.css')}}">
+
+  </head>
+  <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
+  <body>
+    <div class="wrap">
+
+      <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
+    </div>
+    
+    <div class="backimg"><img src="{{url_for('static', filename='images/eigakan2.jpg')}}" alt=""></div>
+    
+    <main>
+      <!-- spaceはnavの帳尻合わせのために作ってる -->
+      <div class="space"></div>
+
+        <div id="Wrap">
+            <ul class="progressbar">
+              <li class="active">チケット情報</li>
+              <li>お支払方法</li>
+              <li>購入完了</li>
+            </ul>
+
+            <div id="flexArea">
+              <div id="buy_main">
+                  <div id="title">
+                      <p id="titleName">映画タイトル映画タイトル映画タイトル</p> <!-- 何文字以上で「映画タイトル...」みたいな感じに -->
+                  </div>
+                  <div id="dateTime">
+                      <p id="day">12月12日(金)</p>
+                      <p id="time">12:00 ~ 13:30</p>
+                  </div>
+              </div>
+
+              <div id="seat">
+                <div id="screen"><p>スクリーン8</p></div>
+                <div id="seatNumber"><p>[ F-12 , F-13, F-14 ]  <!-- ココに要素を入れて繰り返し。要素数次第でcssのフォントサイズとテキストアライン変更 --></p></div>
+              </div>
+
+              <div id="total_price">
+                <div id="classiFication">
+                  <div id="classF">
+                    <table>
+                      <tr>
+                        <td class="cl">小学生</td>
+                        <td class="qu">×2</td>
+                        <td class="pl">1600円</td>
+                      </tr>
+                      <tr>
+                        <td class="cl">中学生</td>
+                        <td class="qu">×2</td>
+                        <td class="pl">2000円</td>
+                      </tr>
+                      <tr>
+                        <td class="cl">高校生</td>
+                        <td class="qu">×1</td>
+                        <td class="pl">1200円</td>
+                      </tr>
+                      <tr>
+                        <td class="cl">大人</td>
+                        <td class="qu">×1</td>
+                        <td class="pl">1500円</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div id="total"><p>計6枚</p></div>
+                </div>
+                <div id="priceArea">
+                  <div id="price">
+                    <p id="priceG">合計</p>
+                    <P id="priceY"><!--ココに入れる-->111111円</P>
+                  </div>
+                </div>
+
+              </div>
+
+              <div id="payment"></div>
+
+              <div id="btnArea">
+
+                <button class="modal-close" id="" ><a ></a></button>
+                <button class="modal-ok" id=""><a href="{{ url_for('views.paycheck') }}"></a></button>
+                <!-- <input type="submit" class="modal-close" value="入力へ戻る" id=""> -->
+                <!-- <input type="submit" class="modal-ok" value="購入する"   id=""> -->
+              </div>
+
+            </div>
+
+        </div>
+
+
+
+    </main>
+  </body>
+
+</html>

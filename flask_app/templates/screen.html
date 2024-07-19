@@ -9,18 +9,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/css/screen.css">
-  
+    
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/screen.css')}}">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/screen.js') }}"></script>
+    
     <title>HALシネマ-スクリーンスペックページ</title>    
 
   </head>
   <!-- menu checkbox周りを<>で囲う際はbody内のものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
-      <div><a href="top.html"><img src="../../static/images/logo2.png"></a></div>
+      <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
     <input type="checkbox" id="menu" checked/>
     <label for="menu" class="menu">
@@ -30,12 +34,16 @@
     </label>
     <nav class="nav">
       <ul class="navwrap">
-        <li class="hoverli"><a href="signin.html">ログイン</a></li>
-        <li class="hoverli"><a href="memberinfo.html">マイページ</a></li>
-        <li><a href="top.html">トップページ</a></li>
+        {% if current_user.is_authenticated %}
+        <li class="hoverli"><a href="{{ url_for('signout') }}">ログアウト</a></li>
+        <li class="hoverli"><a href="{{ url_for('memberinfo') }}">マイページ</a></li>
+        {% else %}
+        <li class="hoverli"><a href="{{ url_for('signin') }}">ログイン</a></li>
+        {% endif %} 
+        <li><a href="{{ url_for('index') }}">トップページ</a></li>
         <li>
           <div >
-            <a href="movieList.html">上映中一覧</a>
+            <a href="{{ url_for('views.movielist') }}">上映中一覧</a>
             <ul>
               <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
               <li><a href=""><span>A</span>ction</a></li>
@@ -43,10 +51,10 @@
             </ul>
           </div>
         </li>
-        <li><a href="comingList.html">公開予定</a></li>
-        <li><a href="ticketDetails.html">チケット代金</a></li>
-        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="screen.html">スクリーンスペック</a></li>
-        <li><a style="padding: 0.7vw 1.1vw;" href="sitemap.html">サイトマップ</a></li>
+        <li><a href="{{ url_for('views.cominglist') }}">公開予定</a></li>
+        <li><a href="{{ url_for('views.ticketdetail') }}">チケット代金</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="{{ url_for('views.screen') }}">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('views.sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
     
@@ -71,8 +79,8 @@
               <tr>
                 <td>1・2・3</td>
                 <td>14.3m x 6.0m</td>
-                <td>20x20<br/>
-                (400席)
+                <td>20x10<br/>
+                (200席)
                 </td>
 
                 <td>
@@ -92,7 +100,7 @@
                             <p class="modal__title">スクリーン1,2,3</p>
                             <p class="modal__text">
                               
-                              <p><img src="../../static/images/HALシネマ_座席レイアウト_スクリーン123.png" alt="スクリーン画像1_2_3"></p>
+                              <p><img src="{{url_for('static', filename='images/HALシネマ_座席レイアウト_スクリーン123.png')}}"></p>
                             </p>
                           </div>
                           <!-- / モーダル内のコンテンツ -->
@@ -128,10 +136,10 @@
                             <p class="modal__title">スクリーン4,5</p>
                             <p class="modal__text">
                               
-                              <p><img src="../../static/images/HALシネマ_座席レイアウト_スクリーン45.png" alt="スクリーン画像4_5"></p>
+                              <p><img src="{{url_for('static', filename='images/HALシネマ_座席レイアウト_スクリーン45.png')}}" alt="スクリーン画像4_5"></p>
                             </p>
                           </div>
-                          <!-- / モーダル内のコンテンツ -->
+                          <!--  モーダル内のコンテンツ -->
                 
                         </div>
                       </div>
@@ -168,7 +176,7 @@
                             <p class="modal__title">スクリーン6,7,8</p>
                             <p class="modal__text">
                               
-                              <p><img src="../../static/images/HALシネマ_座席レイアウト_スクリーン678.png" alt="スクリーン画像6_7_8"></p>
+                              <p><img src="{{url_for('static', filename='images/HALシネマ_座席レイアウト_スクリーン678.png')}}" alt="スクリーン画像6_7_8"></p>
                             </p>
                           </div>
                           <!-- / モーダル内のコンテンツ -->
@@ -191,14 +199,14 @@
           <i class="fa fa-picture-o" aria-hidden="true"></i>
         </div>
         <ul>
-          <li><a href="top.html">トップ</a></li>
-          <li><a href="top.html#news_campaign">お知らせ</a></li>
-          <li><a href="screen.html">スクリーンスペック</a></li>
-          <li><a href="sitemap.html">サイトマップ</a></li>
+          <li><a href="{{url_for('index')}}">トップ</a></li>
+          <li><a href="{{url_for('index')}}l#news_campaign">お知らせ</a></li>
+          <li><a href="{{url_for('views.screen')}}">スクリーンスペック</a></li>
+          <li><a href="{{url_for('views.sitemap')}}">サイトマップ</a></li>
         </ul>
-      
+    
         <div class="secondary-links">
-        
+    
           <ul class="social">
             <li><a href="#">
               <i class="fa fa-github"></i>

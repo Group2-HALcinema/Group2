@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>お支払確認ページ</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/paycheck.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stepbar.css')}}">
+    <script src="{{ url_for('static', filename='js/paycheck.js') }}"></script>
+    <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+
+  </head>
+  <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
+  <body>
+
+    <div class="wrap">
+      <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
+    </div>
+    <div class="backimg"><img src="{{url_for('static', filename='images/eigakan2.jpg')}}" alt=""></div>
+
+
+    <main>
+
+      <!-- spaceはnavの帳尻合わせのために作ってる -->
+      <div class="space"></div>
+      
+        <!-- stepバー div spaceの下に追記 liのclass位置変更で色が変わる -->
+        <ul class="progressbar">
+          <li class="complete">チケット情報</li>
+          <li class="active">お支払方法</li>
+          <li>購入完了</li>
+        </ul>
+
+        <!-- stepバー ここまで -->
+      <div id="step-wrap">
+        <div class="cp_iptxt">
+          <input type="text" placeholder="お名前">
+          <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+          <div class="error-message"></div>
+        </div>
+          
+        <div class="cp_iptxt">
+         <input type="text" placeholder="E-Mail">
+          <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+          <div class="error-message"></div>
+        </div>
+          
+        <div class="cp_iptxt">
+          <input type="text" placeholder="郵便番号">
+          <i class="postnum">〒</i>
+          <div class="error-message"></div>
+        </div>
+          
+        <div class="cp_iptxt">
+          <input type="text" placeholder="住所">
+          <i class="fa-solid fa-map fa-lg fa-fw" aria-hidden="true"></i>
+          <div class="error-message"></div>
+        </div>
+          
+        <div class="button-div">
+          <button class="btn back"><a href="{{ url_for('views.buyCheck') }}"></a></button>
+          <button class="btn modal__trigger"></button>
+        </div>
+      </div>
+        
+        <!-- モーダルのHTML -->
+      <div class="modal__wrapper">
+        <div class="modal__layer"></div>
+        <div class="modal__container">
+          <div class="modal__inner">
+            <div class="modal__content">
+              <p class="modal__title">入力内容の確認</p>
+              <div class="modal__text">
+                <div class="cp_iptxt mmm">
+                  <input type="text" id="confirmName" readonly>
+                  <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+                <div class="cp_iptxt mmm">
+                  <input type="text" id="confirmEmail" readonly>
+                  <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+                <div class="cp_iptxt mmm">
+                  <input type="text" id="confirmPostalCode" readonly>
+                  <i class="postnum">〒</i>
+                </div>
+                <div class="cp_iptxt mmm">
+                  <input type="text" id="confirmAddress" readonly>
+                  <i class="fa-solid fa-map fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+                
+              <div class="goldbtn">
+                <button class="modal-close"></button>
+                <button class="btn modal-ok"><a href="{{ url_for('views.buycomp') }}"></a></button> 
+              </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </main>
+  </body>
+
+</html>

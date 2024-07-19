@@ -1,0 +1,61 @@
+.seat-map {
+    display: flex;
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
+    height: 70vh; /* 画面全体の高さにする */
+}
+
+.seat-map table {
+    border-collapse: separate; 
+    border-spacing: 10px 5px;
+    table-layout: fixed; /* 均等な幅のセルにする */
+    width: auto; /* テーブルの幅を内容に合わせて自動調整 */
+}
+
+.seat-cell { 
+    padding: 5px;
+}
+
+.seat {
+    width: 100%; /* セルの幅いっぱいに広げる */
+    height: 30px;
+    background-color: #ccc; 
+    border: 1px solid #aaa;
+    cursor: pointer;
+    text-align: center; /* 席番号を中央に */
+}
+
+.seat.selected {
+    background-color: #f00; 
+}
+
+.seat.reserved {
+    background-color: #aaa; 
+    cursor: not-allowed;
+}
+
+.screen {
+    width: 70%;
+    height: 30px;
+    background-color: #ddd;
+    margin: 20px auto; /* 上下にマージン、左右は自動 */
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.seat-map table {
+    border-collapse: separate; /* セルの間隔を調整 */
+    border-spacing: 10px 5px; /* 上下10px、左右5pxの隙間 */ 
+}
+
+.seat-cell { /* 各座席セルにpaddingを追加 */
+    padding: 5px;
+}
+
+.seat {
+    /* ... 座席のスタイル ... */
+    width: 30px; /* 必要に応じて調整 */
+    height: 30px; /* 必要に応じて調整 */
+    /* ... その他のスタイル ... */
+}

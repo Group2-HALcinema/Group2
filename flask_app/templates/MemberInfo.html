@@ -1,25 +1,16 @@
 <!DOCTYPE html>
-
 <html lang="ja">
-
   <head>
-
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>会員情報</title>
-
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/MemberInfo.css">
-    <link rel="stylesheet" href="../../static/css/common.css">
-    
-
+    <link rel="stylesheet" href="{{url_for('static',filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/MemberInfo.css')}}">
   </head>
-  <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
     <div class="wrap">
-      <div><a href="top.html"><img src="../../static/images/logo2.png"></a></div>
+      <div><a href="{{url_for('index')}}"><img src="{{url_for('static',filename='images/logo2.png')}}"></a></div>
     </div>
     <input type="checkbox" id="menu" checked/>
     <label for="menu" class="menu">
@@ -29,12 +20,16 @@
     </label>
     <nav class="nav">
       <ul class="navwrap">
-        <li class="hoverli"><a href="signin.html">ログイン</a></li>
-        <li class="hoverli"><a href="memberinfo.html">マイページ</a></li>
-        <li><a href="top.html">トップページ</a></li>
+        {% if current_user.is_authenticated %}
+        <li class="hoverli"><a href="{{ url_for('signout') }}">ログアウト</a></li>
+        <li class="hoverli"><a href="{{ url_for('memberinfo') }}">マイページ</a></li>
+        {% else %}
+        <li class="hoverli"><a href="{{ url_for('signin') }}">ログイン</a></li>
+        {% endif %} 
+        <li><a href="{{url_for('index')}}">トップページ</a></li>
         <li>
           <div >
-            <a href="movieList.html">上映中一覧</a>
+            <a href="{{url_for('views.movielist')}}">上映中一覧</a>
             <ul>
               <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
               <li><a href=""><span>A</span>ction</a></li>
@@ -42,58 +37,114 @@
             </ul>
           </div>
         </li>
-        <li><a href="comingList.html">公開予定</a></li>
-        <li><a href="ticketDetails.html">チケット代金</a></li>
-        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="screen.html">スクリーンスペック</a></li>
-        <li><a style="padding: 0.7vw 1.1vw;" href="sitemap.html">サイトマップ</a></li>
+        <li><a href="{{url_for('views.cominglist')}}">公開予定</a></li>
+        <li><a href="{{url_for('views.ticketdetail')}}">チケット代金</a></li>
+        <li><a style="padding: 0.7vw 0.9vw; font-size:1vw;" href="{{url_for('views.screen')}}">スクリーンスペック</a></li>
+        <li><a style="padding: 0.7vw 1.1vw;" href="{{url_for('views.sitemap')}}">サイトマップ</a></li>
       </ul>
     </nav>
-    
-    
+   
+   
     <main>
-      <!-- spaceはnavの帳尻合わせのために作ってる -->
       <div class="space"></div>
-      <!-- 中島ここから -->
+ 
       <div id="Info">
-
         <h1>お客様情報</h1>
         <table>
           <tr>
-            <td><img src="../../static/images/ICON_1.jpg" alt="会員画像"></td>
+            <td><img src="{{url_for('static', filename='images/ICON1.jpg')}}" alt="会員画像"></td>
             <td>
-              <p>ユーザー名</p>
-              <p>メールアドレス</p>
+              <p>{{ user.Name }}</p>
+              <p>{{ user.MailAddress }}</p>
             </td>
-            <td><a href="../site/infoEdit.html"><button>編集</button></a></td>
+            <td><a href="{{url_for('views.infoedit')}}"><button>編集</button></a></td>
           </tr>
         </table>
-        </div>
+        
+        <!-- 個人情報編集form -->
+        <form method="post">
+          {{ form.hidden_tag() }}
+          <h1>情報更新</h1>
+          <div class="form-group">
+              {{ form.name.label }}
+              {{ form.name(class="form-control") }}
+              {% for error in form.name.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+              
+              {{ form.kananame.label }}
+              {{ form.kananame(class="form-control") }}
+              {% for error in form.kananame.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
 
-        <div id="Histry">
+              {{ form.mailaddress.label }}
+              {{ form.mailaddress(class="form-control", type="email") }}
+              {% for error in form.mailaddress.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
+              {{ form.password.label }}
+              {{ form.password(class="form-control", type="password") }}
+              {% for error in form.password.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
+              {{ form.phonenumber.label }}
+              {{ form.phonenumber(class="form-control") }}
+              {% for error in form.phonenumber.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          {{ form.submit() }}
+        </form>
+      </div>
+ 
+      <h1>予約詳細</h1>
+ 
+      <table>
+        {% if reservations %}
+          {% for reservation in reservations %}
+          <tr>
+              <td><img src="{{ url_for('static', filename='images/' ~ reservation.showing.movie.MovieImageLength) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100"></td>
+              <td>
+                <p>映画タイトル:{{ reservation.showing.movie.MovieTitle }}</p>
+                <p>座席番号:{{ reservation.SeatNumber }}</p>
+              </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="2">チケットの予約はありません。</td>
+          </tr>
+        {% endif %}
+      </table>
+ 
+      <div id="Histry">
         <h1>視聴した映画</h1>
         <tr>
-          <td><img src="../../static/images/100$_1.jpg" alt="サムネ"></td>
-          <td><img src="../../static/images/GOZKON_1.jpg" alt="サムネ"></td>
-          <td><img src="../../static/images/UMANew_1.jpg" alt="サムネ"></td>
+          <td><img src="{{url_for('static', filename='images/100$_1.jpg')}}" alt="サムネ"></td>
+          <td><img src="{{url_for('static', filename='images/GOZKON_1.jpg')}}" alt="サムネ"></td>
+          <td><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></td>
         </tr>
-
       </div>
-
-      <!-- ここまで -->
-
+ 
       <footer>
         <div class="logo">
           <i class="fa fa-picture-o" aria-hidden="true"></i>
         </div>
         <ul>
-          <li><a href="top.html">トップ</a></li>
-          <li><a href="top.html#news_campaign">お知らせ</a></li>
-          <li><a href="screen.html">スクリーンスペック</a></li>
-          <li><a href="sitemap.html">サイトマップ</a></li>
+          <li><a href="{{url_for('index')}}">トップ</a></li>
+          <li><a href="{{url_for('index')}}#news_campaign">お知らせ</a></li>
+          <li><a href="{{url_for('views.screen')}}">スクリーンスペック</a></li>
+          <li><a href="{{url_for('views.sitemap')}}">サイトマップ</a></li>
         </ul>
-      
+     
         <div class="secondary-links">
-        
           <ul class="social">
             <li><a href="#">
               <i class="fa fa-github"></i>
@@ -107,7 +158,7 @@
           </ul>
         </div>
       </footer>
+
     </main>
   </body>
-
 </html>
