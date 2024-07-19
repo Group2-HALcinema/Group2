@@ -59,7 +59,7 @@ def signin():
 @login_required
 def signout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('signin'))
 
 @app.route('/memberinfo')
 def memberinfo():
@@ -87,11 +87,31 @@ def seibetutukuru():
     capa = request.form.get('capacity')
     agelimit = request.form.get('agelimit')
     movie = request.form.get('movie')
+    end_time = request.form.get('end_time')
+    start_time = request.form.get('start_time')
+    kubunmei = request.form.get('kubunmei')
     agelimitdayo = request.form.get('agelimitdayo')
     moviecategory = request.form.get('moviecategory')
     moviecategorydayo = request.form.get('moviecategorydayo')
     cast = request.form.get('cast')
     moviedayo = request.form.get('moviedayo')
+    screendayo = request.form.get('screendayo')
+    showtimedayo = request.form.get('shottimedayo')
+    showdatedayo = request.form.get('showdatedayo')
+    moviedesu = request.form.get('moviedesu')
+    
+    md = request.form.get('md')
+    ms = request.form.get('ms')
+    ov = request.form.get('ov')
+    st = request.form.get('st')
+    
+    
+    priceplans = request.form.get('priceplans')
+    price = request.form.get('price')
+    
+    discountname = request.form.get('discountname')
+    discount = request.form.get('discount')
+
     
     movie_imagelength = None
     movie_imageside = None
@@ -129,8 +149,12 @@ def seibetutukuru():
         db.session.add(agelimit)
         db.session.commit()
     if movie:
-        movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside)
+        movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st)
         db.session.add(movie)
+        db.session.commit()
+    if screendayo and showdatedayo and showtimedayo and moviedesu:
+        showing = Showing(ScreenID=screendayo, MovieID=moviedesu, ShowTime=showtimedayo, ShowDate=showdatedayo)
+        db.session.add(showing)
         db.session.commit()
     if moviecategory:
         moviecategory = MovieCategory(CategoryName=moviecategory)
@@ -139,6 +163,20 @@ def seibetutukuru():
     if cast:
         cast = Cast(CastName=cast, MovieID=moviedayo)
         db.session.add(cast)
+        db.session.commit()
+    if start_time and kubunmei and end_time:    
+        start_time = datetime.strptime(start_time, '%H:%M').time()  
+        end_time = datetime.strptime(end_time, '%H:%M').time()
+        showtime = ShowTime(kubunmei=kubunmei, start_time=start_time, end_time=end_time)
+        db.session.add(showtime)
+        db.session.commit()
+    if priceplans and price:
+        price = Price(PricePlans=priceplans, Price=price)
+        db.session.add(price)
+        db.session.commit()
+    if discountname and discount:
+        discount = Discount(DiscountName=discountname, Discount=discount)
+        db.session.add(discount)
         db.session.commit()
 
     # if a:
@@ -182,24 +220,27 @@ def seibetutukuru():
     agelimits = AgeLimit.query.all()
     moviecategorys = MovieCategory.query.all()
     movies = Movie.query.all()
+    calendars = Calendar2024.query.all()
+    showtimess = ShowTime.query.all()
+    screens  = Screen.query.all()
     
-    return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, form=form)
+    return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, showtimes=showtimess, screens=screens, form=form)
 
 app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録
 
-# def create_calendar2024():
-#     start_date = date(2024, 1, 1)
-#     end_date = date(2024, 12, 31)
-#     delta = end_date - start_date
+def create_calendar2024():
+    start_date = date(2024, 1, 1)
+    end_date = date(2024, 12, 31)
+    delta = end_date - start_date
     
-#     for i in range(delta.days + 1):
-#         day = start_date + timedelta(days=i)
-#         if not Calendar2024.query.filter_by(day=day).first():
-#             calendar_day = Calendar2024(day=day)
-#             db.session.add(calendar_day)
+    for i in range(delta.days + 1):
+        day = start_date + timedelta(days=i)
+        if not Calendar2024.query.filter_by(day=day).first():
+            calendar_day = Calendar2024(day=day)
+            db.session.add(calendar_day)
     
-#     db.session.commit()
-# @app.before_first_request
+    db.session.commit()
+    
 # def initialize_database():
 #     db.create_all()
 #     create_calendar2024()
