@@ -41,7 +41,7 @@ class AddressForm(FlaskForm):
     Todohuken = StringField('都道府県', validators=[DataRequired(message='都道府県は必須です')])
     Shiku = StringField('市区町村', validators=[DataRequired(message='市区町村は必須です')])
     ChosonNumber = StringField('番地', validators=[DataRequired(message='番地は必須です')])
-    submit = SubmitField('登録')
+    submit2 = SubmitField('登録')
 
 class AccountForm(FlaskForm):
     name = StringField('氏名', validators=[DataRequired()])
