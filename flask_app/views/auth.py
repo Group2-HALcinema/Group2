@@ -64,11 +64,15 @@ def signout():
 
 @app.route('/memberinfo', methods=["GET", "POST"])
 def memberinfo():
+
+    print("AccountID:", current_user.get_id())
     """ユーザーの個人情報を更新する."""
     # current_user から Account オブジェクトを取得
     user_data = Account.query.filter_by(AccountID=int(current_user.get_id())).first()
-    
+    # 予約した情報を取得
     reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
+    # アドレステーブルからデータを取得
+    address_data = Address.query.filter_by(AccountID=current_user.get_id()).first()
 
     # ログイン済みユーザーかどうかを確認
     if not current_user.is_authenticated:
@@ -76,6 +80,7 @@ def memberinfo():
         return redirect(url_for('signup'))
 
     form = AccountForm() 
+    form2 = AddressForm()
 
     if request.method == 'GET':
         # フォームにユーザーデータを設定
@@ -83,6 +88,14 @@ def memberinfo():
         form.kananame.data = user_data.KanaName
         form.mailaddress.data = user_data.MailAddress
         form.phonenumber.data = user_data.PhoneNumber
+        
+        # address_data が存在する場合のみフォームにデータを設定
+        if address_data:
+            # フォームにアドレスデータを設定
+            form2.PostNumber.data = address_data.PostNumber
+            form2.Todohuken.data = address_data.Todohuken
+            form2.Shiku.data = address_data.Shiku
+            form2.ChosonNumber.data = address_data.ChosonNumber
 
     if form.validate_on_submit():
         try:
@@ -107,11 +120,42 @@ def memberinfo():
         except Exception as e:
             db.session.rollback()
             flash('プロフィールの更新に失敗しました。', 'danger')
-            print(e)  # エラー内容をログ出力
-    return render_template('Memberinfo.html', user=current_user, reservations=reservations, form=form)
+            print("Error:", e)  # エラー内容をコンソールに表示
 
-# def allowedfile(filename):
-#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+    if form2.validate_on_submit():
+        try:
+            # データベースからユーザーデータを取得
+            address_data = Address.query.filter_by(AccountID=current_user.get_id()).first()
+            print("address_data ", address_data)
+
+            if address_data:
+                # address_data が存在する場合：更新
+                address_data.PostNumber = form2.PostNumber.data
+                address_data.Todohuken = form2.Todohuken.data
+                address_data.Shiku = form2.Shiku.data
+                address_data.ChosonNumber = form2.ChosonNumber.data
+            else:
+                # address_data が存在しない場合：新規作成
+                address_data = Address(
+                    PostNumber=form2.PostNumber.data,
+                    Todohuken=form2.Todohuken.data,
+                    Shiku=form2.Shiku.data,
+                    ChosonNumber=form2.ChosonNumber.data,
+                    AccountID=current_user.get_id()  # 外部キーを設定
+                )
+                db.session.add(address_data) 
+
+            db.session.commit()
+            flash('アドレス情報が更新されました。', 'success')
+
+            return redirect(url_for('memberinfo'))  # ホーム画面など適切なページへリダイレクト
+        except Exception as e:
+            db.session.rollback()
+            flash('アドレス情報の更新に失敗しました。', 'danger')
+            print("Error:", e)  # エラー内容をコンソールに表示
+
+    return render_template('Memberinfo.html', user=current_user, reservations=reservations, form=form, form2=form2)
+
 
 def save_image(form_picture):
     random_hex = os.urandom(8).hex()
@@ -143,6 +187,7 @@ def seibetutukuru():
     showtimedayo = request.form.get('shottimedayo')
     showdatedayo = request.form.get('showdatedayo')
     moviedesu = request.form.get('moviedesu')
+
     
     md = request.form.get('md')
     ms = request.form.get('ms')
