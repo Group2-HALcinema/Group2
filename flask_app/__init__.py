@@ -31,7 +31,3 @@ from flask_app.views.views import views_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(views_bp, name=views_bp)
-
-
-
-

@@ -30,8 +30,12 @@
     </label>
     <nav class="nav">
       <ul class="navwrap">
-        <li class="hoverli"><a href="{{url_for('signin')}}">ログイン</a></li>
-        <li class="hoverli"><a href="{{url_for('memberinfo')}}">マイページ</a></li>
+        {% if current_user.is_authenticated %}
+        <li class="hoverli"><a href="{{ url_for('signout') }}">ログアウト</a></li>
+        <li class="hoverli"><a href="{{ url_for('memberinfo') }}">マイページ</a></li>
+        {% else %}
+        <li class="hoverli"><a href="{{ url_for('signin') }}">ログイン</a></li>
+        {% endif %} 
         <li><a href="{{url_for('index')}}">トップページ</a></li>
         <li>
           <div >

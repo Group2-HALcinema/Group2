@@ -9,12 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>映画詳細</title>
-
-    <link rel="stylesheet" href=" ../static/css/reset.css">
-    <link rel="stylesheet" href=" ../static/css/common.css">
-    <link rel="stylesheet" href=" ../static/css/moviedetail.css">
-    <link rel="stylesheet" href="../static/js/common.js">
     
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/moviedetail.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
 
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
@@ -32,8 +31,12 @@
     <nav class="nav">
       <ul class="navwrap">
 
-        <li class="hoverli"><a href="{{ url_for('signin') }}">ログイン</a></li>
+        {% if current_user.is_authenticated %}
+        <li class="hoverli"><a href="{{ url_for('signout') }}">ログアウト</a></li>
         <li class="hoverli"><a href="{{ url_for('memberinfo') }}">マイページ</a></li>
+        {% else %}
+        <li class="hoverli"><a href="{{ url_for('signin') }}">ログイン</a></li>
+        {% endif %} 
 
         <li><a href="{{ url_for('index') }}">トップページ</a></li>
         <li>

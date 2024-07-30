@@ -52,33 +52,44 @@ class Movie(db.Model):
     __tablename__ = 'movie'
     MovieID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     MovieTitle = db.Column(db.String(50))  # 混乱を招くためカラム名を変更
-    MovieThum = db.Column(db.String(255))
+    
     AgeLimitID = db.Column(db.Integer, ForeignKey('agelimit.AgeLimitID'))
     MovieCategoryID = db.Column(db.Integer, ForeignKey('moviecategory.MovieCategoryID'))
+    
     MD = db.Column(db.String(50))
     MS = db.Column(db.String(50))
     Overview = db.Column(db.String(2000))
-    StartDate = db.Column(db.Date)
-    FinishDate = db.Column(db.Date)
+    ShowTimes = db.Column(db.Integer)
+    
+    
+    StartDate = db.Column(db.Integer, ForeignKey('calendar2024.id'))
+    FinishDate = db.Column(db.Integer, ForeignKey('calendar2024.id'))
+    
     MovieImageLength = db.Column(db.String(255))
     MovieImageSide = db.Column(db.String(255))
     
     agelimit = db.relationship('AgeLimit', backref='movie')
     moviecategory = db.relationship('MovieCategory', backref='movie')
+    start_calendar = db.relationship('Calendar2024', 
+                                   foreign_keys=[StartDate], 
+                                   backref='start_movies')
+    finish_calendar = db.relationship('Calendar2024', 
+                                    foreign_keys=[FinishDate], 
+                                    backref='finish_movies')
 
 class Cast(db.Model):
     __tablename__ = 'cast'
     CastD = db.Column(db.Integer, primary_key=True, autoincrement=True)
     CastName = db.Column(db.String(100))
     MovieID = db.Column(db.Integer, ForeignKey('movie.MovieID'))
-    
+
     movie = db.relationship('Movie', backref='cast')
-    
+
 class AgeLimit(db.Model):
     __tablename__ = 'agelimit'
     AgeLimitID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     AgeLimit = db.Column(db.String(5))
-    
+
 class Screen(db.Model):
     __tablename__ = 'screen'
     ScreenID = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -87,12 +98,15 @@ class Screen(db.Model):
 class Showing(db.Model):
     __tablename__ = 'showing'
     ShowingID = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    ShowDatetime = db.Column(db.DateTime)
+    ShowDate = db.Column(db.Integer, ForeignKey('calendar2024.id'))
+    ShowTime = db.Column(db.Integer, ForeignKey('showtime.id'))
     MovieID = db.Column(db.Integer, ForeignKey('movie.MovieID'))
     ScreenID = db.Column(db.Integer, ForeignKey('screen.ScreenID'))
     
     movie = db.relationship('Movie', backref='showing')
     screen = db.relationship('Screen', backref='showing')
+    calender = db.relationship('Calendar2024', backref='showing')
+    showtime = db.relationship('ShowTime', backref='showing')
     
 class Price(db.Model):
     __tablename__ = 'price'
@@ -131,5 +145,15 @@ class Seat(db.Model):
     
     screen = db.relationship('Screen', backref='seat')
 
+class Calendar2024(db.Model):
+    __tablename__ = 'calendar2024'
+    id = db.Column(db.Integer, primary_key=True)
+    day = db.Column(db.Date, nullable=False, unique=True)
 
-
+# TIME 型で時刻を保存するモデル
+class ShowTime(db.Model):
+    __tablename__ = 'showtime'
+    id = db.Column(db.Integer, primary_key=True)
+    kubunmei = db.Column(db.String(80), nullable=False)
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)

@@ -55,6 +55,7 @@ def SeatSelect():
         return jsonify({'status': 'success', 'seats': seat_data})
     else:
         # それ以外の場合は、従来通り HTML をレンダリング
+        print(seats)
         return render_template('SeatSelect.html', seats=seat_data, showing_id=showing_id)
 
 
@@ -87,6 +88,7 @@ def reserve_seat():
 
             # ログイン中のユーザーのアカウントIDを取得
             account_id = current_user.AccountID
+
 
             # 新しい予約を作成
             reservation = Reservation(
