@@ -210,23 +210,6 @@ main div.signwrap div.div_signin a{
   text-decoration: none;
 }
 
-main div.signwrap div.div_signin a:hover{
-  opacity: 0.7;
-}
-
-main div.signwrap div.div_signin button {
-    display: block;
-    width: 40%;
-    height: 8%;
-    margin: 5% auto 8% auto;
-    text-align: center;
-    font-size: 120%;
-    font-weight: 600;
-    border: #ffffff solid 3px;
-    border-radius: 20px;
-    color: #ffffff;
-    background-color: #72b3f0;
-}
 
 main div.signwrap div.div_signin p {
     width: 80%;
@@ -251,7 +234,7 @@ main div.signwrap div.div_signup {
 }
 main div.signwrap div.div_signup h1 {
   width: 50%;
-  margin: 0 auto 0 auto;
+  margin: -20px auto 0 auto;
   padding: 3% 0 0 0;
   text-align: center;
   font-size: 200%;
@@ -261,7 +244,7 @@ main div.signwrap div.div_signup h1 {
 main div.signwrap div.div_signup div.div_signupform {
   width: 65%;
   height: 10%;
-  margin: 5% auto 0 auto;
+  margin: 4% auto 0 auto;
 }
 
 main div.signwrap div.div_signup div.div_signupform input {
@@ -275,23 +258,9 @@ main div.signwrap div.div_signup a{
   text-decoration: none;
 }
 
-main div.signwrap div.div_signup a:hover{
-  opacity: 0.5;
-}
 
-main div.signwrap div.div_signup button {
-  display: block;
-  width: 40%;
-  height: 8%;
-  margin: 8% auto 0 auto;
-  text-align: center;
-  font-size: 120%;
-  font-weight: 600;
-  border: #ffffff solid 3px;
-  border-radius: 20px;
-  color: #ffffff;
-  background-color: #72b3f0;
-}
+
+
 
 main div.signwrap div.div_signup p {
   width: 80%;
@@ -378,4 +347,218 @@ main footer .secondary-links .social li > a {
 }
 main footer .secondary-links .social li > a:hover {
   background-color: white;
+}
+
+
+
+
+/* ただのcss(signinの) */
+#flexmod{
+  display: flex;
+  flex-direction: column;
+}
+
+.inputTextin{
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0 0 0;
+}
+.inputTextin b{
+  margin: 20px 0 2px 10%;
+  font-size: 1.1rem;
+}
+
+.mid{
+  text-align: center;
+}
+#passForget{
+  margin: 6px 0 0 40%;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.fieldSize{
+  width: 350px;
+  height: 32px;
+}
+
+
+/* ↓ログインボタン */
+#loginBtn{
+  margin: 40px 0 0 0;
+}
+
+.inputWrap {
+  width: 40%;
+  position: relative;
+  height: 3vw;
+  margin: 0 auto 0 auto;
+  margin-top: 2%;
+  border: none;
+  border-radius: 22px;
+  background: linear-gradient(to right, #77530a, #ffd277, #77530a, #77530a, #ffd277, #77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+.inputWrap::before {
+  position: absolute;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 98%;
+  height: 95%;
+  border-radius: 20px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-size: 200%;
+  z-index: 1;
+  pointer-events: none; /* クリックイベントを無効化 */
+}
+.contentLogin::before{
+  content: "ログイン";
+}
+
+.inputWrap:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+.inputWrap:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+.btnColor {
+  z-index: 1;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+
+/* 新規登録ボタン */
+
+.buttonStyle {
+  width: 40%;
+  position: relative;
+  height: 3vw;
+  margin: 0 auto 10px auto;
+  margin-top: 2%;
+  border: none;
+  border-radius: 22px;
+  background: linear-gradient(to right, #77530a, #ffd277, #77530a, #77530a, #ffd277, #77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+.buttonStyle::before {
+  position: absolute;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 98%;
+  height: 95%;
+  border-radius: 20px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-size: 200%;
+  z-index: 1;
+  pointer-events: none; /* クリックイベントを無効化 */
+}
+.contentNew::before{
+  content: "新規登録へ";
+}
+
+
+.buttonStyle:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+.buttonStyle:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+
+
+
+/* signupの黒金ボタン設定 */
+
+
+.contentSignup::before{
+  content: "サインアップ";
+  font-size: 0.9rem;
+}
+.contentLoginHe::before{
+  content: "ログインへ";
+}
+
+.signupWrap {
+  width: 40%;
+  position: relative;
+  height: 3vw;
+  margin: 0 auto 0 auto;
+  margin-top: 2%;
+  border: none;
+  border-radius: 22px;
+  background: linear-gradient(to right, #77530a, #ffd277, #77530a, #77530a, #ffd277, #77530a);
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+.signupWrap::before {
+  position: absolute;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 98%;
+  height: 95%;
+  border-radius: 20px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-size: 200%;
+  z-index: 1;
+  pointer-events: none; /* クリックイベントを無効化 */
+}
+
+.signupWrap:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+.signupWrap:hover {
+  background-position: right;
+  transition-duration: 1s;
 }

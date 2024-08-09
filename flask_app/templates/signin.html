@@ -32,30 +32,31 @@
 
         <div class="div_signin">
           <h1>ログイン</h1>
-            <form method="post">
+            <form method="post" id="flexmod">
               {{ form.hidden_tag() }}
-              <b>
-                ユーザーID<br>
-                {{ form.name }}<br>
-              </b>
-              <b>
-                パスワード<br>
-                {{ form.password }}
-              </b>
-              {{ form.submit() }}
+
+              <div class="inputTextin">
+                <b>ユーザーID</b>
+                <div class="mid">
+                  {{ form.name(class_='fieldSize') }}
+                </div>
+              </div>
+              <div class="inputTextin">
+                <b>パスワード</b>
+                <div class="mid">
+                  {{ form.password(class_='fieldSize') }}
+                </div>
+                <a id="passForget" href="#">パスワードを忘れた方はこちら</a>
+              </div>
+              <div id="loginBtn">
+                <div class="inputWrap contentLogin">
+                  {{ form.submit(class_='btnColor') }}
+                </div>
+              </div>
+              
             </form>
-          <!--<div class="div_signinform">
-              <b>ユーザーID</b>
-              <input>
-          </div>
-          <div class="div_signinform">
-              <b>パスワード</b>
-              <input>
-          </div> -->
-          <p>パスワードを忘れた方はこちら</p>
-          <!--<a  href="top.html"><button>ログイン</button></a>
-          <! <hr> -->
-          <a href="{{ url_for('signup') }}"><button>新規登録へ</button></a>
+          <hr>
+          <a href="{{ url_for('signup') }}"><button class="buttonStyle contentNew"></button></a>
         </div>
       </div>
 
