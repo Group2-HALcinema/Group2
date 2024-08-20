@@ -241,10 +241,35 @@ def seibetutukuru():
         movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st)
         db.session.add(movie)
         db.session.commit()
-    if screendayo and showdatedayo and showtimedayo and moviedesu:
-        showing = Showing(ScreenID=screendayo, MovieID=moviedesu, ShowTime=showtimedayo, ShowDate=showdatedayo)
-        db.session.add(showing)
-        db.session.commit()
+    # if screendayo and showdatedayo and showtimedayo and moviedesu:
+    #     showing = Showing(ScreenID=screendayo, MovieID=moviedesu, ShowTime=showtimedayo, ShowDate=showdatedayo)
+    #     db.session.add(showing)
+    #     db.session.commit()
+
+    if request.method == 'POST':
+        showing = None  # showing変数をif文の外側で定義
+        movie_id = request.form.get('moviedesu')
+        screen_id = request.form.get('screendayo')
+        showdatedayo = request.form.get('showdatedayo')  # 修正: showdatedayo も取得
+        showtimedayo = request.form.get('showtimedayo')  # 修正: showtimedayo も取得
+        # 型変換と値の確認
+        print(f"movie_id: {movie_id}, screen_id: {screen_id}, showdatedayo: {showdatedayo}, showtimedayo: {showtimedayo}")
+        try:
+            movie_id = int(movie_id)
+            screen_id = int(screen_id)
+        except (TypeError, ValueError):
+            flash('映画IDとスクリーンIDは数値である必要があります。', 'danger')
+            return redirect(url_for('seibetutukuru'))  # エラーがあればフォームへ戻る
+        
+        if movie_id and screen_id and showdatedayo and showtimedayo:
+            showing = Showing(ShowTime=showtimedayo, ShowDate=showdatedayo, MovieID=movie_id, ScreenID=screen_id) 
+            print("showing をデータベースに追加します")
+            db.session.add(showing)
+            db.session.commit()
+            flash('上映情報を追加しました。', 'success')
+        else:
+            flash('必要な情報が選択されていません。', 'danger')
+
     if moviecategory:
         moviecategory = MovieCategory(CategoryName=moviecategory)
         db.session.add(moviecategory)
