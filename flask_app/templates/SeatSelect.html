@@ -13,7 +13,7 @@
 <body>
     <div class="screen">スクリーンはこちら</div>
     <div class="seat-map" id="seat-map">
-        <table>
+        <!-- <table>
             {% if screen_id == 3 %}
                 スクリーン3はこちら
             {% elif screen_id == 2 %}
@@ -21,7 +21,7 @@
             {% else %}
                 その他のスクリーンはこちら
             {% endif %}
-
+            
             {% for seat in seats %}
                 {% if loop.index0 % 20 == 0 %}
                 <tr>
@@ -33,6 +33,50 @@
                 </tr>
                 {% endif %}
             {% endfor %}
+        </table> -->
+        <table>
+            {% if screen_id == 3 %}
+            <tbody>
+            {% for i in range(10) %}
+                <tr>
+                {% for j in range(20) %}
+                    {% set seat = seats[i * 20 + j] if (i * 20 + j) < seats|length else None %}
+                    <td class="seat {{ 'reserved' if seat.reserved }}" data-seat-id="{{ seat.id if seat }}">
+                    {{ seat.row }}{{ seat.number if seat }}
+                    </td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody> 
+
+            {% elif screen_id == 2 %}
+            <tbody>
+                {% for i in range(10) %}
+                <tr>
+                    {% for j in range(12) %}
+                      {% set seat = seats[i * 12 + j] if (i * 12 + j) < seats|length else None %}
+                    <td class="seat {{ 'reserved' if seat.reserved }}" data-seat-id="{{ seat.id if seat }}">
+                        {{ seat.row }}{{ seat.number if seat }}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+
+            {% elif screen_id == 1 %}
+            <tbody>
+                {% for i in range(7) %}
+                <tr>
+                    {% for j in range(10) %}
+                      {% set seat = seats[i * 10 + j] if (i * 10 + j) < seats|length else None %}
+                    <td class="seat {{ 'reserved' if seat.reserved }}" data-seat-id="{{ seat.id if seat }}">
+                        {{ seat.row }}{{ seat.number if seat }}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
         </table>
     </div>
 

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Blueprint, request, jsonify, session, redirect, url_for
 from flask_login import login_user, current_user, login_required
-from ..models import db, Seat, Reservation, Account, Showing, Screen
+from ..models import db, Seat, Reservation, Account, Showing, Screen, Movie
 from sqlalchemy.exc import IntegrityError
 
 views_bp = Blueprint('views', __name__, url_prefix='/views')
@@ -56,7 +56,7 @@ def SeatSelect():
     else:
         # それ以外の場合は、従来通り HTML をレンダリング
         print(seats)
-        return render_template('SeatSelect.html', seats=seat_data, showing_id=showing_id)
+        return render_template('SeatSelect.html', seats=seat_data, showing_id=showing_id,screen_id=screen_id)
 
 
 
