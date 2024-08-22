@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 // 変数定義
 const CLASS = "-active";
 let flg = false;
@@ -58,7 +56,8 @@ accordionTrigger.forEach((item) => {
 focusTrap.addEventListener("focus", (e) => {
   hamburger.focus();
 });
-=======
+
+
 $(".slider").slick({
   autoplay: true, //自動的に動き出すか。初期値はfalse。
   infinite: true, //スライドをループさせるかどうか。初期値はtrue。
@@ -71,4 +70,3 @@ $(".slider").slick({
   variableWidth: true, //幅の違う画像の高さを揃えて表示
   dots: true, //下部ドットナビゲーションの表示
 });
->>>>>>> dbf5bf0202abf428a1db6b19e1352a24a8b9a1f0

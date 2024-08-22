@@ -143,8 +143,9 @@
         {% if reservations %}
           {% for reservation in reservations %}
           <tr>
-              <td><img src="{{ url_for('static', filename='images/' ~ reservation.showing.movie.MovieImageLength) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100"></td>
+              <td><img src="{{ url_for('static', filename='images/movieimages/' ~ reservation.showing.movie.MovieImageLength) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100"></td>
               <td>
+                <p>スクリーン:{{ reservation.showing.ScreenID }}</p>
                 <p>映画タイトル:{{ reservation.showing.movie.MovieTitle }}</p>
                 <p>座席番号:{{ reservation.SeatNumber }}</p>
               </td>

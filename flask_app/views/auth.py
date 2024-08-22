@@ -225,35 +225,53 @@ def seibetutukuru():
     c = request.form.get('c')
     zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
     
-    if seibetu:
-        seibetu = Sex(Sex=seibetu)
-        db.session.add(seibetu)
-        db.session.commit()
-    if capa:
-        capa = Screen(Capacity=capa)
-        db.session.add(capa)
-        db.session.commit()
-    if agelimit:
-        agelimit = AgeLimit(AgeLimit=agelimit)
-        db.session.add(agelimit)
-        db.session.commit()
-    if movie:
-        movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st)
-        db.session.add(movie)
-        db.session.commit()
-    # if screendayo and showdatedayo and showtimedayo and moviedesu:
-    #     showing = Showing(ScreenID=screendayo, MovieID=moviedesu, ShowTime=showtimedayo, ShowDate=showdatedayo)
-    #     db.session.add(showing)
-    #     db.session.commit()
-
     if request.method == 'POST':
+        if seibetu:
+            seibetu = Sex(Sex=seibetu)
+            db.session.add(seibetu)
+            db.session.commit()
+        if capa:
+            capa = Screen(Capacity=capa)
+            db.session.add(capa)
+            db.session.commit()
+        if agelimit:
+            agelimit = AgeLimit(AgeLimit=agelimit)
+            db.session.add(agelimit)
+            db.session.commit()
+        if movie:
+            movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st)
+            db.session.add(movie)
+            db.session.commit()
+
+        if moviecategory:
+            moviecategory = MovieCategory(CategoryName=moviecategory)
+            db.session.add(moviecategory)
+            db.session.commit()
+        if cast:
+            cast = Cast(CastName=cast, MovieID=moviedayo)
+            db.session.add(cast)
+            db.session.commit()
+        if start_time and kubunmei and end_time:    
+            start_time = datetime.strptime(start_time, '%H:%M').time()  
+            end_time = datetime.strptime(end_time, '%H:%M').time()
+            showtime = ShowTime(kubunmei=kubunmei, start_time=start_time, end_time=end_time)
+            db.session.add(showtime)
+            db.session.commit()
+        if priceplans and price:
+            price = Price(PricePlans=priceplans, Price=price)
+            db.session.add(price)
+            db.session.commit()
+        if discountname and discount:
+            discount = Discount(DiscountName=discountname, Discount=discount)
+            db.session.add(discount)
+            db.session.commit()
+
         showing = None  # showing変数をif文の外側で定義
         movie_id = request.form.get('moviedesu')
         screen_id = request.form.get('screendayo')
         showdatedayo = request.form.get('showdatedayo')  # 修正: showdatedayo も取得
         showtimedayo = request.form.get('showtimedayo')  # 修正: showtimedayo も取得
         # 型変換と値の確認
-        print(f"movie_id: {movie_id}, screen_id: {screen_id}, showdatedayo: {showdatedayo}, showtimedayo: {showtimedayo}")
         try:
             movie_id = int(movie_id)
             screen_id = int(screen_id)
@@ -269,29 +287,6 @@ def seibetutukuru():
             flash('上映情報を追加しました。', 'success')
         else:
             flash('必要な情報が選択されていません。', 'danger')
-
-    if moviecategory:
-        moviecategory = MovieCategory(CategoryName=moviecategory)
-        db.session.add(moviecategory)
-        db.session.commit()
-    if cast:
-        cast = Cast(CastName=cast, MovieID=moviedayo)
-        db.session.add(cast)
-        db.session.commit()
-    if start_time and kubunmei and end_time:    
-        start_time = datetime.strptime(start_time, '%H:%M').time()  
-        end_time = datetime.strptime(end_time, '%H:%M').time()
-        showtime = ShowTime(kubunmei=kubunmei, start_time=start_time, end_time=end_time)
-        db.session.add(showtime)
-        db.session.commit()
-    if priceplans and price:
-        price = Price(PricePlans=priceplans, Price=price)
-        db.session.add(price)
-        db.session.commit()
-    if discountname and discount:
-        discount = Discount(DiscountName=discountname, Discount=discount)
-        db.session.add(discount)
-        db.session.commit()
 
     # if a:
     #     # for row in range(1, 11):
@@ -311,16 +306,6 @@ def seibetutukuru():
     #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
     #             db.session.add(seat)
     #     db.session.commit()
-
-    # 上映テーブルにデータを入れるやつ　佐藤
-    # if request.method == 'POST':
-    #     movie_id = request.form['movie_id']
-    #     screen_id = request.form['screen_id']
-    #     if movie_id and screen_id:
-    #         new_showing = Showing(MovieID=movie_id, ScreenID=screen_id)
-    #         db.session.add(new_showing)
-    #         db.session.commit()
-
 
     # 予約テーブルのレコード全消し 佐藤
     # この機能を使うときは、上映テーブルにデータ入れるやつをコメントアウトしないと動かん　治す気力はない　ほかの機能止まったらごめん

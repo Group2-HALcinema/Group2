@@ -69,9 +69,8 @@
         <div class="s_titleWrap">
           <h1>上映中作品一覧</h1>
         </div>
-
+<!-- 
         <div class="s_sliderBox">
-
           <div class="slide_container">
             <div class="slider2">
               <ul class="slider fadeInTrigger">
@@ -93,61 +92,54 @@
               </ul>
             </div>
           </div>
+        </div> -->
 
+        <div class="s_sliderBox">
+          <div class="slide_container">
+            <div class="slider2">
+              <ul class="slider fadeInTrigger">
+                {% for movie in movies %}
+                <li>
+                  <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageLength) }}" alt="{{ movie.MovieTitle }}"/>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <div class="s_MovieBlock">
-          <div class="s_imageWrap"><img src="{{url_for('static', filename='images/IA33_h_01.webp')}}" alt="ホラー画像"></div>
-          <div class="s_MovieInfo">
-            <p>映画タイトル</p>
-            <p>キャストキャストキャストキャストキャストキャストキャストキャスト</p>
-            <p>レイティング　指定なし</p>
-          </div>
-          <div class="s_buttons">
-            <div class="s_movieStatus"><p>上映中</p></div>
-            <div class="s_detail"><a href="{{url_for('views.moviedetail')}}" style="text-decoration: none;
-              width: 100%;
-              height: auto;
-              display: block;
-              cursor: pointer;">詳細</a></div>
-          </div>
-        </div>
-              
-        <div class="s_MovieBlock">
-          <div class="s_imageWrap"><img src="{{url_for('static', filename='images/IA33_h_01.webp')}}" alt="ホラー画像"></div>
-          <div class="s_MovieInfo">
-            <p>映画タイトル</p>
-            <p>キャストキャストキャストキャストキャストキャストキャストキャスト</p>
-            <p>レイティング　指定なし</p>
-          </div>
-          <div class="s_buttons">
-            <div class="s_movieStatus"><p>上映中</p></div>
-            <div class="s_detail"><a href="{{url_for('views.moviedetail')}}" style="text-decoration: none;
-              width: 100%;
-              height: auto;
-              display: block;
-              cursor: pointer;">詳細</a></div>
+        <div class="s_MovieList">
+          {% for movie in movies %}
+            <div class="s_MovieBlock">
+              <div class="s_imageWrap">
+                <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageSide) }}" alt="{{ movie.MovieTitle }}"/>
+              </div>
+              <div class="s_MovieInfo">
+                <p>{{ movie.MovieTitle }}</p>
+                <p>
+                  {% for cast in movie.cast %}
+                  {{ cast.CastName[:50] }}{% if cast.CastName|length > 50 %}...{% endif %}
+                  {% endfor %}
+                </p>
+                <p>レイティング　{{ movie.agelimit.AgeLimitName }}</p>
+              </div>
+              <div class="s_buttons">
+                <div class="s_movieStatus"><p>上映中</p></div>
+                <div class="s_detail">
+                  <a href="{{ url_for('views.moviedetail', movie_id=movie.MovieID) }}" style="text-decoration: none;
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    cursor: pointer;">詳細</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
           </div>
         </div>
-              
-        <div class="s_MovieBlock">
-          <div class="s_imageWrap"><img src="{{url_for('static', filename='images/IA33_h_01.webp')}}" alt="ホラー画像"></div>
-          <div class="s_MovieInfo">
-            <p>映画タイトル</p>
-            <p>キャストキャストキャストキャストキャストキャストキャストキャスト</p>
-            <p>レイティング　指定なし</p>
-          </div>
-          <div class="s_buttons">
-            <div class="s_movieStatus"><p>上映中</p></div>
-            <div class="s_detail"><a href="{{url_for('views.moviedetail')}}" style="text-decoration: none;
-              width: 100%;
-              height: auto;
-              display: block;
-              cursor: pointer;">詳細</a></div>
-          </div>
-        </div>
-              
+
       </div>
+      
       <div class="space_2">
         <input type="checkbox" id="H_1" name="space_2"><label for="H_1">H</label>
         <input type="checkbox" id="A_2" name="space_2"><label for="A_2">A</label>
