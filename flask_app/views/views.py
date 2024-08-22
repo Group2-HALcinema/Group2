@@ -15,7 +15,7 @@ def load_user(user_id):
     return Account.query.get(int(user_id))
 
 
-# 座席指定ページ
+# 座席指定ページ(表示)
 @views_bp.route('/SeatSelect')
 def SeatSelect():
     # URLパラメータからshowingIDを取得
@@ -59,9 +59,7 @@ def SeatSelect():
         return render_template('SeatSelect.html', seats=seat_data, showing_id=showing_id,screen_id=screen_id)
 
 
-
-
-# 座席予約機能
+# 座席指定ページ(座席予約機能)
 @views_bp.route('/reserve_seat', methods=['POST'])
 @login_required
 def reserve_seat():
@@ -83,12 +81,10 @@ def reserve_seat():
 
             # 既に予約済みの場合はエラーメッセージを返す
             if existing_reservation:
-                print(existing_reservation)
                 return jsonify({'status': 'error', 'message': '選択された座席は既に予約されています'}), 400
 
             # ログイン中のユーザーのアカウントIDを取得
             account_id = current_user.AccountID
-
 
             # 新しい予約を作成
             reservation = Reservation(
@@ -105,13 +101,19 @@ def reserve_seat():
     except Exception as e:
         db.session.rollback()
         print(f"An error occurred: {e}")  # エラーログを出力
-        return jsonify({'status': 'error', 'message': '予約に失敗しました'}), 500
+        return jsonify({'status': 'error', 'message': str(e)}), 500  # エラーメッセージを返す
 
 
-
+# 公開予定一覧ページ
 @views_bp.route('/comingList')
 def cominglist():
-    return render_template('comingList.html')
+    # Showingテーブルに存在するMovieIDを取得
+    showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
+    showing_movie_ids = [item[0] for item in showing_movie_ids]
+
+    # Showingテーブルに存在しないMovieIDを持つ映画情報を取得
+    upcoming_movies = db.session.query(Movie).filter(~Movie.MovieID.in_(showing_movie_ids)).all()
+    return render_template('comingList.html',upcoming_movies=upcoming_movies)
 
 @views_bp.route('/infoedit')
 def infoedit():
@@ -125,10 +127,14 @@ def moviedetail():
 # 上映中一覧ページ
 @views_bp.route('/movielist')
 def movielist():
-    # 上映中の映画と上映情報を取得
-    # showings = db.session.query(Showing, Movie).join(Movie).all()
-    # return render_template('movieList.html', showings=showings)
-    return render_template('movieList.html')
+    # Showingテーブルから上映中のMovieIDを取得
+    showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
+    showing_movie_ids = [item[0] for item in showing_movie_ids]  # リスト内のタプルを展開
+
+    # 取得したMovieIDリストを使ってMovieテーブルから映画情報を取得
+    movies = db.session.query(Movie).filter(Movie.MovieID.in_(showing_movie_ids)).all()
+
+    return render_template('movieList.html', movies=movies)
 
 @views_bp.route('/screen')
 def screen():
