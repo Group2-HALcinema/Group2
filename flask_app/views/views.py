@@ -14,7 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../instance/HALcinema.db'  # 
 def load_user(user_id):
     return Account.query.get(int(user_id))
 
-
 # 座席指定ページ(表示)
 @views_bp.route('/SeatSelect')
 def SeatSelect():
@@ -115,14 +114,18 @@ def cominglist():
     upcoming_movies = db.session.query(Movie).filter(~Movie.MovieID.in_(showing_movie_ids)).all()
     return render_template('comingList.html',upcoming_movies=upcoming_movies)
 
+
 @views_bp.route('/infoedit')
 def infoedit():
     return render_template('infoEdit.html')
 
 # 映画詳細ページ
-@views_bp.route('/moviedetail')
-def moviedetail():
-    return render_template('moviedetail.html')
+@views_bp.route('/moviedetail/<int:movie_id>')
+def moviedetail(movie_id):
+    # movie_idに基づいて映画の情報を取得
+    movie = Movie.query.get_or_404(movie_id)
+    showing = Showing.query.all()
+    return render_template('moviedetail.html', movie=movie, showing=showing)
 
 # 上映中一覧ページ
 @views_bp.route('/movielist')
@@ -135,6 +138,7 @@ def movielist():
     movies = db.session.query(Movie).filter(Movie.MovieID.in_(showing_movie_ids)).all()
 
     return render_template('movieList.html', movies=movies)
+
 
 @views_bp.route('/screen')
 def screen():

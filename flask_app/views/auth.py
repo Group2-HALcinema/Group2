@@ -23,6 +23,7 @@ def load_user(user_id):
 #     return render_template("top.html")
 @app.route("/")
 def index():
+    # create_calendar2024()
     return render_template('top.html')
 
 #アカウント作成
@@ -175,7 +176,6 @@ def seibetutukuru():
     capa = request.form.get('capacity')
     agelimit = request.form.get('agelimit')
     movie = request.form.get('movie')
-    end_time = request.form.get('end_time')
     start_time = request.form.get('start_time')
     kubunmei = request.form.get('kubunmei')
     agelimitdayo = request.form.get('agelimitdayo')
@@ -193,6 +193,8 @@ def seibetutukuru():
     ms = request.form.get('ms')
     ov = request.form.get('ov')
     st = request.form.get('st')
+    hazime = request.form.get('startdate')
+    owari = request.form.get('finishdate')
     
     
     priceplans = request.form.get('priceplans')
@@ -239,7 +241,7 @@ def seibetutukuru():
             db.session.add(agelimit)
             db.session.commit()
         if movie:
-            movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st)
+            movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st, StartDate=hazime, FinishDate=owari)
             db.session.add(movie)
             db.session.commit()
 
@@ -251,10 +253,9 @@ def seibetutukuru():
             cast = Cast(CastName=cast, MovieID=moviedayo)
             db.session.add(cast)
             db.session.commit()
-        if start_time and kubunmei and end_time:    
-            start_time = datetime.strptime(start_time, '%H:%M').time()  
-            end_time = datetime.strptime(end_time, '%H:%M').time()
-            showtime = ShowTime(kubunmei=kubunmei, start_time=start_time, end_time=end_time)
+        if start_time and kubunmei:    
+            start_time = datetime.strptime(start_time, '%H:%M').time() 
+            showtime = ShowTime(kubunmei=kubunmei, start_time=start_time)
             db.session.add(showtime)
             db.session.commit()
         if priceplans and price:
@@ -289,11 +290,11 @@ def seibetutukuru():
             flash('必要な情報が選択されていません。', 'danger')
 
     # if a:
-    #     # for row in range(1, 11):
-    #     #     for col in range(1, 21):
-    #     #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
-    #     #         db.session.add(seat)
-    #     # db.session.commit()
+    #     for row in range(1, 11):
+    #         for col in range(1, 21):
+    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+    #             db.session.add(seat)
+    #     db.session.commit()
     # if b:
     #     for row in range(1, 11):
     #         for col in range(1, 13):
@@ -323,7 +324,9 @@ def seibetutukuru():
     showtimess = ShowTime.query.all()
     screens  = Screen.query.all()
     
-    return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, showtimes=showtimess, screens=screens, form=form)
+    return render_template('seibetutukuru.html', showtimes=showtimess, reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, screens=screens, form=form)
+
+
 
 app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録
 
