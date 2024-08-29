@@ -67,151 +67,70 @@
 
       <div id="wrap">
         <div>
-
-          <ul>
-            <li id="thumbnail">
-              <div><img src="{{url_for('static', filename='images/konan.jpg')}}"></div>
-            </li>
-          </ul>
-
-          <div id="Synopsis">
-            <section style="flex-flow: column;">
-              <h2>名探偵コナン 100万ドルの五稜星</h2>
-              <ul>
-                <li style="width: 30%;">監督</li>
-                <li style="width: 70%;">永岡智佳</li>
-              </ul>
-
-              <div>
-
-                <ul style="margin-top: -3%;">
-                  <li style="width: 40%;"><p>上映時間</p></li>
-                  <li style="width: 60%;"><p>111分</p></li>
-                </ul>
-
-                <ul style="margin: -3% 0 0 -10%">
-                  <li style="width: 55%;"><p>レーティング</p></li>
-                  <li style="width: 45%;"><p>指定なし</p></li>
-                </ul>
-              </div>
-
-            </section>
-            <h2>北海道・函館にある斧江財閥の収蔵庫に、怪盗キッドからの予告状が届いた。今回キッドが狙うのは、幕末を生きた新選組副長・土方歳三にまつわる日本刀だという。ビッグジュエルを追い求めるキッドが、なぜ刀を狙うのか...？
-              一方、西の名探偵・服部平次とコナン達も、函館で開催される剣道大会の為に現地を訪れており、犯行予告当日、平次がキッドの変装を見事見破り追い詰めるが...！？
-              時を同じくして、胸に十文字の切り傷がつけられた遺体が函館倉庫街で見つかる。捜査線上に浮かび上がったのは、“死の商人”と呼ばれ、アジア一帯で武器商人として活動する日系アメリカ人の男。
-            </h2>
-          </div>
+            <ul>
+                <li id="thumbnail">
+                    <div><img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageSide) }}" alt="{{ movie.MovieTitle }}"></div>
+                </li>
+            </ul>
+    
+            <div id="Synopsis">
+                <section style="flex-flow: column;">
+                    <h2>{{ movie.MovieTitle }}</h2>
+                    <ul>
+                        <li style="width: 30%;">監督</li>
+                        <li style="width: 70%;">{{ movie.MD }}</li>
+                    </ul>
+                    <div>
+                        <ul style="margin-top: -3%;">
+                            <li style="width: 40%;"><p>上映時間</p></li>
+                            <li style="width: 60%;"><p>{{ movie.ShowTimes }}分</p></li>
+                        </ul>
+                        <ul style="margin: -3% 0 0 -10%">
+                            <li style="width: 55%;"><p>レーティング</p></li>
+                            <li style="width: 45%;"><p>{{ movie.agelimit.AgeLimit }}</p></li>
+                        </ul>
+                    </div>
+                </section>
+                <h2>{{ movie.Overview }}</h2>
+            </div>
         </div>
-      </div>
-
-
-
-      <div id="schedule">
+    </div>
+    
+    <div id="schedule">
         <h2>上映スケジュール</h2>
         <span>
-          <div id="scheduleday">
-
-            <div>
-              <span>
-                <p class="day">5/24(月)</p>
-                <p></p>
-              </span>
-            </div>
-
-            <div style="border-left: solid #fff 0.00001vw; border-right: solid #fff 0.00001vw;">
-              <span>
-                <p class="day">5/24(月)</p>
-                <p></p>
-              </span>
-            </div>
-
-            <div>
-              <span>
-                <p class="day">5/24(月)</p>
-                <p></p>
-              </span>
-            </div>
-
-            <div style="border-left: solid #fff 0.00001vw; border-right: solid #fff 0.00001vw;">
-              <span>
-                <p class="day">5/24(月)</p>
-                <p></p>
-              </span>
-            </div>
-
-            <div>
-              <span>
-                <p class="day">5/24(月)</p>
-                <p></p>
-              </span>
-            </div>
-
-
-            <div style="border-left: solid #fff 0.00001vw; border-right: solid #fff 0.00001vw;">
-              <span>
-                <p class="day">5/24(月)</p>
-                <p></p>
-              </span>
-            </div>
-
-
-            <div>
-              <span>
-                <p class="day">5/24(月)</p>
-                <p></p>
-              </span>
-            </div>
-
-          </div>
-
-
-          <div id="scheduletime">
-            <div class="screenbody">
-              <section>
-                <h6>screen5</h6>
-                <div class="screenwrap">
-                  <div>
-                    <a href="{{ url_for('views.SeatSelect', showing_id=3) }}">
-                      <p class="time"><span class="starttime">9:40</span>~<span class="endtime">11:45</span></p>
-                      <p class="info">　</p>
-                      <p class="status">販売中</p>
-                    </a>
-                  </div>
-                  <div>
-                    <a href="{{ url_for('views.SeatSelect', showing_id=2) }}">
-                      <p class="time"><span class="starttime">12:15</span>~<span class="endtime">14:20</span></p>
-                      <p class="info">　</p>
-                      <p class="status">販売中</p>
-                    </a>
-                  </div>
-                  <div>
-                    <a href="{{ url_for('views.SeatSelect', showing_id=1) }}">
-                      <p class="time"><span class="starttime">14:55</span>~<span class="endtime">17:00</span></p>
-                      <p class="info">　</p>
-                      <p class="status">販売中</p>
-                    </a>
-                  </div>
-                  <div>
-                    <a>
-                      <p class="time"><span class="starttime">17:35</span>~<span class="endtime">19:40</span></p>
-                      <p class="info">　</p>
-                      <p class="status">販売中</p>
-                    </a>
-                  </div>
-                  <div>
-                    <a>
-                      <p class="time"><span class="starttime">20:15</span>~<span class="endtime">22:30</span></p>
-                      <p class="info">レイトショー</p>
-                      <p class="status">販売中</p>
-                    </a>
-                  </div>
+            <div id="scheduleday">
+              {% for showing in movie.showing %}
+                <div>
+                    <span>
+                        <p class="day">{{ showing.calender.day.strftime('%m/%d(%a)') }}</p>
+                        <p></p>
+                    </span>
                 </div>
-              </section>
+              {% endfor %}
             </div>
-          </div>
+    
+            <div id="scheduletime">
+                <div class="screenbody">
+                  {% for showing in movie.showing %}
+                    <section>
+                        <h6>スクリーン{{ showing.screen.ScreenID}}</h6>
+                        <div class="screenwrap">
+                            <div>
+                                <a href="{{ url_for('views.SeatSelect', showing_id=showing.ShowingID) }}">
+                                    <p class="time"><span class="starttime">{{ showing.showtime.start_time.strftime('%H:%M') }}</span></p>
+                                    <p class="info">{{ showing.Info }}</p>
+                                    <p class="status">{{ showing.Status }}</p>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                  {% endfor %}
+                </div>
+            </div>
         </span>
-      </div>
-
+    </div>
+    
       
 
 
