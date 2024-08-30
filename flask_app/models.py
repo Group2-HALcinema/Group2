@@ -156,4 +156,3 @@ class ShowTime(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kubunmei = db.Column(db.String(80), nullable=False)
     start_time = db.Column(db.Time, nullable=False)
-    end_time = db.Column(db.Time, nullable=False)
