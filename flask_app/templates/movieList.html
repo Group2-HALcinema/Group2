@@ -47,9 +47,9 @@
           <div >
             <a href="{{ url_for('views.movielist') }}">上映中一覧</a>
             <ul>
-              <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
-              <li><a href=""><span>A</span>ction</a></li>
-              <li><a href=""><span>L</span>ove</a></li>
+              <li><a href="{{ url_for('views.movielist_h') }}" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
+              <li><a href="{{ url_for('views.movielist_a') }}"><span>A</span>ction</a></li>
+              <li><a href="{{ url_for('views.movielist_l') }}"><span>L</span>ove</a></li>
             </ul>
           </div>
         </li>
@@ -69,30 +69,6 @@
         <div class="s_titleWrap">
           <h1>上映中作品一覧</h1>
         </div>
-<!-- 
-        <div class="s_sliderBox">
-          <div class="slide_container">
-            <div class="slider2">
-              <ul class="slider fadeInTrigger">
-                <li>
-                  <img src="{{url_for('static', filename='images/IA33_a_01.jpg')}}" alt="アクション映画画像"/>
-                </li>
-                <li>
-                  <img src="{{url_for('static', filename='images/IA33_a_01.jpg')}}" alt="アクション映画画像"/>
-                </li>
-                <li>
-                  <img src="{{url_for('static', filename='images/IA33_a_01.jpg')}}" alt="アクション映画画像"/>
-                </li>
-                <li>
-                  <img src="{{url_for('static', filename='images/IA33_a_01.jpg')}}" alt="アクション映画画像"/>
-                </li>
-                <li>
-                  <img src="{{url_for('static', filename='images/IA33_a_01.jpg')}}" alt="アクション映画画像"/>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> -->
 
         <div class="s_sliderBox">
           <div class="slide_container">

@@ -139,6 +139,40 @@ def movielist():
 
     return render_template('movieList.html', movies=movies)
 
+# 上映中一覧ページ(ホラー)
+@views_bp.route('/movielist_h')
+def movielist_h():
+    # Showingテーブルから上映中のMovieIDを取得
+    showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
+    showing_movie_ids = [item[0] for item in showing_movie_ids]  # リスト内のタプルを展開
+    # 取得したMovieIDリストを使って、
+    # MovieテーブルからmoviecategoryIDが1の映画情報を取得
+    movies = db.session.query(Movie).filter(Movie.MovieID.in_(showing_movie_ids), Movie.MovieCategoryID == 1).all()
+    return render_template('movieList_h.html', movies=movies)
+
+# 上映中一覧ページ(アクション)
+@views_bp.route('/movielist_a')
+def movielist_a():
+    # Showingテーブルから上映中のMovieIDを取得
+    showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
+    showing_movie_ids = [item[0] for item in showing_movie_ids]  # リスト内のタプルを展開
+    # 取得したMovieIDリストを使って、
+    # MovieテーブルからmoviecategoryIDが2の映画情報を取得
+    movies = db.session.query(Movie).filter(Movie.MovieID.in_(showing_movie_ids), Movie.MovieCategoryID == 2).all()
+    return render_template('movieList_a.html', movies=movies)
+
+# 上映中一覧ページ(ラブ)
+@views_bp.route('/movielist_l')
+def movielist_l():
+    # Showingテーブルから上映中のMovieIDを取得
+    showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
+    showing_movie_ids = [item[0] for item in showing_movie_ids]  # リスト内のタプルを展開
+    # 取得したMovieIDリストを使って、
+    # MovieテーブルからmoviecategoryIDが3の映画情報を取得
+    movies = db.session.query(Movie).filter(Movie.MovieID.in_(showing_movie_ids), Movie.MovieCategoryID == 3).all()
+    return render_template('movieList_l.html', movies=movies)
+
+
 
 @views_bp.route('/screen')
 def screen():
