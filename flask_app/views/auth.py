@@ -187,6 +187,8 @@ def seibetutukuru():
     showtimedayo = request.form.get('shottimedayo')
     showdatedayo = request.form.get('showdatedayo')
     moviedesu = request.form.get('moviedesu')
+    form = DeleteAllForm()
+    delete_movie_form = DeleteMovieForm()  # フォームを作成
 
     
     md = request.form.get('md')
@@ -267,6 +269,18 @@ def seibetutukuru():
             db.session.add(discount)
             db.session.commit()
 
+        if delete_movie_form.validate_on_submit():
+            print("a")
+            movie_id_to_delete = request.form['delete_movie_id']
+            try:
+                movie_id_to_delete = int(movie_id_to_delete)
+                movie = Movie.query.get_or_404(movie_id_to_delete) # Movieオブジェクトを取得
+                db.session.delete(movie) # Movieオブジェクトを削除
+                db.session.commit()
+                flash('映画情報を削除しました', 'success')
+            except (TypeError, ValueError):
+                flash('無効な映画IDです。', 'danger')
+                
         showing = None  # showing変数をif文の外側で定義
         movie_id = request.form.get('moviedesu')
         screen_id = request.form.get('screendayo')
@@ -310,7 +324,6 @@ def seibetutukuru():
 
     # 予約テーブルのレコード全消し 佐藤
     # この機能を使うときは、上映テーブルにデータ入れるやつをコメントアウトしないと動かん　治す気力はない　ほかの機能止まったらごめん
-    form = DeleteAllForm()
     if form.validate_on_submit():
         db.session.query(Reservation).delete()
         db.session.commit()
@@ -323,8 +336,9 @@ def seibetutukuru():
     calendars = Calendar2024.query.all()
     showtimess = ShowTime.query.all()
     screens  = Screen.query.all()
+
     
-    return render_template('seibetutukuru.html', showtimes=showtimess, reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, screens=screens, form=form)
+    return render_template('seibetutukuru.html', showtimes=showtimess, reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, screens=screens, form=form, delete_movie_form=delete_movie_form)
 
 
 
