@@ -1,8 +1,8 @@
 from flask import Flask, render_template, Blueprint, request, jsonify, session, redirect, url_for
 from flask_login import login_user, current_user, login_required
-from ..models import db, Seat, Reservation, Account, Showing, Screen, Movie
+from ..models import db, Seat, Reservation, Account, Showing, Screen, Movie, Price
 from sqlalchemy.exc import IntegrityError
-
+import re
 views_bp = Blueprint('views', __name__, url_prefix='/views')
 
 from flask_app import login_manager, app
@@ -64,13 +64,50 @@ def SeatSelect():
 def reserve_seat():
     try:
         # フロントエンドから選択された座席IDのリストと上映IDを取得
-        selected_seat_ids = request.form.getlist('seat_ids[]')  # リストとして取得
+        selected_seat_str = request.form.get('selected_seats')  # リストとして取得
         showing_id = request.form.get('showing_id')
+        price_plans = request.form.getlist('price_plans')  
+        
+        print("選択された料金プラン:", price_plans)
+        print("受け取った座席ID:", selected_seat_str)
+        print("受け取ったShowingID:", showing_id)
+        
+        
+        # selected_seat_str の内容を確認する
+        if selected_seat_str:
+            print(f"selected_seat_str の型: {type(selected_seat_str)}")
+            print(f"selected_seat_str の内容: {selected_seat_str}")
 
+        # 正規表現を使って座席IDを抽出
+        seat_id_matches = re.findall(r'<Seat (\d+)>', selected_seat_str)
+        if not seat_id_matches:
+            return jsonify({'status': 'error', 'message': '座席IDの形式が不正です'}), 400
+        
+        selected_seat_list = seat_id_matches
+        print(f"抽出後の selected_seat_list: {selected_seat_list}")
+        
+        # `showing_id` から数値を抽出
+        showing_id_match = re.search(r'\d+', showing_id)
+        if showing_id_match:
+            showing_id = int(showing_id_match.group())
+        else:
+            return jsonify({'status': 'error', 'message': 'ShowingIDの形式が不正です'}), 400
+
+        # 料金プランが二重リストで渡されている場合の処理
+        if isinstance(price_plans[0], str):
+            import ast
+            price_plans = ast.literal_eval(price_plans[0])
+        
+        if len(selected_seat_list) != len(price_plans):
+            return jsonify({'status': 'error', 'message': '座席と料金プランの数が一致しません'}), 400
+    
         # 選択された各座席に対して予約処理を実行
-        for selected_seat_id in selected_seat_ids:
-            # 座席IDを整数に変換してデータベースから座席情報を取得
-            seat = Seat.query.get(int(selected_seat_id))  
+        for selected_seat_id, price_plan_id in zip(selected_seat_list, price_plans):
+            
+            
+            seat = Seat.query.filter_by(SeatID=selected_seat_id).first()
+            if seat is None:
+                return jsonify({'status': 'error', 'message': f'Seat ID {selected_seat_id} が存在しません'}), 400
 
             # 選択された座席が既に予約済みかどうかを確認
             existing_reservation = Reservation.query.filter_by(
@@ -89,13 +126,14 @@ def reserve_seat():
             reservation = Reservation(
                 AccountID=account_id,
                 ShowingID=showing_id, 
-                SeatNumber=str(seat.Row) + str(seat.Number)
+                SeatNumber=str(seat.Row) + str(seat.Number),
+                PriceID=price_plan_id
             )
             db.session.add(reservation)
         
         db.session.commit()
         # リダイレクト先URLをヘッダーに含めて返す
-        return jsonify({'status': 'success', 'redirect_url': url_for('views.reservation_complete')}), 200
+        return redirect('buycomp')
     
     except Exception as e:
         db.session.rollback()
@@ -155,7 +193,37 @@ def ticketdetail():
 # 購入確認ページ
 @views_bp.route('/buyCheck')
 def buyCheck():
-    return render_template('buyCheck.html')
+    showing_id = request.args.get('showing_id')
+    selected_seat_str = request.args.get('selected_seats')  # リストとして取得
+    
+    print("受け取ったShowingID:", showing_id)
+
+    if not showing_id:
+        return jsonify({'status': 'error', 'message': 'URLパラメータに上映IDがありません.'}), 400
+    
+    # Showingテーブルからshowing情報を取得
+    showing = Showing.query.get(showing_id)
+
+    if not showing:
+        return jsonify({'status': 'error', 'message': '指定された上映IDに対応する上映情報が見つかりません.'}), 400
+    
+    # 選択された座席IDをリストに変換
+    try:
+        selected_seat_ids = [int(seat_id) for seat_id in selected_seat_str.split(',') if seat_id]
+    except ValueError:
+        return jsonify({'status': 'error', 'message': '座席IDの形式が無効です。'}), 400
+
+    # 選択された座席情報を取得
+    selected_seats_info = []
+    for selected_seat_id in selected_seat_ids:
+        seat = Seat.query.get(selected_seat_id)
+        if seat:
+            selected_seats_info.append(seat)
+    
+    price = Price.query.all()
+    
+    return render_template('buyCheck.html', showing=showing, selected_seats=selected_seats_info, price=price, showing_id=showing)
+
 
 # 購入完了ページ
 @views_bp.route('/buycomp')
@@ -163,9 +231,30 @@ def buycomp():
     return render_template('buycomp.html')
 
 # お支払確認ページ　ついかこんどう
-@views_bp.route('/paycheck')
+@views_bp.route('/paycheck', methods=['POST'])
 def paycheck():
-    return render_template('paycheck.html')
+    selected_seat_str = request.form.get('selected_seats')  # リストとして取得
+    showing_id = request.form.get('showing_id')
+    price_plans = request.form.getlist('price_plans[]')  # フォームデータの確認
+    
+    # 選択された座席IDをリストに変換
+    # try:
+    #     selected_seat_ids = [int(seat_id) for seat_id in selected_seat_str.split(',') if seat_id]
+    # except ValueError:
+    #     return jsonify({'status': 'error', 'message': '座席IDの形式が無効です。'}), 400
+    
+    # 選択された座席情報を取得
+    # selected_seats_info = []
+    # for selected_seat_id in selected_seat_str:
+    #     seat = Seat.query.get(selected_seat_id)
+    #     if seat:
+    #         selected_seats_info.append(seat)
+    
+    print("選択された料金プラン:", price_plans)
+    print("受け取った座席ID:", selected_seat_str)
+    print("受け取ったShowingID:", showing_id)
+    
+    return render_template('paycheck.html', price_plans=price_plans, showing_id=showing_id, selected_seats=selected_seat_str)
 
 # 予約完了画面
 @views_bp.route('/reservation_complete')
