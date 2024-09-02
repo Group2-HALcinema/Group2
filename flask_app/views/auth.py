@@ -24,6 +24,23 @@ def load_user(user_id):
 @app.route("/")
 def index():
     # create_calendar2024()
+    # zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
+    # for row in range(1, 11):
+    #     for col in range(1, 21):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+    #         db.session.add(seat)
+    # db.session.commit()
+    # for row in range(1, 11):
+    #     for col in range(1, 13):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+    #         db.session.add(seat)
+    # db.session.commit()
+    # for row in range(1, 8):
+    #     for col in range(1, 11):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+    #         db.session.add(seat)
+    # db.session.commit()
+
     return render_template('top.html')
 
 #アカウント作成
@@ -289,24 +306,24 @@ def seibetutukuru():
         else:
             flash('必要な情報が選択されていません。', 'danger')
 
-    # if a:
-    #     for row in range(1, 11):
-    #         for col in range(1, 21):
-    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
-    #             db.session.add(seat)
-    #     db.session.commit()
-    # if b:
-    #     for row in range(1, 11):
-    #         for col in range(1, 13):
-    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
-    #             db.session.add(seat)
-    #     db.session.commit()
-    # if c:
-    #     for row in range(1, 8):
-    #         for col in range(1, 11):
-    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
-    #             db.session.add(seat)
-    #     db.session.commit()
+    if a:
+        for row in range(1, 11):
+            for col in range(1, 21):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+                db.session.add(seat)
+        db.session.commit()
+    if b:
+        for row in range(1, 11):
+            for col in range(1, 13):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+                db.session.add(seat)
+        db.session.commit()
+    if c:
+        for row in range(1, 8):
+            for col in range(1, 11):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+                db.session.add(seat)
+        db.session.commit()
 
     # 予約テーブルのレコード全消し 佐藤
     # この機能を使うときは、上映テーブルにデータ入れるやつをコメントアウトしないと動かん　治す気力はない　ほかの機能止まったらごめん

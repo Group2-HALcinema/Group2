@@ -76,7 +76,8 @@
       <form id="priceForm" method="POST" action="{{ url_for('views.reserve_seat') }}">
         <input type="hidden" name="showing_id" value="{{ showing_id }}">
         <input type="hidden" name="selected_seats"  value="{{ selected_seats }}">
-        <input type="hidden" name="price_plans"  value="{{ price_plans }}">
+        <input type="hidden" name="otona"  value="{{ otona }}">
+        <input type="hidden" name="kodomo"  value="{{ kodomo }}">
           <!-- モーダルのHTML -->
         <div class="modal__wrapper">
           <div class="modal__layer"></div>

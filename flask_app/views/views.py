@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Blueprint, request, jsonify, session, redirect, url_for
 from flask_login import login_user, current_user, login_required
-from ..models import db, Seat, Reservation, Account, Showing, Screen, Movie, Price
+from ..models import db, Seat, Reservation, Account, Showing, Screen, Movie, Price, ReservSeat
 from sqlalchemy.exc import IntegrityError
 import re
 views_bp = Blueprint('views', __name__, url_prefix='/views')
@@ -34,8 +34,9 @@ def SeatSelect():
     seats = Seat.query.filter_by(ScreenID=screen_id).all()
 
     # ShowingIDで予約済み座席を絞り込む
-    reserved_seats = Reservation.query.filter(Reservation.ShowingID == showing_id).all()
-    reserved_seat_numbers = [str(seat.SeatNumber) for seat in reserved_seats]
+    reserved_seats = Reservation.query.filter(Reservation.ShowingID == showing_id).first()
+    reserved_seats = ReservSeat.query.filter(Reservation.ReservationID == reserved_seats.ReservationID)
+    reserved_seat_numbers = [str(i.seat.Row) + str(i.seat.Number) for i in reserved_seats]
 
     # 座席データをHTMLに渡すためのリストを作成
     seat_data = []
@@ -66,9 +67,11 @@ def reserve_seat():
         # フロントエンドから選択された座席IDのリストと上映IDを取得
         selected_seat_str = request.form.get('selected_seats')  # リストとして取得
         showing_id = request.form.get('showing_id')
-        price_plans = request.form.getlist('price_plans')  
+        otona = request.form.get('otona')
+        kodomo = request.form.get('kodomo')  
         
-        print("選択された料金プラン:", price_plans)
+        flag = 1
+        
         print("受け取った座席ID:", selected_seat_str)
         print("受け取ったShowingID:", showing_id)
         
@@ -93,16 +96,9 @@ def reserve_seat():
         else:
             return jsonify({'status': 'error', 'message': 'ShowingIDの形式が不正です'}), 400
 
-        # 料金プランが二重リストで渡されている場合の処理
-        if isinstance(price_plans[0], str):
-            import ast
-            price_plans = ast.literal_eval(price_plans[0])
         
-        if len(selected_seat_list) != len(price_plans):
-            return jsonify({'status': 'error', 'message': '座席と料金プランの数が一致しません'}), 400
-    
         # 選択された各座席に対して予約処理を実行
-        for selected_seat_id, price_plan_id in zip(selected_seat_list, price_plans):
+        for selected_seat_id in selected_seat_list:
             
             
             seat = Seat.query.filter_by(SeatID=selected_seat_id).first()
@@ -110,28 +106,35 @@ def reserve_seat():
                 return jsonify({'status': 'error', 'message': f'Seat ID {selected_seat_id} が存在しません'}), 400
 
             # 選択された座席が既に予約済みかどうかを確認
-            existing_reservation = Reservation.query.filter_by(
-                ShowingID=showing_id,
-                SeatNumber=str(seat.Row) + str(seat.Number)
-            ).first()
+            existing_reservation = Reservation.query.filter_by(ShowingID=showing_id).first()
+            if existing_reservation:
+                existing_reservation = ReservSeat.query.filter_by(ReservSeatID=existing_reservation.ReservationID, SeatID=seat.SeatID).first()
 
             # 既に予約済みの場合はエラーメッセージを返す
             if existing_reservation:
+                flag = 0
                 return jsonify({'status': 'error', 'message': '選択された座席は既に予約されています'}), 400
 
-            # ログイン中のユーザーのアカウントIDを取得
-            account_id = current_user.AccountID
 
-            # 新しい予約を作成
+        if flag:
+                    # 新しい予約を作成
+            account_id = current_user.AccountID
             reservation = Reservation(
-                AccountID=account_id,
-                ShowingID=showing_id, 
-                SeatNumber=str(seat.Row) + str(seat.Number),
-                PriceID=price_plan_id
+            AccountID=account_id,
+            ShowingID=showing_id, 
+            otona = otona,
+            kodomo = kodomo,
             )
             db.session.add(reservation)
-        
-        db.session.commit()
+            db.session.commit()
+            for selected_seat_id in selected_seat_list:
+                        # ログイン中のユーザーのアカウントIDを取得
+                reservseat = ReservSeat(
+                    ReservationID=reservation.ReservationID,
+                    SeatID=seat.SeatID
+                )
+                db.session.add(reservseat)
+                db.session.commit()
         # リダイレクト先URLをヘッダーに含めて返す
         return redirect('buycomp')
     
@@ -246,6 +249,8 @@ def buyCheck():
         selected_seat_ids = [int(seat_id) for seat_id in selected_seat_str.split(',') if seat_id]
     except ValueError:
         return jsonify({'status': 'error', 'message': '座席IDの形式が無効です。'}), 400
+    
+    zasekisu = len(selected_seat_ids)
 
     # 選択された座席情報を取得
     selected_seats_info = []
@@ -254,9 +259,7 @@ def buyCheck():
         if seat:
             selected_seats_info.append(seat)
     
-    price = Price.query.all()
-    
-    return render_template('buyCheck.html', showing=showing, selected_seats=selected_seats_info, price=price, showing_id=showing)
+    return render_template('buyCheck.html', showing=showing, selected_seats=selected_seats_info, showing_id=showing, zasekisu=zasekisu)
 
 
 # 購入完了ページ
@@ -269,7 +272,8 @@ def buycomp():
 def paycheck():
     selected_seat_str = request.form.get('selected_seats')  # リストとして取得
     showing_id = request.form.get('showing_id')
-    price_plans = request.form.getlist('price_plans[]')  # フォームデータの確認
+    otona = request.form.get('otona')
+    kodomo = request.form.get('kodomo')
     
     # 選択された座席IDをリストに変換
     # try:
@@ -284,11 +288,10 @@ def paycheck():
     #     if seat:
     #         selected_seats_info.append(seat)
     
-    print("選択された料金プラン:", price_plans)
     print("受け取った座席ID:", selected_seat_str)
     print("受け取ったShowingID:", showing_id)
     
-    return render_template('paycheck.html', price_plans=price_plans, showing_id=showing_id, selected_seats=selected_seat_str)
+    return render_template('paycheck.html', showing_id=showing_id, selected_seats=selected_seat_str, otona=otona, kodomo=kodomo)
 
 # 予約完了画面
 @views_bp.route('/reservation_complete')

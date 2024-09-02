@@ -55,6 +55,7 @@ class Movie(db.Model):
     
     AgeLimitID = db.Column(db.Integer, ForeignKey('agelimit.AgeLimitID'))
     MovieCategoryID = db.Column(db.Integer, ForeignKey('moviecategory.MovieCategoryID'))
+    PriceID = db.Column(db.Integer, ForeignKey('price.PriceID'))
     
     MD = db.Column(db.String(50))
     MS = db.Column(db.String(50))
@@ -119,23 +120,32 @@ class Discount(db.Model):
     DiscountID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     DiscountName = db.Column(db.String(30))
     Discount = db.Column(db.Float)
+
+class ReservSeat(db.Model):
+    __tablename__ = 'reservseat'
+    ReservSeatID = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    ReservationID = db.Column(db.Integer, ForeignKey('reservation.ReservationID'))
+    SeatID = db.Column(db.Integer, ForeignKey('seat.SeatID'))
+    
+    reservation = db.relationship('Reservation', backref='reservseat')
+    seat = db.relationship('Seat', backref='reservseat')
     
 class Reservation(db.Model):
     __tablename__ = 'reservation'
     ReservationID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     AccountID = db.Column(db.Integer, ForeignKey('account.AccountID')) #
     ShowingID = db.Column(db.Integer, ForeignKey('showing.ShowingID')) #
-    SeatNumber = db.Column(db.String(3)) #
-
-    PriceID = db.Column(db.Integer, ForeignKey('price.PriceID'))
     DiscountID = db.Column(db.Integer, ForeignKey('discount.DiscountID'))
+    
+    otona = db.Column(db.Integer)
+    kodomo = db.Column(db.Integer)
     
     account = db.relationship('Account', backref='reservation')
     showing = db.relationship('Showing', backref='reservation')
-    price = db.relationship('Price', backref='reservation')
     discount = db.relationship('Discount', backref='reservation')
 
 class Seat(db.Model):
+    __tablename__ = 'seat'
     SeatID = db.Column(db.Integer,primary_key=True)
     # 行に対応(アルファベット表記を数字に変更)
     Row = db.Column(db.String(1), nullable=False)
