@@ -64,15 +64,17 @@
                 <div id="classiFication">
                   <div id="classF">
                     <table>
+                      <h3>入力された座席数: {{ seat_count }}</h3>
                       {% for seat in selected_seats %}
                         <tr>
                           <td class="cl" for="seat_{{ loop.index }}">座席 {{ seat.Row }}{{ seat.Number }} の料金プラン:</td>
                           <td class="pl">
-                            <select name="price_plans[]" data-seat-id="{{ seat.id }}">
-                                {% for plan in price %}
-                                    <option value="{{ plan.PriceID }}">{{ plan.PricePlans }} - {{ plan.Price }}円</option>
-                                {% endfor %}
-                            </select>
+                            <label for="adults">大人の人数:</label>
+                            <input type="number" id="otona" name="otona" min="0" max="{{ seat_count }}" value="0" required>
+                          </td>
+                          <td class="pl">
+                            <label for="children">子供の人数:</label>
+                            <input type="number" id="kodomo" name="kodomo" min="0" max="{{ seat_count }}" value="0" required>
                           </td>
                         </tr>
                       {% endfor %}
