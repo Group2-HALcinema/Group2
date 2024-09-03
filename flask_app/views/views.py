@@ -129,6 +129,18 @@ def reserve_seat():
             db.session.commit()
             for selected_seat_id in selected_seat_list:
                         # ログイン中のユーザーのアカウントIDを取得
+                seat = Seat.query.filter_by(SeatID=selected_seat_id).first()
+                if seat is None:
+                    return jsonify({'status': 'error', 'message': f'Seat ID {selected_seat_id} が存在しません'}), 400
+
+                # 選択された座席が既に予約済みかどうかを確認
+                existing_reservation = Reservation.query.filter_by(ShowingID=showing_id).first()
+                if existing_reservation:
+                    existing_reservation = ReservSeat.query.filter_by(ReservSeatID=existing_reservation.ReservationID, SeatID=seat.SeatID).first()
+
+                # 既に予約済みの場合はエラーメッセージを返す
+                if existing_reservation:
+                    return jsonify({'status': 'error', 'message': '選択された座席は既に予約されています'}), 400
                 reservseat = ReservSeat(
                     ReservationID=reservation.ReservationID,
                     SeatID=seat.SeatID
