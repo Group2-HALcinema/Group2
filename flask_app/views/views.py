@@ -239,9 +239,24 @@ def sitemap():
 def ticketdetail():
     return render_template('ticketDetails.html')
 
+weekdays_jp = {
+    'Mon': '月',
+    'Tue': '火',
+    'Wed': '水',
+    'Thu': '木',
+    'Fri': '金',
+    'Sat': '土',
+    'Sun': '日'
+}
 # 購入確認ページ
 @views_bp.route('/buyCheck')
 def buyCheck():
+    
+    # 曜日を取得して日本語に変換する関数
+    def format_japanese_day(date):
+        english_day = date.strftime('%a')  # 英語の曜日を取得
+        japanese_day = weekdays_jp[english_day]  # 日本語に変換
+        return date.strftime('%m/%d') + f'({japanese_day})'
     showing_id = request.args.get('showing_id')
     selected_seat_str = request.args.get('selected_seats')  # リストとして取得
     
@@ -271,7 +286,7 @@ def buyCheck():
         if seat:
             selected_seats_info.append(seat)
     
-    return render_template('buyCheck.html', showing=showing, selected_seats=selected_seats_info, showing_id=showing, zasekisu=zasekisu)
+    return render_template('buyCheck.html', showing=showing, selected_seats=selected_seats_info, showing_id=showing, zasekisu=zasekisu, format_japanese_day=format_japanese_day)
 
 
 # 購入完了ページ
