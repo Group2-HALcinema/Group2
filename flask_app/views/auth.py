@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 from datetime import date, timedelta
 import os
+import datetime
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -82,8 +83,6 @@ def signout():
 
 @app.route('/memberinfo', methods=["GET", "POST"])
 def memberinfo():
-
-    print("AccountID:", current_user.get_id())
     """ユーザーの個人情報を更新する."""
     # current_user から Account オブジェクトを取得
     user_data = Account.query.filter_by(AccountID=int(current_user.get_id())).first()
@@ -91,6 +90,14 @@ def memberinfo():
     reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
     # アドレステーブルからデータを取得
     address_data = Address.query.filter_by(AccountID=current_user.get_id()).first()
+    # 各予約の終了時間を計算
+    for reservation in reservations:
+        start_time = reservation.showing.showtime.start_time
+        # datetime.datetime.combine を使って datetime オブジェクトに変換
+        start_datetime = datetime.datetime.combine(datetime.date.today(), start_time)
+        reservation.end_time = (
+            start_datetime + timedelta(minutes=reservation.showing.movie.ShowTimes)
+        )
 
     # ログイン済みユーザーかどうかを確認
     if not current_user.is_authenticated:
@@ -173,6 +180,7 @@ def memberinfo():
             print("Error:", e)  # エラー内容をコンソールに表示
 
     return render_template('Memberinfo.html', user=current_user, reservations=reservations, form=form, form2=form2)
+
 
 
 def save_image(form_picture):
