@@ -1,3 +1,9 @@
+body{
+    min-width: 1300px;
+    position: relative;
+    overflow: auto;
+}
+
 /* ----------スライダー設定---------- */
 #slider_space{
     margin: 65px 0 0 0;
@@ -156,11 +162,11 @@
 /* ----------ニュース＆キャンペーン設定----------- */
 
 #news_campaign{
-    width: 80%;
+    width: 1080px;
     margin: 70px auto 200px auto;
 }
 #news_header{
-    margin: 0 45% 25px 0;
+    margin: 0 45% 25px 20px;
     width: 24vw;
     font-size: 2rem;
     border-bottom: #222 2px solid;
@@ -175,11 +181,11 @@
 #news{
     background-color: white;
     border: #222 2px solid;
-    width: 45vw;
+    width: 750px;
 }
 .news_space{
     padding: 0 0 5px 0;
-    width: 40vw;
+    width: 650px;
     margin: 15px 0 0 25px;
     border-bottom: #000000 1px solid;
 }
@@ -201,13 +207,14 @@
 
 
 #campaign_space{
-    margin-left: auto;
+    width: 250px;
+    margin: 0 0 0 50px;
 }
 .ittan{
     margin: 0 0 25px 0;
 }
 .ittan a figure img{
-    width: 26vw;
+    width: 20vw;
 }
 
 
