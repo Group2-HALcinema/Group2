@@ -73,41 +73,47 @@
         </div>
       </div>
         
-        <!-- モーダルのHTML -->
-      <div class="modal__wrapper">
-        <div class="modal__layer"></div>
-        <div class="modal__container">
-          <div class="modal__inner">
-            <div class="modal__content">
-              <p class="modal__title">入力内容の確認</p>
-              <div class="modal__text">
-                <div class="cp_iptxt mmm">
-                  <input type="text" id="confirmName" readonly>
-                  <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+      <form id="priceForm" method="POST" action="{{ url_for('views.reserve_seat') }}">
+        <input type="hidden" name="showing_id" value="{{ showing_id }}">
+        <input type="hidden" name="selected_seats"  value="{{ selected_seats }}">
+        <input type="hidden" name="otona"  value="{{ otona }}">
+        <input type="hidden" name="kodomo"  value="{{ kodomo }}">
+          <!-- モーダルのHTML -->
+        <div class="modal__wrapper">
+          <div class="modal__layer"></div>
+          <div class="modal__container">
+            <div class="modal__inner">
+              <div class="modal__content">
+                <p class="modal__title">入力内容の確認</p>
+                <div class="modal__text">
+                  <div class="cp_iptxt mmm">
+                    <input type="text" id="confirmName" readonly>
+                    <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                  </div>
+                  <div class="cp_iptxt mmm">
+                    <input type="text" id="confirmEmail" readonly>
+                    <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+                  </div>
+                  <div class="cp_iptxt mmm">
+                    <input type="text" id="confirmPostalCode" readonly>
+                    <i class="postnum">〒</i>
+                  </div>
+                  <div class="cp_iptxt mmm">
+                    <input type="text" id="confirmAddress" readonly>
+                    <i class="fa-solid fa-map fa-lg fa-fw" aria-hidden="true"></i>
+                  </div>
+                  
+                <div class="goldbtn">
+                  <button class="modal-close"></button>
+                  <button class="btn modal-ok" type="submit"><a></a></button> 
                 </div>
-                <div class="cp_iptxt mmm">
-                  <input type="text" id="confirmEmail" readonly>
-                  <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
-                </div>
-                <div class="cp_iptxt mmm">
-                  <input type="text" id="confirmPostalCode" readonly>
-                  <i class="postnum">〒</i>
-                </div>
-                <div class="cp_iptxt mmm">
-                  <input type="text" id="confirmAddress" readonly>
-                  <i class="fa-solid fa-map fa-lg fa-fw" aria-hidden="true"></i>
-                </div>
-                
-              <div class="goldbtn">
-                <button class="modal-close"></button>
-                <button class="btn modal-ok"><a href="{{ url_for('views.buycomp') }}"></a></button> 
-              </div>
 
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
 
 
     </main>

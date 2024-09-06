@@ -6,8 +6,6 @@ from wtforms.validators import DataRequired, Length, EqualTo, Email
 from flask_app.models import *
 from flask_app.views import auth
 
-from flask_login import current_user
-forms_bp = Blueprint('forms', __name__, url_prefix='/forms')
 
 class SignUpForm(FlaskForm):
     name = StringField('氏名', validators=[DataRequired(), Length(min=2, max=20)])
@@ -43,63 +41,12 @@ class AddressForm(FlaskForm):
     Todohuken = StringField('都道府県', validators=[DataRequired(message='都道府県は必須です')])
     Shiku = StringField('市区町村', validators=[DataRequired(message='市区町村は必須です')])
     ChosonNumber = StringField('番地', validators=[DataRequired(message='番地は必須です')])
-    submit = SubmitField('登録')
+    submit2 = SubmitField('登録')
 
 class AccountForm(FlaskForm):
-    name = StringField('氏名', validators=[DataRequired()], default=lambda: current_user.Name if current_user.is_authenticated else '')
-    kananame = StringField('フリガナ', validators=[DataRequired()], default=lambda: current_user.KanaName if current_user.is_authenticated else '')
-    mailaddress = StringField('メールアドレス', validators=[DataRequired(), Email()], default=lambda: current_user.MailAddress if current_user.is_authenticated else '')
-    password = PasswordField('パスワード') # 入力があれば更新
-    phonenumber = TelField('電話番号', default=lambda: current_user.PhoneNumber if current_user.is_authenticated else '')
+    name = StringField('氏名', validators=[DataRequired()])
+    kananame = StringField('フリガナ', validators=[DataRequired()])
+    mailaddress = StringField('メールアドレス', validators=[DataRequired(), Email()])
+    password = PasswordField('パスワード')  # 入力があれば更新
+    phonenumber = TelField('電話番号')
     submit = SubmitField('更新')
-
-
-# authに移動する
-# ログインしているユーザーのデータを更新する
-@forms_bp.route("/prof_update", methods=["GET", "POST"])
-def prof_update():
-    """ユーザーの個人情報を更新する."""
-
-    # ログイン済みユーザーかどうかを確認
-    if not current_user.is_authenticated:
-        flash('このページにアクセスするにはログインしてください。', 'danger')
-        return redirect(url_for('signup'))
-
-    form = AccountForm(obj=current_user)  # フォームに現在のユーザー情報を反映
-    if current_user.is_authenticated:
-        # ログインしているユーザーのデータを取得
-        user_data = Account.query.filter_by(id=current_user.id).first()
-                # フォームにユーザーデータを設定
-        form.name.data = user_data.Name
-        form.kananame.data = user_data.KanaName
-        form.mailaddress.data = user_data.MailAddress
-        form.phonenumber.data = user_data.PhoneNumber
-
-    if form.validate_on_submit():
-        try:
-            # ユーザー情報を更新
-            current_user.name = form.name.data
-            current_user.kananame = form.kananame.data
-            current_user.mailaddress = form.mailaddress.data
-            # パスワードが設定されていれば更新
-            if form.password.data:
-                current_user.password = form.password.data
-            current_user.phonenumber = form.phonenumber.data
-
-            db.session.commit()
-            flash('プロフィールが更新されました。', 'success')
-            return redirect(url_for('index'))  # ホーム画面など適切なページへリダイレクト
-        except Exception as e:
-            db.session.rollback()
-            flash('プロフィールの更新に失敗しました。', 'danger')
-            print(e)  # エラー内容をログ出力
-
-    return render_template('MemberInfo.html', form=form, user=current_user)
-
-# authに移動する
-@app.route('/memberinfo', methods=["GET", "POST"])
-def memberinfo():
-    reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
-    # form を render_template に渡す
-    form = AccountForm(obj=current_user)
-    return render_template('Memberinfo.html', user=current_user, reservations=reservations, form=form)

@@ -68,24 +68,89 @@
         <input type="text" name="movie" placeholder="映画"><br>
         <p>縦画像</p><input type="file" name="movie_imagelength"><br>
         <p>横画像</p><input type="file" name="movie_imageside"><br>
+        <input type="text" name="md" placeholder="監督"><br>
+        <input type="text" name="ms" placeholder="脚本"><br>
+        <input type="text" name="ov" placeholder="概要"><br>
+        <input type="text" name="st" placeholder="上映時間"><br>
+        
         <select name="agelimitdayo">
             {% for limit in agelimits %}
                 <option value="{{ limit.AgeLimitID }}">{{ limit.AgeLimit }}</option>
             {% endfor %}
-        </select>
+        </select><br>
+        
         <select name="moviecategorydayo">
             {% for category in moviecategorys %}
                 <option value="{{ category.MovieCategoryID }}">{{ category.CategoryName }}</option>
             {% endfor %}
-        </select>
+        </select><br>
+        
+        <!-- startdateとfinishdateの入力フィールドを追加 -->
+        <label for="startdate">開始日:</label>
+        <select name="startdate">
+            {% for date in calendars %}
+                <option value="{{ date.id }}">{{ date.day }}</option>
+            {% endfor %}
+        </select><br>
+    
+        <label for="finishdate">終了日:</label>
+        <select name="finishdate">
+            {% for date in calendars %}
+                <option value="{{ date.id }}">{{ date.day }}</option>
+            {% endfor %}
+        </select><br>
+    
         <button type="submit">追加</button>
     </form>
+    
     <h2>キャスト追加</h2>
     <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
         <input type="text" name="cast" placeholder="キャスト"><br>
         <select name="moviedayo">
             {% for movie in movies %}
                 <option value="{{ movie.MovieID }}">{{ movie.MovieTitle }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">追加</button>
+    </form>
+    <h2>料金追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}">
+        <input type="text" name="priceplans" placeholder="料金プラン">
+        <input type="text" name="price" placeholder="料金">
+        <button type="submit">追加</button>
+    </form>
+    <h2>割引追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}">
+        <input type="text" name="discountname" placeholder="割引名">
+        <input type="text" name="discount" placeholder="割引率(小数)">
+        <button type="submit">追加</button>
+    </form>
+    <h2>上映時間区分追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}">
+        <input type="text" name="kubunmei" placeholder="区分名">
+        <input type="time" name="start_time" placeholder="開始時間">
+        <button type="submit">追加</button>
+    </form>
+    <h2>上映追加</h2>
+    <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
+        <select name="moviedesu">
+            {% for movie in movies %}
+                <option value="{{ movie.MovieID }}">{{ movie.MovieTitle }}</option>
+            {% endfor %}
+        </select>
+        <select name="screendayo">
+            {% for screen in screens %}
+                <option value="{{ screen.ScreenID }}">{{ screen.ScreenID }}</option>
+            {% endfor %}
+        </select>
+        <select name="showdatedayo">
+            {% for calendar in calendars %}
+                <option value="{{ calendar.id }}">{{ calendar.day }}</option>
+            {% endfor %}
+        </select>
+        <select name="showtimedayo">
+            {% for showtime in showtimes %}
+                <option value="{{ showtime.kubunmei }}">{{ showtime.kubunmei }}</option>
             {% endfor %}
         </select>
         <button type="submit">追加</button>
@@ -107,17 +172,6 @@
     </form>
 
 
-
-    <h2>Showingにデータ追加</h2>
-    <form method="POST">
-        <label for="movie_id">Movie ID:</label>
-        <input type="number" id="movie_id" name="movie_id" required><br><br>
-
-        <label for="screen_id">Screen ID:</label>
-        <input type="number" id="screen_id" name="screen_id" required><br><br>
-
-        <button type="submit">追加</button>
-    </form>
 
 
     <p></p>

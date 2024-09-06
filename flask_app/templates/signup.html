@@ -58,7 +58,9 @@
                 <b>電話番号</b><br>
                 {{ form.phonenumber }}
             </div>
-            {{ form.submit() }}
+            <div class="signupWrap contentSignup">
+              {{ form.submit(class_='btnColor') }}
+            </div>
           </form>
           <!--
           <h1>新規登録</h1>
@@ -81,7 +83,8 @@
         -->
           <!--<a href="signin.html"><button>新規登録</button></a> -->
           <!-- <hr> -->
-          <a href="{{ url_for('signin') }}"><button>ログインへ</button></a>
+          <hr>
+          <a href="{{ url_for('signin') }}"><button class="buttonStyle contentLoginHe"></button></a>
         </div>
       </div>
 

@@ -23,6 +23,24 @@ def load_user(user_id):
 #     return render_template("top.html")
 @app.route("/")
 def index():
+    # create_calendar2024()
+    # zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
+    # for row in range(1, 11):
+    #     for col in range(1, 21):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+    #         db.session.add(seat)
+    # db.session.commit()
+    # for row in range(1, 11):
+    #     for col in range(1, 13):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+    #         db.session.add(seat)
+    # db.session.commit()
+    # for row in range(1, 8):
+    #     for col in range(1, 11):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+    #         db.session.add(seat)
+    # db.session.commit()
+
     return render_template('top.html')
 
 #アカウント作成
@@ -59,15 +77,103 @@ def signin():
 @login_required
 def signout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('signin'))
 
-@app.route('/memberinfo')
+
+@app.route('/memberinfo', methods=["GET", "POST"])
 def memberinfo():
-    reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
-    return render_template('Memberinfo.html', user=current_user, reservations=reservations)
 
-# def allowedfile(filename):
-#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+    print("AccountID:", current_user.get_id())
+    """ユーザーの個人情報を更新する."""
+    # current_user から Account オブジェクトを取得
+    user_data = Account.query.filter_by(AccountID=int(current_user.get_id())).first()
+    # 予約した情報を取得
+    reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
+    # アドレステーブルからデータを取得
+    address_data = Address.query.filter_by(AccountID=current_user.get_id()).first()
+
+    # ログイン済みユーザーかどうかを確認
+    if not current_user.is_authenticated:
+        flash('このページにアクセスするにはログインしてください。', 'danger')
+        return redirect(url_for('signup'))
+
+    form = AccountForm() 
+    form2 = AddressForm()
+
+    if request.method == 'GET':
+        # フォームにユーザーデータを設定
+        form.name.data = user_data.Name
+        form.kananame.data = user_data.KanaName
+        form.mailaddress.data = user_data.MailAddress
+        form.phonenumber.data = user_data.PhoneNumber
+        
+        # address_data が存在する場合のみフォームにデータを設定
+        if address_data:
+            # フォームにアドレスデータを設定
+            form2.PostNumber.data = address_data.PostNumber
+            form2.Todohuken.data = address_data.Todohuken
+            form2.Shiku.data = address_data.Shiku
+            form2.ChosonNumber.data = address_data.ChosonNumber
+
+    if form.validate_on_submit():
+        try:
+            # データベースからユーザーデータを取得
+            user_data = Account.query.filter_by(AccountID=int(current_user.get_id())).first()
+
+            # ユーザー情報を更新
+            user_data.Name = form.name.data
+            user_data.kananame = form.kananame.data
+            user_data.MailAddress = form.mailaddress.data
+
+            # パスワードが設定されていれば更新
+            if form.password.data:
+                user_data.password = form.password.data
+            user_data.phonenumber = form.phonenumber.data
+
+            print(user_data.Name)
+            db.session.commit()
+            flash('プロフィールが更新されました。', 'success')
+
+            return redirect(url_for('memberinfo'))  # ホーム画面など適切なページへリダイレクト
+        except Exception as e:
+            db.session.rollback()
+            flash('プロフィールの更新に失敗しました。', 'danger')
+            print("Error:", e)  # エラー内容をコンソールに表示
+
+    if form2.validate_on_submit():
+        try:
+            # データベースからユーザーデータを取得
+            address_data = Address.query.filter_by(AccountID=current_user.get_id()).first()
+            print("address_data ", address_data)
+
+            if address_data:
+                # address_data が存在する場合：更新
+                address_data.PostNumber = form2.PostNumber.data
+                address_data.Todohuken = form2.Todohuken.data
+                address_data.Shiku = form2.Shiku.data
+                address_data.ChosonNumber = form2.ChosonNumber.data
+            else:
+                # address_data が存在しない場合：新規作成
+                address_data = Address(
+                    PostNumber=form2.PostNumber.data,
+                    Todohuken=form2.Todohuken.data,
+                    Shiku=form2.Shiku.data,
+                    ChosonNumber=form2.ChosonNumber.data,
+                    AccountID=current_user.get_id()  # 外部キーを設定
+                )
+                db.session.add(address_data) 
+
+            db.session.commit()
+            flash('アドレス情報が更新されました。', 'success')
+
+            return redirect(url_for('memberinfo'))  # ホーム画面など適切なページへリダイレクト
+        except Exception as e:
+            db.session.rollback()
+            flash('アドレス情報の更新に失敗しました。', 'danger')
+            print("Error:", e)  # エラー内容をコンソールに表示
+
+    return render_template('Memberinfo.html', user=current_user, reservations=reservations, form=form, form2=form2)
+
 
 def save_image(form_picture):
     random_hex = os.urandom(8).hex()
@@ -87,11 +193,33 @@ def seibetutukuru():
     capa = request.form.get('capacity')
     agelimit = request.form.get('agelimit')
     movie = request.form.get('movie')
+    start_time = request.form.get('start_time')
+    kubunmei = request.form.get('kubunmei')
     agelimitdayo = request.form.get('agelimitdayo')
     moviecategory = request.form.get('moviecategory')
     moviecategorydayo = request.form.get('moviecategorydayo')
     cast = request.form.get('cast')
     moviedayo = request.form.get('moviedayo')
+    screendayo = request.form.get('screendayo')
+    showtimedayo = request.form.get('shottimedayo')
+    showdatedayo = request.form.get('showdatedayo')
+    moviedesu = request.form.get('moviedesu')
+
+    
+    md = request.form.get('md')
+    ms = request.form.get('ms')
+    ov = request.form.get('ov')
+    st = request.form.get('st')
+    hazime = request.form.get('startdate')
+    owari = request.form.get('finishdate')
+    
+    
+    priceplans = request.form.get('priceplans')
+    price = request.form.get('price')
+    
+    discountname = request.form.get('discountname')
+    discount = request.form.get('discount')
+
     
     movie_imagelength = None
     movie_imageside = None
@@ -116,59 +244,86 @@ def seibetutukuru():
     c = request.form.get('c')
     zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
     
-    if seibetu:
-        seibetu = Sex(Sex=seibetu)
-        db.session.add(seibetu)
-        db.session.commit()
-    if capa:
-        capa = Screen(Capacity=capa)
-        db.session.add(capa)
-        db.session.commit()
-    if agelimit:
-        agelimit = AgeLimit(AgeLimit=agelimit)
-        db.session.add(agelimit)
-        db.session.commit()
-    if movie:
-        movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside)
-        db.session.add(movie)
-        db.session.commit()
-    if moviecategory:
-        moviecategory = MovieCategory(CategoryName=moviecategory)
-        db.session.add(moviecategory)
-        db.session.commit()
-    if cast:
-        cast = Cast(CastName=cast, MovieID=moviedayo)
-        db.session.add(cast)
-        db.session.commit()
+    if request.method == 'POST':
+        if seibetu:
+            seibetu = Sex(Sex=seibetu)
+            db.session.add(seibetu)
+            db.session.commit()
+        if capa:
+            capa = Screen(Capacity=capa)
+            db.session.add(capa)
+            db.session.commit()
+        if agelimit:
+            agelimit = AgeLimit(AgeLimit=agelimit)
+            db.session.add(agelimit)
+            db.session.commit()
+        if movie:
+            movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st, StartDate=hazime, FinishDate=owari)
+            db.session.add(movie)
+            db.session.commit()
 
-    # if a:
-    #     # for row in range(1, 11):
-    #     #     for col in range(1, 21):
-    #     #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
-    #     #         db.session.add(seat)
-    #     # db.session.commit()
-    # if b:
-    #     for row in range(1, 11):
-    #         for col in range(1, 13):
-    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
-    #             db.session.add(seat)
-    #     db.session.commit()
-    # if c:
-    #     for row in range(1, 8):
-    #         for col in range(1, 11):
-    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
-    #             db.session.add(seat)
-    #     db.session.commit()
+        if moviecategory:
+            moviecategory = MovieCategory(CategoryName=moviecategory)
+            db.session.add(moviecategory)
+            db.session.commit()
+        if cast:
+            cast = Cast(CastName=cast, MovieID=moviedayo)
+            db.session.add(cast)
+            db.session.commit()
+        if start_time and kubunmei:    
+            start_time = datetime.strptime(start_time, '%H:%M').time() 
+            showtime = ShowTime(kubunmei=kubunmei, start_time=start_time)
+            db.session.add(showtime)
+            db.session.commit()
+        if priceplans and price:
+            price = Price(PricePlans=priceplans, Price=price)
+            db.session.add(price)
+            db.session.commit()
+        if discountname and discount:
+            discount = Discount(DiscountName=discountname, Discount=discount)
+            db.session.add(discount)
+            db.session.commit()
 
-    # 上映テーブルにデータを入れるやつ　佐藤
-    # if request.method == 'POST':
-    #     movie_id = request.form['movie_id']
-    #     screen_id = request.form['screen_id']
-    #     if movie_id and screen_id:
-    #         new_showing = Showing(MovieID=movie_id, ScreenID=screen_id)
-    #         db.session.add(new_showing)
-    #         db.session.commit()
+        showing = None  # showing変数をif文の外側で定義
+        movie_id = request.form.get('moviedesu')
+        screen_id = request.form.get('screendayo')
+        showdatedayo = request.form.get('showdatedayo')  # 修正: showdatedayo も取得
+        showtimedayo = request.form.get('showtimedayo')  # 修正: showtimedayo も取得
+        # 型変換と値の確認
+        try:
+            movie_id = int(movie_id)
+            screen_id = int(screen_id)
+        except (TypeError, ValueError):
+            flash('映画IDとスクリーンIDは数値である必要があります。', 'danger')
+            return redirect(url_for('seibetutukuru'))  # エラーがあればフォームへ戻る
+        
+        if movie_id and screen_id and showdatedayo and showtimedayo:
+            showing = Showing(ShowTime=showtimedayo, ShowDate=showdatedayo, MovieID=movie_id, ScreenID=screen_id) 
+            print("showing をデータベースに追加します")
+            db.session.add(showing)
+            db.session.commit()
+            flash('上映情報を追加しました。', 'success')
+        else:
+            flash('必要な情報が選択されていません。', 'danger')
 
+    if a:
+        for row in range(1, 11):
+            for col in range(1, 21):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+                db.session.add(seat)
+        db.session.commit()
+    if b:
+        for row in range(1, 11):
+            for col in range(1, 13):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+                db.session.add(seat)
+        db.session.commit()
+    if c:
+        for row in range(1, 8):
+            for col in range(1, 11):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+                db.session.add(seat)
+        db.session.commit()
 
     # 予約テーブルのレコード全消し 佐藤
     # この機能を使うときは、上映テーブルにデータ入れるやつをコメントアウトしないと動かん　治す気力はない　ほかの機能止まったらごめん
@@ -182,24 +337,29 @@ def seibetutukuru():
     agelimits = AgeLimit.query.all()
     moviecategorys = MovieCategory.query.all()
     movies = Movie.query.all()
+    calendars = Calendar2024.query.all()
+    showtimess = ShowTime.query.all()
+    screens  = Screen.query.all()
     
-    return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, form=form)
+    return render_template('seibetutukuru.html', showtimes=showtimess, reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, screens=screens, form=form)
+
+
 
 app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録
 
-# def create_calendar2024():
-#     start_date = date(2024, 1, 1)
-#     end_date = date(2024, 12, 31)
-#     delta = end_date - start_date
+def create_calendar2024():
+    start_date = date(2024, 1, 1)
+    end_date = date(2024, 12, 31)
+    delta = end_date - start_date
     
-#     for i in range(delta.days + 1):
-#         day = start_date + timedelta(days=i)
-#         if not Calendar2024.query.filter_by(day=day).first():
-#             calendar_day = Calendar2024(day=day)
-#             db.session.add(calendar_day)
+    for i in range(delta.days + 1):
+        day = start_date + timedelta(days=i)
+        if not Calendar2024.query.filter_by(day=day).first():
+            calendar_day = Calendar2024(day=day)
+            db.session.add(calendar_day)
     
-#     db.session.commit()
-# @app.before_first_request
+    db.session.commit()
+    
 # def initialize_database():
 #     db.create_all()
 #     create_calendar2024()

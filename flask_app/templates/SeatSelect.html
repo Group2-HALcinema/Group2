@@ -15,24 +15,47 @@
     <div class="seat-map" id="seat-map">
         <table>
             {% if screen_id == 3 %}
-                スクリーン3はこちら
-            {% elif screen_id == 2 %}
-                スクリーン2はこちら
-            {% else %}
-                その他のスクリーンはこちら
-            {% endif %}
-
-            {% for seat in seats %}
-                {% if loop.index0 % 20 == 0 %}
+            <tbody>
+            {% for i in range(10) %}
                 <tr>
-                {% endif %}
-                <td class="seat reserved" data-seat-id="{{ seat.id }}"> 
-                    {{ seat.row }}{{ seat.number }}
-                </td>
-                {% if loop.index % 20 == 0 or loop.last %}
+                {% for j in range(20) %}
+                    {% set seat = seats[i * 20 + j] if (i * 20 + j) < seats|length else None %}
+                    <td class="seat {{ 'reserved' if seat.reserved }}" data-seat-id="{{ seat.id if seat }}">
+                    {{ seat.row }}{{ seat.number if seat }}
+                    </td>
+                {% endfor %}
                 </tr>
-                {% endif %}
             {% endfor %}
+            </tbody> 
+
+            {% elif screen_id == 2 %}
+            <tbody>
+                {% for i in range(10) %}
+                <tr>
+                    {% for j in range(12) %}
+                      {% set seat = seats[i * 12 + j] if (i * 12 + j) < seats|length else None %}
+                    <td class="seat {{ 'reserved' if seat.reserved }}" data-seat-id="{{ seat.id if seat }}">
+                        {{ seat.row }}{{ seat.number if seat }}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+
+            {% elif screen_id == 1 %}
+            <tbody>
+                {% for i in range(7) %}
+                <tr>
+                    {% for j in range(10) %}
+                      {% set seat = seats[i * 10 + j] if (i * 10 + j) < seats|length else None %}
+                    <td class="seat {{ 'reserved' if seat.reserved }}" data-seat-id="{{ seat.id if seat }}">
+                        {{ seat.row }}{{ seat.number if seat }}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
         </table>
     </div>
 
@@ -40,7 +63,13 @@
 
     <div id="error-message" style="color: red;"></div>
     <p id="selected-seat">選択された座席: </p>
-    <button id="reserve-button">予約する</button>
+    <!--<button id="reserve-button">予約する</button>-->
+    <form id="seatForm" action="{{ url_for('views.buyCheck') }}" method="GET">
+        <input type="hidden" name="showing_id" value="{{ showing_id }}">
+        <input type="hidden" name="selected_seats" id="selected-seats" value="">
+        <button type="submit">購入確認へ</button>
+    </form>
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 

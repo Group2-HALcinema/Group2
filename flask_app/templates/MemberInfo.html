@@ -31,9 +31,9 @@
           <div >
             <a href="{{url_for('views.movielist')}}">上映中一覧</a>
             <ul>
-              <li><a href="" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
-              <li><a href=""><span>A</span>ction</a></li>
-              <li><a href=""><span>L</span>ove</a></li>
+              <li><a href="{{ url_for('views.movielist_h') }}" style="padding-top: 0.1vw;"><span>H</span>orror</a></li>
+              <li><a href="{{ url_for('views.movielist_a') }}"><span>A</span>ction</a></li>
+              <li><a href="{{ url_for('views.movielist_l') }}"><span>L</span>ove</a></li>
             </ul>
           </div>
         </li>
@@ -53,17 +53,15 @@
         <h1>お客様情報</h1>
         <table>
           <tr>
-            <td><img src="{{url_for('static', filename='images/ICON1.jpg')}}" alt="会員画像"></td>
             <td>
-              <p>{{ user.Name }}</p>
-              <p>{{ user.MailAddress }}</p>
+              <p>ユーザー名：{{ user.Name }}</p>
+              <p>メールアドレス：{{ user.MailAddress }}</p>
             </td>
-            <td><a href="{{url_for('views.infoedit')}}"><button>編集</button></a></td>
           </tr>
         </table>
         
         <!-- 個人情報編集form -->
-        <form method="post">
+        <form method="post" action="{{ url_for('memberinfo') }}">
           {{ form.hidden_tag() }}
           <h1>情報更新</h1>
           <div class="form-group">
@@ -103,6 +101,41 @@
           </div>
           {{ form.submit() }}
         </form>
+
+        <!-- アドレス情報編集form -->
+        <form method="post" action="{{ url_for('memberinfo') }}">
+          {{ form2.hidden_tag() }}
+          <h1>情報更新</h1>
+          <div class="form-group">
+              {{ form2.PostNumber.label }}
+              {{ form2.PostNumber(class="form-control") }}
+              {% for error in form2.PostNumber.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
+              {{ form2.Todohuken.label }}
+              {{ form2.Todohuken(class="form-control") }}
+              {% for error in form2.Todohuken.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
+              {{ form2.Shiku.label }}
+              {{ form2.Shiku(class="form-control") }}
+              {% for error in form2.Shiku.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          <div class="form-group">
+              {{ form2.ChosonNumber.label }}
+              {{ form2.ChosonNumber(class="form-control") }}
+              {% for error in form2.ChosonNumber.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+          </div>
+          {{ form2.submit2() }}
+        </form>
       </div>
  
       <h1>予約詳細</h1>
@@ -111,8 +144,9 @@
         {% if reservations %}
           {% for reservation in reservations %}
           <tr>
-              <td><img src="{{ url_for('static', filename='images/' ~ reservation.showing.movie.MovieImageLength) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100"></td>
+              <td><img src="{{ url_for('static', filename='images/movieimages/' ~ reservation.showing.movie.MovieImageLength) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100"></td>
               <td>
+                <p>スクリーン:{{ reservation.showing.ScreenID }}</p>
                 <p>映画タイトル:{{ reservation.showing.movie.MovieTitle }}</p>
                 <p>座席番号:{{ reservation.SeatNumber }}</p>
               </td>
