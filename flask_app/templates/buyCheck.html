@@ -46,7 +46,7 @@
                       <p id="titleName">{{ showing.movie.MovieTitle }}</p> <!-- 何文字以上で「映画タイトル...」みたいな感じに -->
                   </div>
                   <div id="dateTime">
-                      <p id="day">{{ showing.calender.day.strftime('%m/%d(%a)') }}</p>
+                      <p id="day">{{ format_japanese_day(showing.calender.day) }}</p>
                       <p id="time">{{ showing.showtime.start_time.strftime('%H:%M') }}</p>
                   </div>
               </div>
@@ -64,20 +64,22 @@
                 <div id="classiFication">
                   <div id="classF">
                     <table>
-                      <h3>入力された座席数: {{ seat_count }}</h3>
                       {% for seat in selected_seats %}
                         <tr>
-                          <td class="cl" for="seat_{{ loop.index }}">座席 {{ seat.Row }}{{ seat.Number }} の料金プラン:</td>
-                          <td class="pl">
-                            <label for="adults">大人の人数:</label>
-                            <input type="number" id="otona" name="otona" min="0" max="{{ seat_count }}" value="0" required>
-                          </td>
-                          <td class="pl">
-                            <label for="children">子供の人数:</label>
-                            <input type="number" id="kodomo" name="kodomo" min="0" max="{{ seat_count }}" value="0" required>
-                          </td>
+                          <td class="cl" for="seat_{{ loop.index }}">座席 {{ seat.Row }}{{ seat.Number }}</td>
                         </tr>
                       {% endfor %}
+                        
+                      <tr>
+                        <td class="pl">
+                          <label for="adults">大人の人数:</label>
+                          <input type="number" id="otona" name="otona" min="0" max="{{ seat_count }}" value="0" required>
+                        </td>
+                        <td class="pl">
+                          <label for="children">子供の人数:</label>
+                          <input type="number" id="kodomo" name="kodomo" min="0" max="{{ seat_count }}" value="0" required>
+                        </td>
+                      </tr>
                     </table>
                   </div>
                   <div id="total"><p>計<span id="seatCount">{{ selected_seats|length }}</span>枚</p></div>
@@ -91,7 +93,6 @@
 
               </div>
 
-              <div id="payment"></div>
 
               <div id="btnArea">
                 <button class="modal-close" id="" ></button>
