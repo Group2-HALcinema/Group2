@@ -143,8 +143,14 @@
 
     <div id="select_A">
         <p id="selected-seat">選択された座席: </p>
-        <button class="reserve-button contentNew">a</button>
+        <form id="seatForm" action="{{ url_for('views.buyCheck') }}" method="GET">
+            <input type="hidden" name="showing_id" value="{{ showing_id }}">
+            <input type="hidden" name="selected_seats" id="selected-seats" value="">
+            <button type="submit" class="reserve-button contentNew">購入確認へ</button>
+        </form>
     </div>
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
