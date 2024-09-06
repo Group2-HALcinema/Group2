@@ -37,50 +37,50 @@
               <li>お支払方法</li>
               <li>購入完了</li>
             </ul>
-
+          <form id="priceForm" method="POST" action="{{ url_for('views.paycheck') }}">
+            <input type="hidden" name="showing_id" value="{{ showing_id }}">
+            <input type="hidden" name="selected_seats"  value="{{ selected_seats }}">
             <div id="flexArea">
               <div id="buy_main">
                   <div id="title">
-                      <p id="titleName">映画タイトル映画タイトル映画タイトル</p> <!-- 何文字以上で「映画タイトル...」みたいな感じに -->
+                      <p id="titleName">{{ showing.movie.MovieTitle }}</p> <!-- 何文字以上で「映画タイトル...」みたいな感じに -->
                   </div>
                   <div id="dateTime">
-                      <p id="day">12月12日(金)</p>
-                      <p id="time">12:00 ~ 13:30</p>
+                      <p id="day">{{ showing.calender.day.strftime('%m/%d(%a)') }}</p>
+                      <p id="time">{{ showing.showtime.start_time.strftime('%H:%M') }}</p>
                   </div>
               </div>
 
               <div id="seat">
-                <div id="screen"><p>スクリーン8</p></div>
-                <div id="seatNumber"><p>[ F-12 , F-13, F-14 ]  <!-- ココに要素を入れて繰り返し。要素数次第でcssのフォントサイズとテキストアライン変更 --></p></div>
+                <div id="screen"><p>スクリーン{{ showing.screen.ScreenID }}</p></div>
+                <div id="seatNumber">
+                  {% for seat in selected_seats %}
+                      <p>{{ seat.Row }}{{ seat.Number }}</p> <!-- 繰り返し要素を表示 -->
+                  {% endfor %}
+                </div>
               </div>
 
               <div id="total_price">
                 <div id="classiFication">
                   <div id="classF">
                     <table>
-                      <tr>
-                        <td class="cl">小学生</td>
-                        <td class="qu">×2</td>
-                        <td class="pl">1600円</td>
-                      </tr>
-                      <tr>
-                        <td class="cl">中学生</td>
-                        <td class="qu">×2</td>
-                        <td class="pl">2000円</td>
-                      </tr>
-                      <tr>
-                        <td class="cl">高校生</td>
-                        <td class="qu">×1</td>
-                        <td class="pl">1200円</td>
-                      </tr>
-                      <tr>
-                        <td class="cl">大人</td>
-                        <td class="qu">×1</td>
-                        <td class="pl">1500円</td>
-                      </tr>
+                      <h3>入力された座席数: {{ seat_count }}</h3>
+                      {% for seat in selected_seats %}
+                        <tr>
+                          <td class="cl" for="seat_{{ loop.index }}">座席 {{ seat.Row }}{{ seat.Number }} の料金プラン:</td>
+                          <td class="pl">
+                            <label for="adults">大人の人数:</label>
+                            <input type="number" id="otona" name="otona" min="0" max="{{ seat_count }}" value="0" required>
+                          </td>
+                          <td class="pl">
+                            <label for="children">子供の人数:</label>
+                            <input type="number" id="kodomo" name="kodomo" min="0" max="{{ seat_count }}" value="0" required>
+                          </td>
+                        </tr>
+                      {% endfor %}
                     </table>
                   </div>
-                  <div id="total"><p>計6枚</p></div>
+                  <div id="total"><p>計<span id="seatCount">{{ selected_seats|length }}</span>枚</p></div>
                 </div>
                 <div id="priceArea">
                   <div id="price">
@@ -94,20 +94,19 @@
               <div id="payment"></div>
 
               <div id="btnArea">
-
-                <button class="modal-close" id="" ><a ></a></button>
-                <button class="modal-ok" id=""><a href="{{ url_for('views.paycheck') }}"></a></button>
-                <!-- <input type="submit" class="modal-close" value="入力へ戻る" id=""> -->
-                <!-- <input type="submit" class="modal-ok" value="購入する"   id=""> -->
+                <button class="modal-close" id="" ></button>
+                <button type="submit" class="modal-ok" id=""></button>
               </div>
 
             </div>
+          </form>
 
         </div>
 
 
 
     </main>
+      
   </body>
 
 </html>

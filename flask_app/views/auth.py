@@ -23,6 +23,24 @@ def load_user(user_id):
 #     return render_template("top.html")
 @app.route("/")
 def index():
+    # create_calendar2024()
+    # zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
+    # for row in range(1, 11):
+    #     for col in range(1, 21):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+    #         db.session.add(seat)
+    # db.session.commit()
+    # for row in range(1, 11):
+    #     for col in range(1, 13):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+    #         db.session.add(seat)
+    # db.session.commit()
+    # for row in range(1, 8):
+    #     for col in range(1, 11):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+    #         db.session.add(seat)
+    # db.session.commit()
+
     return render_template('top.html')
 
 #アカウント作成
@@ -175,7 +193,6 @@ def seibetutukuru():
     capa = request.form.get('capacity')
     agelimit = request.form.get('agelimit')
     movie = request.form.get('movie')
-    end_time = request.form.get('end_time')
     start_time = request.form.get('start_time')
     kubunmei = request.form.get('kubunmei')
     agelimitdayo = request.form.get('agelimitdayo')
@@ -187,12 +204,16 @@ def seibetutukuru():
     showtimedayo = request.form.get('shottimedayo')
     showdatedayo = request.form.get('showdatedayo')
     moviedesu = request.form.get('moviedesu')
+    form = DeleteAllForm()
+    delete_movie_form = DeleteMovieForm()  # フォームを作成
 
     
     md = request.form.get('md')
     ms = request.form.get('ms')
     ov = request.form.get('ov')
     st = request.form.get('st')
+    hazime = request.form.get('startdate')
+    owari = request.form.get('finishdate')
     
     
     priceplans = request.form.get('priceplans')
@@ -239,7 +260,7 @@ def seibetutukuru():
             db.session.add(agelimit)
             db.session.commit()
         if movie:
-            movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st)
+            movie = Movie(MovieTitle=movie, AgeLimitID=agelimitdayo, MovieCategoryID=moviecategorydayo, MovieImageLength=movie_imagelength, MovieImageSide=movie_imageside, MD=md, MS=ms, Overview=ov, ShowTimes=st, StartDate=hazime, FinishDate=owari)
             db.session.add(movie)
             db.session.commit()
 
@@ -251,10 +272,9 @@ def seibetutukuru():
             cast = Cast(CastName=cast, MovieID=moviedayo)
             db.session.add(cast)
             db.session.commit()
-        if start_time and kubunmei and end_time:    
-            start_time = datetime.strptime(start_time, '%H:%M').time()  
-            end_time = datetime.strptime(end_time, '%H:%M').time()
-            showtime = ShowTime(kubunmei=kubunmei, start_time=start_time, end_time=end_time)
+        if start_time and kubunmei:    
+            start_time = datetime.strptime(start_time, '%H:%M').time() 
+            showtime = ShowTime(kubunmei=kubunmei, start_time=start_time)
             db.session.add(showtime)
             db.session.commit()
         if priceplans and price:
@@ -266,6 +286,18 @@ def seibetutukuru():
             db.session.add(discount)
             db.session.commit()
 
+        if delete_movie_form.validate_on_submit():
+            print("a")
+            movie_id_to_delete = request.form['delete_movie_id']
+            try:
+                movie_id_to_delete = int(movie_id_to_delete)
+                movie = Movie.query.get_or_404(movie_id_to_delete) # Movieオブジェクトを取得
+                db.session.delete(movie) # Movieオブジェクトを削除
+                db.session.commit()
+                flash('映画情報を削除しました', 'success')
+            except (TypeError, ValueError):
+                flash('無効な映画IDです。', 'danger')
+                
         showing = None  # showing変数をif文の外側で定義
         movie_id = request.form.get('moviedesu')
         screen_id = request.form.get('screendayo')
@@ -288,28 +320,27 @@ def seibetutukuru():
         else:
             flash('必要な情報が選択されていません。', 'danger')
 
-    # if a:
-    #     # for row in range(1, 11):
-    #     #     for col in range(1, 21):
-    #     #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
-    #     #         db.session.add(seat)
-    #     # db.session.commit()
-    # if b:
-    #     for row in range(1, 11):
-    #         for col in range(1, 13):
-    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
-    #             db.session.add(seat)
-    #     db.session.commit()
-    # if c:
-    #     for row in range(1, 8):
-    #         for col in range(1, 11):
-    #             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
-    #             db.session.add(seat)
-    #     db.session.commit()
+    if a:
+        for row in range(1, 11):
+            for col in range(1, 21):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+                db.session.add(seat)
+        db.session.commit()
+    if b:
+        for row in range(1, 11):
+            for col in range(1, 13):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+                db.session.add(seat)
+        db.session.commit()
+    if c:
+        for row in range(1, 8):
+            for col in range(1, 11):
+                seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+                db.session.add(seat)
+        db.session.commit()
 
     # 予約テーブルのレコード全消し 佐藤
     # この機能を使うときは、上映テーブルにデータ入れるやつをコメントアウトしないと動かん　治す気力はない　ほかの機能止まったらごめん
-    form = DeleteAllForm()
     if form.validate_on_submit():
         db.session.query(Reservation).delete()
         db.session.commit()
@@ -322,8 +353,11 @@ def seibetutukuru():
     calendars = Calendar2024.query.all()
     showtimess = ShowTime.query.all()
     screens  = Screen.query.all()
+
     
-    return render_template('seibetutukuru.html', reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, showtimes=showtimess, screens=screens, form=form)
+    return render_template('seibetutukuru.html', showtimes=showtimess, reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, screens=screens, form=form, delete_movie_form=delete_movie_form)
+
+
 
 app.register_blueprint(views_bp) # ブループリントをアプリケーションに登録
 

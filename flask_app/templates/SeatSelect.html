@@ -15,6 +15,7 @@
         <p>screen</p>
     </div>
     <div class="seat-map" id="seat-map">
+
         {% if screen_id == 1 %}
         <figure id="aisle_left">
             <img src="{{url_for('static', filename='images/slope.png')}}" alt="入口">
@@ -49,6 +50,7 @@
                 {% endif %}
             {% endfor %}
         </table> -->
+
         <table>
             {% if screen_id == 3 %}
             <tbody id="number3">

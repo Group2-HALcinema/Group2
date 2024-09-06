@@ -50,3 +50,6 @@ class AccountForm(FlaskForm):
     password = PasswordField('パスワード')  # 入力があれば更新
     phonenumber = TelField('電話番号')
     submit = SubmitField('更新')
+
+class DeleteMovieForm(FlaskForm):
+    submit = SubmitField('削除')

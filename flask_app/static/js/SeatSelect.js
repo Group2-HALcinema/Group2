@@ -81,6 +81,11 @@ $(document).ready(function() {
     // ページ読み込み時と定期的に予約状況を更新
     updateReservedSeats();
     // setInterval(updateReservedSeats, 5000); // 5秒ごとに更新
+    // フォーム送信時の処理
+    $('#seatForm').submit(function() {
+        // フォームの隠しフィールドに選択された座席IDをセット
+        $('#selected-seats').val(selectedSeats.join(','));
+    });
 
     // 予約ボタンクリック処理
     $('#reserve-button').click(function() {

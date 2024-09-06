@@ -72,18 +72,49 @@
         <input type="text" name="ms" placeholder="脚本"><br>
         <input type="text" name="ov" placeholder="概要"><br>
         <input type="text" name="st" placeholder="上映時間"><br>
+        
         <select name="agelimitdayo">
             {% for limit in agelimits %}
                 <option value="{{ limit.AgeLimitID }}">{{ limit.AgeLimit }}</option>
             {% endfor %}
-        </select>
+        </select><br>
+        
         <select name="moviecategorydayo">
             {% for category in moviecategorys %}
                 <option value="{{ category.MovieCategoryID }}">{{ category.CategoryName }}</option>
             {% endfor %}
-        </select>
+        </select><br>
+        
+        <!-- startdateとfinishdateの入力フィールドを追加 -->
+        <label for="startdate">開始日:</label>
+        <select name="startdate">
+            {% for date in calendars %}
+                <option value="{{ date.id }}">{{ date.day }}</option>
+            {% endfor %}
+        </select><br>
+    
+        <label for="finishdate">終了日:</label>
+        <select name="finishdate">
+            {% for date in calendars %}
+                <option value="{{ date.id }}">{{ date.day }}</option>
+            {% endfor %}
+        </select><br>
+    
         <button type="submit">追加</button>
     </form>
+    
+
+    <h2>映画情報削除</h2>
+    {% for movie in movies %}
+        {{ movie.MovieTitle }}
+        <form method="POST" action="{{ url_for('seibetutukuru') }}" style="display: inline;"> 
+            {{ delete_movie_form.hidden_tag() }}
+            <input type="hidden" name="delete_movie_id" value="{{ movie.MovieID }}">
+            <button type="submit" class="btn btn-danger btn-sm">削除</button>
+        </form>
+    {% endfor %}
+
+
     <h2>キャスト追加</h2>
     <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
         <input type="text" name="cast" placeholder="キャスト"><br>
@@ -110,7 +141,6 @@
     <form method="POST" action="{{ url_for('seibetutukuru') }}">
         <input type="text" name="kubunmei" placeholder="区分名">
         <input type="time" name="start_time" placeholder="開始時間">
-        <input type="time" name="end_time" placeholder="終了時間">
         <button type="submit">追加</button>
     </form>
     <h2>上映追加</h2>
@@ -127,7 +157,7 @@
         </select>
         <select name="showdatedayo">
             {% for calendar in calendars %}
-                <option value="{{ calendar.day }}">{{ calendar.day }}</option>
+                <option value="{{ calendar.id }}">{{ calendar.day }}</option>
             {% endfor %}
         </select>
         <select name="showtimedayo">
@@ -137,7 +167,7 @@
         </select>
         <button type="submit">追加</button>
     </form>
-    <!--<h2>a</h2>
+    <h2>a</h2>
     <form method="POST" action="{{ url_for('seibetutukuru') }}">
         <input type="text" name="a" placeholder="年齢制限">
         <button type="submit">追加</button>
@@ -151,7 +181,7 @@
     <form method="POST" action="{{ url_for('seibetutukuru') }}">
         <input type="text" name="c" placeholder="年齢制限">
         <button type="submit">追加</button>
-    </form>-->
+    </form>
 
 
 
