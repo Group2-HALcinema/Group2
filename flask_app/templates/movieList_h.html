@@ -21,6 +21,12 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&display=swap" rel="stylesheet">
+    <!-- ここまで -->
     
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
@@ -59,6 +65,7 @@
         <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('views.sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
+    <div class="backimg"><img src="{{url_for('static', filename='images/horrorback.png')}}" alt=""></div>
     
     
     <main>
