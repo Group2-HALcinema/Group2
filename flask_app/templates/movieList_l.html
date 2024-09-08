@@ -9,6 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>上映中作品一覧(ラブ)</title>
+    
+    <!-- フォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <!-- kokomade -->
 
     <!-- スライドショー -->
     <link
@@ -20,8 +26,9 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
     
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList_l.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
@@ -60,6 +67,7 @@
       </ul>
     </nav>
     
+    <div class="backimg"><img src="{{url_for('static', filename='images/loveback.png')}}" alt=""></div>
     
     <main>
       <!-- spaceはnavの帳尻合わせのために作ってる -->
