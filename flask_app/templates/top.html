@@ -78,83 +78,104 @@
       <div id="Screening_list_space">
         <div id="C_rightspace">
           <div id="switching">
-            <div id="S_showing">上映中作品</div>
-            <div id="S_schedule">上映予定作品</div>
+            <div class="tab-button  active" onclick="switchTab(1)">上映中作品</div>
+            <div class="tab-button" onclick="switchTab(2)">上映予定作品</div>
           </div>
           <div id="load-moreIn">
+
             <div id="Screening_list">
-              <!-- -----ロードモア化予定地----- -->
 
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
+              <!-- 上映中作品 -->
+              <div id="tab1" class="tab-content active-tab">
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                  </a>
+                </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                  </a>
+                </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                  </a>
+                </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                  </a>
+                </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                  </a>
+                </div>
               </div>
+              
 
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）aaaaaaaaaaaaaabbbbbbbbbcccccccddddddddddddddddd</p>
-                </a>
-              </div>
+              <!-- 上映予定作品 -->
+              <div id="tab2" class="tab-content" >
 
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
 
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
+                  </a>
+                </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
+                  </a>
+                </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
+                  </a>
+                </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
+                  </a>
+                </div>
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                    </figure>
+                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
+                  </a>
+                </div>
 
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
 
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
-
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
-
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
               </div>
 
             </div>
