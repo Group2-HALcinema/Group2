@@ -101,35 +101,39 @@
     <div id="schedule">
         <h2>上映スケジュール</h2>
         <span>
-            <div id="scheduleday">
-              {% for showing in movie.showing %}
-                <div>
-                    <span>
-                        <p class="day">{{ showing.calender.day.strftime('%m/%d(%a)') }}</p>
-                        <p></p>
-                    </span>
-                </div>
-              {% endfor %}
-            </div>
-    
-            <div id="scheduletime">
-                <div class="screenbody">
-                  {% for showing in movie.showing %}
-                    <section>
-                        <h6>スクリーン{{ showing.screen.ScreenID}}</h6>
-                        <div class="screenwrap">
-                            <div>
-                                <a href="{{ url_for('views.SeatSelect', showing_id=showing.ShowingID) }}">
-                                    <p class="time"><span class="starttime">{{ showing.showtime.start_time.strftime('%H:%M') }}</span></p>
-                                    <p class="info">{{ showing.Info }}</p>
-                                    <p class="status">{{ showing.Status }}</p>
-                                </a>
-                            </div>
-                        </div>
-                    </section>
-                  {% endfor %}
-                </div>
-            </div>
+          <div id="scheduleday">
+            {% for showing in movie.showing %}
+              <div>
+                <span>
+                  <p class="day">{{ showing.calender.day.strftime('%m/%d(%a)') }}</p>
+                  <p></p>
+                </span>
+              </div>
+            {% endfor %}
+          </div>
+  
+          <div id="scheduletime">
+              <div class="screenbody">
+                {% for showing in movie.showing %}
+                  <section>
+                      <h6>スクリーン{{ showing.screen.ScreenID}}</h6>
+                      <div class="screenwrap">
+                          <div>
+                              <a href="{{ url_for('views.SeatSelect', showing_id=showing.ShowingID) }}">
+                                  <p class="time"><span class="starttime">{{ showing.showtime.start_time.strftime('%H:%M') }}</span></p>
+                                  <p class="info">{{ showing.Info }}</p>
+                                  <p class="status">{{ showing.Status }}</p>
+                              </a>
+                          </div>
+                      </div>
+                  </section>
+                {% endfor %}
+
+                {% if not movie.showing %}
+                <p class="coment_a">公開中予定作品です。</p>
+                {% endif %}
+              </div>
+          </div>
         </span>
     </div>
     
