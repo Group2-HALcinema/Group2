@@ -73,26 +73,7 @@ body{
 #switching{
     display: flex;
 }
-#S_showing{
-    padding: 7px 0;
-    width: 31.5vw;
-    font-size: 1.1rem;
-    background-color: #222;
-    color: white;
-    text-align: center;
-    vertical-align: middle;
-}
-#S_schedule{
-    padding: 7px 0;
-    width: 31.5vw;
-    font-size: 1.1rem;
-    background-color: #222;
-    color: white;
-    text-align: center;
-    vertical-align: middle;
-    
-    border: #fff 1px solid;
-}
+
 
 #load-moreIn{
     background-color: #222;
@@ -228,4 +209,57 @@ body{
 .backimg img{
     width: 100%;
     height: auto;
+}
+
+
+
+/* ↓タブ切り替え機能のやつ */
+
+.tab-content {
+    display: none;
+}
+   
+.active-tab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 63vw;
+    height: auto;
+    padding: 20px 0 0 0;
+}
+
+.tab-button {
+    padding: 7px 0;
+    width: 31.5vw;
+    font-size: 1.1rem;
+    background-color: #222;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    border: #fff 1px solid;
+}
+
+.tab-button.active {
+    border: none;
+}
+
+#S_showing{
+    padding: 7px 0;
+    width: 31.5vw;
+    font-size: 1.1rem;
+    background-color: #222;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+#S_schedule{
+    padding: 7px 0;
+    width: 31.5vw;
+    font-size: 1.1rem;
+    background-color: #222;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    
+    border: #fff 1px solid;
 }
