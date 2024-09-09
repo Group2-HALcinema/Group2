@@ -87,95 +87,31 @@
 
               <!-- 上映中作品 -->
               <div id="tab1" class="tab-content active-tab">
+                {% for movie in movies %}
                 <div class="works">
                   <a href="#">
                     <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                      <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageLength) }}" alt="{{ movie.MovieTitle }}"/>
                     </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
+                    <p>{{ movie.MovieTitle }}</p>
                   </a>
                 </div>
-                <div class="works">
-                  <a href="#">
-                    <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                    </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                  </a>
-                </div>
-                <div class="works">
-                  <a href="#">
-                    <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                    </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                  </a>
-                </div>
-                <div class="works">
-                  <a href="#">
-                    <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                    </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                  </a>
-                </div>
-                <div class="works">
-                  <a href="#">
-                    <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                    </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                  </a>
-                </div>
+                {% endfor %}
               </div>
               
 
               <!-- 上映予定作品 -->
               <div id="tab2" class="tab-content" >
-
-
+                {% for movie in upcoming_movies %}
                 <div class="works">
                   <a href="#">
                     <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
+                      <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageLength) }}" alt="{{ movie.MovieTitle }}"/>
                     </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
+                    <p>{{ movie.MovieTitle }}</p>
                   </a>
                 </div>
-                <div class="works">
-                  <a href="#">
-                    <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                    </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
-                  </a>
-                </div>
-                <div class="works">
-                  <a href="#">
-                    <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                    </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
-                  </a>
-                </div>
-                <div class="works">
-                  <a href="#">
-                    <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                    </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
-                  </a>
-                </div>
-                <div class="works">
-                  <a href="#">
-                    <figure>
-                      <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                    </figure>
-                    <p>名探偵コナン 100万ドルの五稜星（みちしるべ）2</p>
-                  </a>
-                </div>
-
-
+                {% endfor %}
               </div>
 
             </div>
