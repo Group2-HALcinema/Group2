@@ -78,7 +78,9 @@
               <ul class="slider fadeInTrigger">
                 {% for movie in upcoming_movies %}
                 <li>
-                  <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageLength) }}" alt="{{ movie.MovieTitle }}"/>
+                  <a href="{{ url_for('views.moviedetail', movie_id=movie.MovieID) }}">
+                    <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageLength) }}" alt="{{ movie.MovieTitle }}"/>
+                  </a>
                 </li>
                 {% endfor %}
               </ul>
@@ -86,7 +88,7 @@
           </div>
         </div>
 
-                <div class="s_MovieList">
+        <div class="s_MovieList">
           {% for movie in upcoming_movies %}
             <div class="s_MovieBlock">
               <div class="s_imageWrap">

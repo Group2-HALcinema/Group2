@@ -78,83 +78,40 @@
       <div id="Screening_list_space">
         <div id="C_rightspace">
           <div id="switching">
-            <div id="S_showing">上映中作品</div>
-            <div id="S_schedule">上映予定作品</div>
+            <div class="tab-button  active" onclick="switchTab(1)">上映中作品</div>
+            <div class="tab-button" onclick="switchTab(2)">上映予定作品</div>
           </div>
           <div id="load-moreIn">
+
             <div id="Screening_list">
-              <!-- -----ロードモア化予定地----- -->
 
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
+              <!-- 上映中作品 -->
+              <div id="tab1" class="tab-content active-tab">
+                {% for movie in movies %}
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageLength) }}" alt="{{ movie.MovieTitle }}"/>
+                    </figure>
+                    <p>{{ movie.MovieTitle }}</p>
+                  </a>
+                </div>
+                {% endfor %}
               </div>
+              
 
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）aaaaaaaaaaaaaabbbbbbbbbcccccccddddddddddddddddd</p>
-                </a>
-              </div>
-
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
-
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
-
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
-
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
-
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
-              </div>
-
-              <div class="works">
-                <a href="#">
-                  <figure>
-                    <img src="{{url_for('static', filename='images/sample.jpg')}}" alt="sample">
-                  </figure>
-                  <p>名探偵コナン 100万ドルの五稜星（みちしるべ）</p>
-                </a>
+              <!-- 上映予定作品 -->
+              <div id="tab2" class="tab-content" >
+                {% for movie in upcoming_movies %}
+                <div class="works">
+                  <a href="#">
+                    <figure>
+                      <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageLength) }}" alt="{{ movie.MovieTitle }}"/>
+                    </figure>
+                    <p>{{ movie.MovieTitle }}</p>
+                  </a>
+                </div>
+                {% endfor %}
               </div>
 
             </div>
@@ -163,12 +120,7 @@
 
           </div>
         </div>
-        <div id="ticket_btn">
-          <a href="#">
-          <!-- 画像とか挿入予定 -->
-          <p>チケットボタン</p>
-          </a>
-        </div>
+
       </div>
 
 

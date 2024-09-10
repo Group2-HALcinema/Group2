@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 from datetime import date, timedelta
 import os
+import datetime
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -23,25 +24,34 @@ def load_user(user_id):
 #     return render_template("top.html")
 @app.route("/")
 def index():
-    create_calendar2024()
-    zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
-    for row in range(1, 11):
-        for col in range(1, 21):
-            seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
-            db.session.add(seat)
-    db.session.commit()
-    for row in range(1, 11):
-        for col in range(1, 13):
-            seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
-            db.session.add(seat)
-    db.session.commit()
-    for row in range(1, 8):
-        for col in range(1, 11):
-            seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
-            db.session.add(seat)
-    db.session.commit()
+#     create_calendar2024()
+#     zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
+#     for row in range(1, 11):
+#         for col in range(1, 21):
+#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+#             db.session.add(seat)
+#     db.session.commit()
+#     for row in range(1, 11):
+#         for col in range(1, 13):
+#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+#             db.session.add(seat)
+#     db.session.commit()
+#     for row in range(1, 8):
+#         for col in range(1, 11):
+#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+#             db.session.add(seat)
+#     db.session.commit()
 
-    return render_template('top.html')
+    # Showingテーブルから上映中のMovieIDを取得
+    showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
+    showing_movie_ids = [item[0] for item in showing_movie_ids]  # リスト内のタプルを展開
+
+    # 取得したMovieIDリストを使ってMovieテーブルから映画情報を取得
+    movies = db.session.query(Movie).filter(Movie.MovieID.in_(showing_movie_ids)).all()
+    upcoming_movies = db.session.query(Movie).filter(~Movie.MovieID.in_(showing_movie_ids)).all()
+    
+    return render_template('top.html',movies=movies, upcoming_movies=upcoming_movies)
+
 
 #アカウント作成
 @app.route("/signup", methods=['GET', 'POST'])
@@ -82,8 +92,6 @@ def signout():
 
 @app.route('/memberinfo', methods=["GET", "POST"])
 def memberinfo():
-
-    print("AccountID:", current_user.get_id())
     """ユーザーの個人情報を更新する."""
     # current_user から Account オブジェクトを取得
     user_data = Account.query.filter_by(AccountID=int(current_user.get_id())).first()
@@ -91,6 +99,14 @@ def memberinfo():
     reservations = Reservation.query.filter_by(AccountID=current_user.get_id()).all()
     # アドレステーブルからデータを取得
     address_data = Address.query.filter_by(AccountID=current_user.get_id()).first()
+    # 各予約の終了時間を計算
+    for reservation in reservations:
+        start_time = reservation.showing.showtime.start_time
+        # datetime.datetime.combine を使って datetime オブジェクトに変換
+        start_datetime = datetime.datetime.combine(datetime.date.today(), start_time)
+        reservation.end_time = (
+            start_datetime + timedelta(minutes=reservation.showing.movie.ShowTimes)
+        )
 
     # ログイン済みユーザーかどうかを確認
     if not current_user.is_authenticated:
@@ -175,6 +191,7 @@ def memberinfo():
     return render_template('Memberinfo.html', user=current_user, reservations=reservations, form=form, form2=form2)
 
 
+
 def save_image(form_picture):
     random_hex = os.urandom(8).hex()
     _, f_ext = os.path.splitext(form_picture.filename)
@@ -204,6 +221,8 @@ def seibetutukuru():
     showtimedayo = request.form.get('shottimedayo')
     showdatedayo = request.form.get('showdatedayo')
     moviedesu = request.form.get('moviedesu')
+    form = DeleteAllForm()
+    delete_movie_form = DeleteMovieForm()  # フォームを作成
 
     
     md = request.form.get('md')
@@ -284,6 +303,18 @@ def seibetutukuru():
             db.session.add(discount)
             db.session.commit()
 
+        if delete_movie_form.validate_on_submit():
+            print("a")
+            movie_id_to_delete = request.form['delete_movie_id']
+            try:
+                movie_id_to_delete = int(movie_id_to_delete)
+                movie = Movie.query.get_or_404(movie_id_to_delete) # Movieオブジェクトを取得
+                db.session.delete(movie) # Movieオブジェクトを削除
+                db.session.commit()
+                flash('映画情報を削除しました', 'success')
+            except (TypeError, ValueError):
+                flash('無効な映画IDです。', 'danger')
+                
         showing = None  # showing変数をif文の外側で定義
         movie_id = request.form.get('moviedesu')
         screen_id = request.form.get('screendayo')
@@ -327,7 +358,6 @@ def seibetutukuru():
 
     # 予約テーブルのレコード全消し 佐藤
     # この機能を使うときは、上映テーブルにデータ入れるやつをコメントアウトしないと動かん　治す気力はない　ほかの機能止まったらごめん
-    form = DeleteAllForm()
     if form.validate_on_submit():
         db.session.query(Reservation).delete()
         db.session.commit()
@@ -340,8 +370,9 @@ def seibetutukuru():
     calendars = Calendar2024.query.all()
     showtimess = ShowTime.query.all()
     screens  = Screen.query.all()
+
     
-    return render_template('seibetutukuru.html', showtimes=showtimess, reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, screens=screens, form=form)
+    return render_template('seibetutukuru.html', showtimes=showtimess, reservations=reservations, agelimits=agelimits, moviecategorys=moviecategorys, movies=movies, calendars=calendars, screens=screens, form=form, delete_movie_form=delete_movie_form)
 
 
 

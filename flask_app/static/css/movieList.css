@@ -13,6 +13,41 @@
   font-size: 1.5rem;
 }
 
+
+/* ------action-------- */
+.s_titleWrap_A{
+  height: 6vh;
+  margin: 20px auto 40px auto;
+}
+.s_titleWrap_A h1{
+  font-size: 1.7rem;
+  font-family: "Reggae One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #fff;
+  width: 350px;
+  text-align: center;
+}
+
+.actionNav{
+  background-color: #ff4433;
+}
+.actionNav ul.navwrap li a:hover{
+  background-color: #ffd94f;
+}
+
+.ac_css{
+  background-color: rgba(255, 30, 30, 0.8);
+  z-index: 200;
+}
+
+.actionColor{
+  background-color: rgb(255, 77, 77);
+}
+
+/* ------------ */
+
+
 .s_WorkSpace .s_MovieBlock{
   height: 22vh;
   display: flex;
@@ -286,11 +321,9 @@
   background: #add3c7;
 }
 .slick-dots li:nth-child(4) button {
-  /* background: #b4b1a0; */
   background: #add3c7;
 }
 .slick-dots li:nth-child(5) button {
-  /* background: #cfbc96; */
   background: #add3c7;
 }
 .slick-dots li button:hover, .slick-dots li.slick-active button {
