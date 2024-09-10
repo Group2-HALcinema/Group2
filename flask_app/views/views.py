@@ -3,6 +3,8 @@ from flask_login import login_user, current_user, login_required
 from ..models import db, Seat, Reservation, Account, Showing, Screen, Movie, Price
 from sqlalchemy.exc import IntegrityError
 import re
+from collections import defaultdict 
+
 views_bp = Blueprint('views', __name__, url_prefix='/views')
 
 from flask_app import login_manager, app
