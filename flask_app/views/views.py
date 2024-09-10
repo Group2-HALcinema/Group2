@@ -3,6 +3,8 @@ from flask_login import login_user, current_user, login_required
 from ..models import db, Seat, Reservation, Account, Showing, Screen, Movie, Price, ReservSeat
 from sqlalchemy.exc import IntegrityError
 import re
+from collections import defaultdict 
+
 views_bp = Blueprint('views', __name__, url_prefix='/views')
 
 from flask_app import login_manager, app
@@ -177,8 +179,15 @@ def infoedit():
 def moviedetail(movie_id):
     # movie_idに基づいて映画の情報を取得
     movie = Movie.query.get_or_404(movie_id)
-    showing = Showing.query.all()
-    return render_template('moviedetail.html', movie=movie, showing=showing)
+    showings = Showing.query.filter_by(MovieID=movie_id).all() # 特定映画の上映を取得
+
+    # 上映スケジュールを日付でグループ化
+    showings_by_date = defaultdict(list)
+    for showing in showings:
+        date_key = showing.showtime.start_time.strftime('%Y-%m-%d')
+        showings_by_date[date_key].append(showing)
+    
+    return render_template('moviedetail.html', movie=movie, showings_by_date=showings_by_date)
 
 # 上映中一覧ページ
 @views_bp.route('/movielist')
