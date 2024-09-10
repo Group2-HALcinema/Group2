@@ -66,20 +66,16 @@
                     <table>
                       {% for seat in selected_seats %}
                         <tr>
-                          <td class="cl" for="seat_{{ loop.index }}">座席 {{ seat.Row }}{{ seat.Number }}</td>
+                          <td class="cl" for="seat_{{ loop.index }}">座席 {{ seat.Row }}{{ seat.Number }} の料金プラン:</td>
+                          <td class="pl">
+                            <select name="price_plans[]" data-seat-id="{{ seat.id }}">
+                                {% for plan in price %}
+                                    <option value="{{ plan.PriceID }}">{{ plan.PricePlans }} - {{ plan.Price }}円</option>
+                                {% endfor %}
+                            </select>
+                          </td>
                         </tr>
                       {% endfor %}
-                        
-                      <tr>
-                        <td class="pl">
-                          <label for="adults">大人の人数:</label>
-                          <input type="number" id="otona" name="otona" min="0" max="{{ seat_count }}" value="0" required>
-                        </td>
-                        <td class="pl">
-                          <label for="children">子供の人数:</label>
-                          <input type="number" id="kodomo" name="kodomo" min="0" max="{{ seat_count }}" value="0" required>
-                        </td>
-                      </tr>
                     </table>
                   </div>
                   <div id="total"><p>計<span id="seatCount">{{ selected_seats|length }}</span>枚</p></div>
@@ -87,7 +83,7 @@
                 <div id="priceArea">
                   <div id="price">
                     <p id="priceG">合計</p>
-                    <P id="priceY"><!--ココに入れる-->111111円</P>
+                    <P id="priceY"><!--ココに入れる-->円</P>
                   </div>
                 </div>
 
