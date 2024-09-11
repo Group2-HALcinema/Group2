@@ -178,10 +178,14 @@ main #schedule span #scheduletime .screenbody section .screenwrap div a p .endti
     font-size: 1.1vw;
     font-weight: 600;
     margin-left: 5%;
-    color: #9a9a9a;
+    /* color: #9a9a9a; */
 }
 
 .coment_a{
     color: #fff;
     background-color: rgb(2, 2, 38);
+}
+
+a{
+    text-decoration: none;
 }

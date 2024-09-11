@@ -1,20 +1,28 @@
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none"; // すべてのタブコンテンツを非表示にする
-    }
+const dateTabs = document.querySelectorAll('#scheduleday .day'); 
+const showtimeSections = document.querySelectorAll('.showtime-section');
 
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", ""); // すべてのタブのactiveクラスを削除
-    }
+dateTabs.forEach(tab => {
+  tab.addEventListener('click', (event) => {
+    event.preventDefault(); // <a> タグのデフォルト動作をキャンセル
 
-    document.getElementById(tabName).style.display = "block"; // クリックされたタブに対応するコンテンツのみを表示
-    evt.currentTarget.className += " active"; // クリックされたタブにactiveクラスを追加
-}
+    const clickedDate = event.target.textContent.trim(); // 空白を除去して日付を取得
 
-// ページ読み込み時に最初のタブを表示する
-document.addEventListener('DOMContentLoaded', function() {
-  openTab(null, '{{ list(showings_by_date.keys())[0] }}'); 
+    // 全てのタブを非アクティブに、選択された日付のタブをアクティブに
+    dateTabs.forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // 全ての上映時間セクションを非表示に、選択された日付のセクションを表示
+    showtimeSections.forEach(section => {
+      // 日付の書式を合わせて比較
+      section.style.display = section.dataset.date.trim() === clickedDate ? 'block' : 'none'; 
+    });
+  });
 });
+
+// 初期表示は最初のタブの内容を表示
+const firstTab = dateTabs[0];
+if (firstTab) {
+  firstTab.classList.add('active');
+  const firstDate = firstTab.dataset.date;
+  document.querySelector(`.showtime-section[data-date="${firstDate}"]`).style.display = 'block';
+}

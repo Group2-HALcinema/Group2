@@ -90,6 +90,7 @@ def signout():
     return redirect(url_for('signin'))
 
 
+# マイページ
 @app.route('/memberinfo', methods=["GET", "POST"])
 def memberinfo():
     """ユーザーの個人情報を更新する."""
@@ -107,6 +108,8 @@ def memberinfo():
         reservation.end_time = (
             start_datetime + timedelta(minutes=reservation.showing.movie.ShowTimes)
         )
+        reservation.seat_number = f"{reservation.seat.Row}{reservation.seat.Number}"
+
 
     # ログイン済みユーザーかどうかを確認
     if not current_user.is_authenticated:
