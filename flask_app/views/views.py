@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, login_required
 from ..models import db, Seat, Reservation, Account, Showing, Screen, Movie, Price
 from sqlalchemy.exc import IntegrityError
 import re
-from collections import defaultdict 
+from datetime import timedelta, datetime
 
 views_bp = Blueprint('views', __name__, url_prefix='/views')
 
@@ -164,18 +164,27 @@ def cominglist():
 def infoedit():
     return render_template('infoEdit.html')
 
+# 映画詳細ページ
 @views_bp.route('/moviedetail/<int:movie_id>')
 def moviedetail(movie_id):
     movie = Movie.query.get_or_404(movie_id)
     showings = Showing.query.filter(Showing.MovieID == movie_id).all()
-    
-    # 上映スケジュールを日付ごとにグループ化
+
     showings_by_date = {}
     for showing in showings:
-        date = showing.calender.day.strftime('%m/%d(%a)')
-        if date not in showings_by_date:
-            showings_by_date[date] = []
-        showings_by_date[date].append(showing)
+        date_str = showing.calender.day.strftime('%m/%d(%a)')  # 文字列として扱う
+        if date_str not in showings_by_date:
+            showings_by_date[date_str] = []
+
+        # 終了時間を計算して showing オブジェクトに追加
+        start_time = showing.showtime.start_time
+        date_obj = datetime.strptime(date_str, '%m/%d(%a)').date() # datetimeオブジェクトに変換
+        end_time = (
+            datetime.combine(date_obj, start_time) + timedelta(minutes=movie.ShowTimes) 
+        ).time() 
+        showing.end_time = end_time
+
+        showings_by_date[date_str].append(showing)
 
     return render_template('moviedetail.html', movie=movie, showings_by_date=showings_by_date)
 
