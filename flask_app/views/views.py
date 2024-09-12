@@ -268,6 +268,17 @@ def buyCheck():
         return date.strftime('%m/%d') + f'({japanese_day})'
     showing_id = request.args.get('showing_id')
     selected_seat_str = request.args.get('selected_seats')  # リストとして取得
+    showing = Showing.query.get(showing_id)  # 適切なShowingの取得
+    movie = showing.movie
+    start_time = showing.showtime.start_time
+    # start_time を datetime 型に変換（例：今日の日付を使って）
+    start_datetime = datetime.combine(datetime.today(), start_time)
+    
+    # 上映時間（分）を加算して終了時間を計算
+    end_datetime = start_datetime + timedelta(minutes=movie.ShowTimes)
+    
+    # 終了時間を time 型に戻す
+    end_time = end_datetime.time()
     
     print("受け取ったShowingID:", showing_id)
 
@@ -297,7 +308,7 @@ def buyCheck():
     
     price = Price.query.all()
     
-    return render_template('buyCheck.html', showing=showing, selected_seats=selected_seats_info, showing_id=showing, zasekisu=zasekisu, format_japanese_day=format_japanese_day, price=price)
+    return render_template('buyCheck.html', showing=showing, selected_seats=selected_seats_info, showing_id=showing, zasekisu=zasekisu, format_japanese_day=format_japanese_day, price=price, end_time=end_time, start_time=start_time)
 
 
 # 購入完了ページ
