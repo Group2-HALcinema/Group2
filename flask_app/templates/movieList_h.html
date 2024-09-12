@@ -102,8 +102,8 @@
                 <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageSide) }}" alt="{{ movie.MovieTitle }}"/>
               </div>
               <div class="s_MovieInfo">
-                <p>{{ movie.MovieTitle }}</p>
-                <p>
+                <p>映画タイトル　{{ movie.MovieTitle }}</p>
+                <p>キャスト　
                   {% for cast in movie.cast %}
                   {{ cast.CastName[:50] }}{% if cast.CastName|length > 50 %}...{% endif %}
                   {% endfor %}

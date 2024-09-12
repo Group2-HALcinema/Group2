@@ -105,9 +105,10 @@ def memberinfo():
     address_data = Address.query.filter_by(AccountID=current_user.get_id()).first()
     # 各予約の終了時間を計算
     for reservation in reservations:
-        start_time = reservation.showing.showtime.start_time
-        # datetime.datetime.combine を使って datetime オブジェクトに変換
-        start_datetime = datetime.datetime.combine(datetime.date.today(), start_time)
+        # start_time_str は既に datetime.time 型と仮定
+        start_time = reservation.showing.showtime.start_time  
+        # datetime.combine を使って datetime オブジェクトに変換
+        start_datetime = datetime.combine(datetime.today(), start_time)
         reservation.end_time = (
             start_datetime + timedelta(minutes=reservation.showing.movie.ShowTimes)
         )
