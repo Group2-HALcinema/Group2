@@ -324,3 +324,7 @@ def paycheck():
 @views_bp.route('/reservation_complete')
 def reservation_complete():
     return render_template('reservation_complete.html')
+
+@views_bp.route('/newsdetail')
+def newsdetail():
+    return render_template('newsdetail.html')
