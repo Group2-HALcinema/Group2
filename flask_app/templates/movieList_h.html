@@ -19,8 +19,13 @@
 
     <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList_h.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&display=swap" rel="stylesheet">
     
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
@@ -59,6 +64,8 @@
         <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('views.sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
+
+    <div class="backimg"><img src="{{url_for('static', filename='images/horrorback.png')}}" alt=""></div>
     
     
     <main>
@@ -117,9 +124,9 @@
       </div>
       
       <div class="space_2">
-        <a href="{{ url_for('views.movielist_h') }}"><input type="checkbox" id="H_1" name="space_2"><label for="H_1">H</label></a>
-        <a href="{{ url_for('views.movielist_a') }}"><input type="checkbox" id="A_2" name="space_2"><label for="A_2">A</label></a>
-        <a href="{{ url_for('views.movielist_l') }}"><input type="checkbox" id="L_3" name="space_2"><label for="L_3">L</label></a>
+        <input type="checkbox" id="H_1" name="space_2"><label for="H_1">H</label>
+        <input type="checkbox" id="A_2" name="space_2"><label for="A_2">A</label>
+        <input type="checkbox" id="L_3" name="space_2"><label for="L_3">L</label>
       </div>
 
 
