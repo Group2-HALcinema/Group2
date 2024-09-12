@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 from datetime import date, timedelta
 import os
-import datetime
+from datetime import datetime
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -24,23 +24,26 @@ def load_user(user_id):
 #     return render_template("top.html")
 @app.route("/")
 def index():
-#     create_calendar2024()
-#     zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
-#     for row in range(1, 11):
-#         for col in range(1, 21):
-#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
-#             db.session.add(seat)
-#     db.session.commit()
-#     for row in range(1, 11):
-#         for col in range(1, 13):
-#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
-#             db.session.add(seat)
-#     db.session.commit()
-#     for row in range(1, 8):
-#         for col in range(1, 11):
-#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
-#             db.session.add(seat)
-#     db.session.commit()
+    # create_calendar2024()
+    # zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
+    # for row in range(1, 11):
+    #     for col in range(1, 21):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+    #         db.session.add(seat)
+    # db.session.commit()
+    # for row in range(1, 11):
+    #     for col in range(1, 13):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+    #         db.session.add(seat)
+    # db.session.commit()
+    # for row in range(1, 8):
+    #     for col in range(1, 11):
+    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+    #         db.session.add(seat)
+    # db.session.commit()
+
+    # db.session.query(Showing).delete()
+    # db.session.commit()
 
     # Showingテーブルから上映中のMovieIDを取得
     showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
