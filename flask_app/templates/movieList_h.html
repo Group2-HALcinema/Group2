@@ -20,11 +20,13 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList_h.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
     
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
+    <div id="wrap"></div>
     <div class="wrap">
       <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
@@ -59,6 +61,7 @@
         <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('views.sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
+    <div class="backimg"><img src="{{url_for('static', filename='images/horrorback.png')}}" alt=""></div>
     
     
     <main>

@@ -1,0 +1,18 @@
+@charset "utf-8";
+@font-face {
+    font-family: "horror";
+    src: url(../font/ふぉんとうは怖い明朝体.otf);
+}
+body{
+    font-family: "horror";   
+}
+.nav{
+    background-color: #0404045e;
+}
+.s_titleWrap h1{
+    color: #fff;
+}
+.s_WorkSpace .s_MovieBlock{
+    border: solid 1px rgb(66, 66, 66);
+    background-color: rgba(0, 0, 0, 0.596);
+  }
