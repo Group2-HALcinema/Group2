@@ -33,7 +33,10 @@
   background-color: #ff4433;
 }
 .actionNav ul.navwrap li a:hover{
-  background-color: #ffd94f;
+  color: #ffd94f;
+}
+.actionNav ul.navwrap li div ul li a:hover span {
+  color: #ffd94f;
 }
 
 .ac_css{
@@ -42,7 +45,7 @@
 }
 
 .actionColor{
-  background-color: rgb(255, 77, 77);
+  background-color: rgb(77, 98, 222,0.9);
 }
 
 /* ------------ */
