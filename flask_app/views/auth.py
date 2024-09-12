@@ -24,25 +24,34 @@ def load_user(user_id):
 #     return render_template("top.html")
 @app.route("/")
 def index():
-    # create_calendar2024()
-    # zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
-    # for row in range(1, 11):
-    #     for col in range(1, 21):
-    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
-    #         db.session.add(seat)
-    # db.session.commit()
-    # for row in range(1, 11):
-    #     for col in range(1, 13):
-    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
-    #         db.session.add(seat)
-    # db.session.commit()
-    # for row in range(1, 8):
-    #     for col in range(1, 11):
-    #         seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
-    #         db.session.add(seat)
-    # db.session.commit()
+#     create_calendar2024()
+#     zaseki = [0,'A','B','C','D','E','F','G','H','I','J']
+#     for row in range(1, 11):
+#         for col in range(1, 21):
+#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=3)
+#             db.session.add(seat)
+#     db.session.commit()
+#     for row in range(1, 11):
+#         for col in range(1, 13):
+#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=2)
+#             db.session.add(seat)
+#     db.session.commit()
+#     for row in range(1, 8):
+#         for col in range(1, 11):
+#             seat = Seat(Row=zaseki[row], Number=col, ScreenID=1)
+#             db.session.add(seat)
+#     db.session.commit()
 
-    return render_template('top.html')
+    # Showingテーブルから上映中のMovieIDを取得
+    showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
+    showing_movie_ids = [item[0] for item in showing_movie_ids]  # リスト内のタプルを展開
+
+    # 取得したMovieIDリストを使ってMovieテーブルから映画情報を取得
+    movies = db.session.query(Movie).filter(Movie.MovieID.in_(showing_movie_ids)).all()
+    upcoming_movies = db.session.query(Movie).filter(~Movie.MovieID.in_(showing_movie_ids)).all()
+    
+    return render_template('top.html',movies=movies, upcoming_movies=upcoming_movies)
+
 
 #アカウント作成
 @app.route("/signup", methods=['GET', 'POST'])
@@ -81,6 +90,7 @@ def signout():
     return redirect(url_for('signin'))
 
 
+# マイページ
 @app.route('/memberinfo', methods=["GET", "POST"])
 def memberinfo():
     """ユーザーの個人情報を更新する."""
@@ -98,6 +108,8 @@ def memberinfo():
         reservation.end_time = (
             start_datetime + timedelta(minutes=reservation.showing.movie.ShowTimes)
         )
+        reservation.seat_number = f"{reservation.seat.Row}{reservation.seat.Number}"
+
 
     # ログイン済みユーザーかどうかを確認
     if not current_user.is_authenticated:

@@ -24,7 +24,7 @@
     
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
-  <body>
+  <body class="ML">
     <div class="wrap">
       <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
@@ -69,7 +69,7 @@
 
       <div class="s_WorkSpace">
         <div class="s_titleWrap">
-          <h1>公開予定作品一覧</h1>
+          <h1 class="MT">公開予定作品一覧</h1>
         </div>
 
         <div class="s_sliderBox">
@@ -95,8 +95,9 @@
                 <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageSide) }}" alt="{{ movie.MovieTitle }}"/>
               </div>
               <div class="s_MovieInfo">
-                <p>{{ movie.MovieTitle }}</p>
+                <p>映画タイトル　{{ movie.MovieTitle }}</p>
                 <p>
+                  キャスト　
                   {% for cast in movie.cast %}
                   {{ cast.CastName[:50] }}{% if cast.CastName|length > 50 %}...{% endif %}
                   {% endfor %}
