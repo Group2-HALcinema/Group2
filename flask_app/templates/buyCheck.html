@@ -83,7 +83,7 @@
                 <div id="priceArea">
                   <div id="price">
                     <p id="priceG">合計</p>
-                    <P id="priceY"><!--ココに入れる-->円</P>
+                    <P id="priceY"><!--ココに入れる-->0円</P>
                   </div>
                 </div>
 
@@ -105,5 +105,33 @@
     </main>
       
   </body>
+  <script>
+    // 合計金額を計算して表示する関数
+    function updateTotalPrice() {
+      let total = 0;
+      const priceElements = document.querySelectorAll('select[name="price_plans[]"]');
+      
+      priceElements.forEach(function(select) {
+        const selectedOption = select.options[select.selectedIndex];
+        const price = parseInt(selectedOption.text.split('-')[1].replace('円', '').trim());
+        total += price;
+      });
+
+      // 合計金額を表示
+      document.getElementById('priceY').textContent = total.toLocaleString() + '円';
+    }
+
+    // 各セレクトボックスにイベントリスナーを追加
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const priceElements = document.querySelectorAll('select[name="price_plans[]"]');
+      
+      priceElements.forEach(function(select) {
+        select.addEventListener('change', updateTotalPrice);
+      });
+
+      // 初期計算
+      updateTotalPrice();
+    });
+  </script>
 
 </html>
