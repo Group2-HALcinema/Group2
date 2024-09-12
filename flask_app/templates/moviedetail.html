@@ -78,9 +78,9 @@
             <div id="Synopsis">
                 <section style="flex-flow: column;">
                     <h2>{{ movie.MovieTitle }}</h2>
-                    <ul>
-                        <li style="width: 30%;">監督</li>
-                        <li style="width: 70%;">{{ movie.MD }}</li>
+                    <ul style="width: 400px;">
+                        <li style="width: 20%;">監督</li>
+                        <li style="width: 80%;" >{{ movie.MD }}</li>
                     </ul>
                     <div>
                         <ul style="margin-top: -3%;">
@@ -93,7 +93,7 @@
                         </ul>
                     </div>
                 </section>
-                <h2>{{ movie.Overview }}</h2>
+                <h2>{{ movie.Overview[:320] }}{% if movie.Overview|length > 50 %}...{% endif %}</h2>
             </div>
         </div>
     </div>

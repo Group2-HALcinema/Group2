@@ -188,4 +188,11 @@ main #schedule span #scheduletime .screenbody section .screenwrap div a p .endti
 
 a{
     text-decoration: none;
+
+}
+.day a{
+    color: #fff;
+}
+.day a:active{
+    color: #b71c1c;
 }

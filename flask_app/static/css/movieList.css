@@ -329,20 +329,20 @@
 }
 .slick-dots li:nth-child(1) button {
   /* background: #efc5b4; */
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li:nth-child(2) button {
   /* background: #a9b7ba; */
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li:nth-child(3) button {
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li:nth-child(4) button {
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li:nth-child(5) button {
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li button:hover, .slick-dots li.slick-active button {
   border-radius: 0px;
