@@ -169,16 +169,27 @@ def infoedit():
 def moviedetail(movie_id):
     movie = Movie.query.get_or_404(movie_id)
     showings = Showing.query.filter(Showing.MovieID == movie_id).all()
+    
+    
+    # 曜日を取得して日本語に変換する関数
+    def format_japanese_day(date):
+        english_day = date.strftime('%a')  # 英語の曜日を取得
+        japanese_day = weekdays_jp[english_day]  # 日本語に変換
+        return date.strftime('%m/%d') + f'({japanese_day})'
 
     showings_by_date = {}
-    for showing in showings:
-        date_str = showing.calender.day.strftime('%m/%d(%a)')  # 文字列として扱う
+    for showing in showings:# 日付が文字列か datetime オブジェクトかを確認
+        if isinstance(showing.calender.day, datetime):
+            date_str = showing.calender.day.strftime('%m/%d(%a)')
+        else:
+            date_str = showing.calender.day  # すでに文字列の場合はそのまま
+
         if date_str not in showings_by_date:
             showings_by_date[date_str] = []
 
         # 終了時間を計算して showing オブジェクトに追加
         start_time = showing.showtime.start_time
-        date_obj = datetime.strptime(date_str, '%m/%d(%a)').date() # datetimeオブジェクトに変換
+        date_obj = showing.calender.day# datetimeオブジェクトに変換
         end_time = (
             datetime.combine(date_obj, start_time) + timedelta(minutes=movie.ShowTimes) 
         ).time() 
@@ -186,7 +197,7 @@ def moviedetail(movie_id):
 
         showings_by_date[date_str].append(showing)
 
-    return render_template('moviedetail.html', movie=movie, showings_by_date=showings_by_date)
+    return render_template('moviedetail.html', movie=movie, showings_by_date=showings_by_date, format_japanese_day=format_japanese_day)
 
 
 # 上映中一覧ページ
