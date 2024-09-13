@@ -105,7 +105,7 @@
           {% for date in showings_by_date.keys() %}
             <div>
               <span>
-                <p class="day" data-date="{{ date }}"><a href="#">{{ date }}</a></p> 
+                <p class="day" data-date="{{ date }}"><a href="#">{{ format_japanese_day(date) }}</a></p> 
                 <p></p>
               </span>
             </div>
