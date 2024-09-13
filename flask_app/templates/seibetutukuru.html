@@ -9,7 +9,7 @@
     <ul>
         {% for sex in seibetus %}
             <li>
-                {{ sex.sex }}
+                {{ sex.Sex }}
             </li>
         {% endfor %}
     </ul>
@@ -112,6 +112,7 @@
             <input type="hidden" name="delete_movie_id" value="{{ movie.MovieID }}">
             <button type="submit" class="btn btn-danger btn-sm">削除</button>
         </form>
+        <br>
     {% endfor %}
 
 
@@ -145,9 +146,13 @@
     </form>
     <h2>上映追加</h2>
     {% for movie in movies %}
-        <p>{{ movie.MovieTitle }}上映開始日{{ movie.start_calendar.day }}上映終了日{{ movie.finish_calendar.day }}</p>
+        <p>
+            映画タイトル：{{ movie.MovieTitle }}<br>
+            上映開始日：{{ movie.start_calendar.day }}　上映終了日：{{ movie.finish_calendar.day }}
+        </p>
     {% endfor %}
     <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
+        <p style="margin-bottom: 0;">映画タイトル　　　　　　　　　　　　　　スクリーンID　日付　　映画区分</p>
         <select name="moviedesu">
             {% for movie in movies %}
                 <option value="{{ movie.MovieID }}">{{ movie.MovieTitle }}</option>
