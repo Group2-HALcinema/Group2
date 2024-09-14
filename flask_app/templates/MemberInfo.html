@@ -70,7 +70,7 @@
                 <span class="error">{{ error }}</span>
               {% endfor %}
               
-              {{ form.kananame.label }}
+              {{ form.kananame.label(class="p_spase") }}
               {{ form.kananame(class="form-control") }}
               {% for error in form.kananame.errors %}
                 <span class="error">{{ error }}</span>
@@ -98,7 +98,7 @@
                 <span class="error">{{ error }}</span>
               {% endfor %}
           </div>
-          {{ form.submit() }}
+          {{ form.submit(class_='btnSet') }}
         </form>
 
         <!-- アドレス情報編集form -->
@@ -133,18 +133,18 @@
                 <span class="error">{{ error }}</span>
               {% endfor %}
           </div>
-          {{ form2.submit2() }}
+          {{ form2.submit2(class_='btnSet') }}
         </form>
       </div>
  
-      <h1>予約詳細</h1>
+      <h1 id="aSpace">予約詳細</h1>
  
-      <table>
+      <table id="yoyakuDetail">
         {% if reservations %}
           {% for reservation in reservations %}
           <tr>
               <td><img src="{{ url_for('static', filename='images/movieimages/' ~ reservation.showing.movie.MovieImageLength) }}" alt="{{ reservation.showing.movie.MovieTitle }}" width="100"></td>
-              <td>
+              <td id="fontReSize">
                 <p>映画タイトル:{{ reservation.showing.movie.MovieTitle }}</p>
                 <p>上映日：{{ reservation.showing.calender.day.strftime('%Y年%m月%d日') }}</p>
                 <p>上映時間：
@@ -165,11 +165,18 @@
  
       <div id="Histry">
         <h1>視聴した映画</h1>
-        <tr>
-          <td><img src="{{url_for('static', filename='images/100$_1.jpg')}}" alt="サムネ"></td>
-          <td><img src="{{url_for('static', filename='images/GOZKON_1.jpg')}}" alt="サムネ"></td>
-          <td><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></td>
-        </tr>
+        <div id="watchList">
+          <figure><img src="{{url_for('static', filename='images/100$_1.jpg')}}" alt="サムネ"></figure>
+          <figure><img src="{{url_for('static', filename='images/GOZKON_1.jpg')}}" alt="サムネ"></figure>
+          <figure><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></figure>
+          <figure><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></figure>
+          <figure><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></figure>
+          <figure><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></figure>
+          <figure><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></figure>
+          <figure><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></figure>
+          <figure><img src="{{url_for('static', filename='images/UMANew_1.jpg')}}" alt="サムネ"></figure>
+        </div>
+
       </div>
  
       <footer>
