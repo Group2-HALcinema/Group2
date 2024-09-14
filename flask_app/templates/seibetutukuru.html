@@ -146,10 +146,10 @@
     </form>
     <h2>上映追加</h2>
     {% for movie in movies %}
-        <p>
+        <!-- <p>
             映画タイトル：{{ movie.MovieTitle }}<br>
             上映開始日：{{ movie.start_calendar.day }}　上映終了日：{{ movie.finish_calendar.day }}
-        </p>
+        </p> -->
     {% endfor %}
     <form method="POST" action="{{ url_for('seibetutukuru') }}" enctype="multipart/form-data">
         <p style="margin-bottom: 0;">映画タイトル　　　　　　　　　　　　　　スクリーンID　日付　　映画区分</p>
