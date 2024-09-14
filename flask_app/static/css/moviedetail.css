@@ -105,9 +105,10 @@ main #schedule span #scheduleday {
     background-color: #4a4a4a;
 }
 main #schedule span #scheduleday div{
-    width: 11vw;
+    width: 12vw;
     height: 8.5vw;
     background-color: #9a9a9a;
+    /* margin: 0 6px 0 0; */
 }
 main #schedule span #scheduleday div span p{
     margin: auto;
@@ -177,5 +178,21 @@ main #schedule span #scheduletime .screenbody section .screenwrap div a p .endti
     font-size: 1.1vw;
     font-weight: 600;
     margin-left: 5%;
-    color: #9a9a9a;
+    /* color: #9a9a9a; */
+}
+
+.coment_a{
+    color: #fff;
+    background-color: rgb(2, 2, 38);
+}
+
+a{
+    text-decoration: none;
+
+}
+.day a{
+    color: #fff;
+}
+.day a:active{
+    color: #b71c1c;
 }

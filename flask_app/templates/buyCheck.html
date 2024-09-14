@@ -46,8 +46,8 @@
                       <p id="titleName">{{ showing.movie.MovieTitle }}</p> <!-- 何文字以上で「映画タイトル...」みたいな感じに -->
                   </div>
                   <div id="dateTime">
-                      <p id="day">{{ format_japanese_day(showing.calender.day) }}</p>
-                      <p id="time">{{ showing.showtime.start_time.strftime('%H:%M') }}</p>
+                    <p id="day">{{ format_japanese_day(calender.day) }}</p>
+                    <p id="time">{{ start_time.strftime('%H:%M') }} 〜 {{ end_time.strftime('%H:%M') }}</p>
                   </div>
               </div>
 
@@ -66,20 +66,16 @@
                     <table>
                       {% for seat in selected_seats %}
                         <tr>
-                          <td class="cl" for="seat_{{ loop.index }}">座席 {{ seat.Row }}{{ seat.Number }}</td>
+                          <td class="cl" for="seat_{{ loop.index }}">座席 {{ seat.Row }}{{ seat.Number }} の料金プラン:</td>
+                          <td class="pl">
+                            <select name="price_plans[]" data-seat-id="{{ seat.id }}">
+                                {% for plan in price %}
+                                    <option value="{{ plan.PriceID }}">{{ plan.PricePlans }} - {{ plan.Price }}円</option>
+                                {% endfor %}
+                            </select>
+                          </td>
                         </tr>
                       {% endfor %}
-                        
-                      <tr>
-                        <td class="pl">
-                          <label for="adults">大人の人数:</label>
-                          <input type="number" id="otona" name="otona" min="0" max="{{ seat_count }}" value="0" required>
-                        </td>
-                        <td class="pl">
-                          <label for="children">子供の人数:</label>
-                          <input type="number" id="kodomo" name="kodomo" min="0" max="{{ seat_count }}" value="0" required>
-                        </td>
-                      </tr>
                     </table>
                   </div>
                   <div id="total"><p>計<span id="seatCount">{{ selected_seats|length }}</span>枚</p></div>
@@ -87,7 +83,7 @@
                 <div id="priceArea">
                   <div id="price">
                     <p id="priceG">合計</p>
-                    <P id="priceY"><!--ココに入れる-->111111円</P>
+                    <P id="priceY"><!--ココに入れる-->0円</P>
                   </div>
                 </div>
 
@@ -109,5 +105,33 @@
     </main>
       
   </body>
+  <script>
+    // 合計金額を計算して表示する関数
+    function updateTotalPrice() {
+      let total = 0;
+      const priceElements = document.querySelectorAll('select[name="price_plans[]"]');
+      
+      priceElements.forEach(function(select) {
+        const selectedOption = select.options[select.selectedIndex];
+        const price = parseInt(selectedOption.text.split('-')[1].replace('円', '').trim());
+        total += price;
+      });
+
+      // 合計金額を表示
+      document.getElementById('priceY').textContent = total.toLocaleString() + '円';
+    }
+
+    // 各セレクトボックスにイベントリスナーを追加
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const priceElements = document.querySelectorAll('select[name="price_plans[]"]');
+      
+      priceElements.forEach(function(select) {
+        select.addEventListener('change', updateTotalPrice);
+      });
+
+      // 初期計算
+      updateTotalPrice();
+    });
+  </script>
 
 </html>

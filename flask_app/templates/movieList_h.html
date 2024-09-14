@@ -19,12 +19,21 @@
 
     <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/common.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/movieList_h.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='js/common.js')}}">
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&display=swap" rel="stylesheet">
     
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
   <body>
+    <div id="wrap"></div>
     <div class="wrap">
       <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
@@ -59,6 +68,8 @@
         <li><a style="padding: 0.7vw 1.1vw;" href="{{ url_for('views.sitemap') }}">サイトマップ</a></li>
       </ul>
     </nav>
+
+    <div class="backimg"><img src="{{url_for('static', filename='images/horrorback.png')}}" alt=""></div>
     
     
     <main>
@@ -91,13 +102,13 @@
                 <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageSide) }}" alt="{{ movie.MovieTitle }}"/>
               </div>
               <div class="s_MovieInfo">
-                <p>{{ movie.MovieTitle }}</p>
-                <p>
+                <p>映画タイトル　{{ movie.MovieTitle }}</p>
+                <p>キャスト　
                   {% for cast in movie.cast %}
                   {{ cast.CastName[:50] }}{% if cast.CastName|length > 50 %}...{% endif %}
                   {% endfor %}
                 </p>
-                <p>レイティング　{{ movie.agelimit.AgeLimitName }}</p>
+                <p>レイティング　{{ movie.agelimit.AgeLimit }}</p>
               </div>
               <div class="s_buttons">
                 <div class="s_movieStatus"><p>上映中</p></div>

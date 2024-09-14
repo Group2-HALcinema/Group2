@@ -1,3 +1,10 @@
+.ML{
+  background-image: url(../images/eigakan2.jpg);
+  background-attachment: fixed; 
+}
+.MT{
+  color: #fff;
+}
 /* --------------------------------------------上映中作品一覧ページ-------------------------------------------------- */
 .s_WorkSpace{
   width: 65%;
@@ -33,7 +40,10 @@
   background-color: #ff4433;
 }
 .actionNav ul.navwrap li a:hover{
-  background-color: #ffd94f;
+  color: #ffd94f;
+}
+.actionNav ul.navwrap li div ul li a:hover span {
+  color: #ffd94f;
 }
 
 .ac_css{
@@ -42,7 +52,7 @@
 }
 
 .actionColor{
-  background-color: rgb(255, 77, 77);
+  background-color: rgb(77, 98, 222,0.9);
 }
 
 /* ------------ */
@@ -54,8 +64,9 @@
   justify-content: flex-start;
   /* background-color: bisque; */
   margin: 25px 0 0 0;
-  border: solid 1px #ccc;
+  border: solid 1px rgb(2, 2, 38);
   border-radius: 5px;
+  background-color: rgb(2, 2, 38);
 }
 
 .s_WorkSpace .s_MovieBlock .s_imageWrap{
@@ -63,13 +74,20 @@
 }
 
 .s_WorkSpace .s_MovieBlock .s_imageWrap img{
-  height: 18vh;
+  /* height: 18vh; */
+  height: auto;
+  max-height: 17vh;
   width: 200px;
+  
 }
 
 .s_WorkSpace .s_MovieBlock .s_MovieInfo{
   width: 60%;
   margin: 10px 0 0 0;
+}
+
+.s_WorkSpace .s_MovieBlock .s_MovieInfo p{
+  color: #fff;
 }
 
 
@@ -311,22 +329,20 @@
 }
 .slick-dots li:nth-child(1) button {
   /* background: #efc5b4; */
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li:nth-child(2) button {
   /* background: #a9b7ba; */
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li:nth-child(3) button {
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li:nth-child(4) button {
-  /* background: #b4b1a0; */
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li:nth-child(5) button {
-  /* background: #cfbc96; */
-  background: #add3c7;
+  background: #fff;
 }
 .slick-dots li button:hover, .slick-dots li.slick-active button {
   border-radius: 0px;

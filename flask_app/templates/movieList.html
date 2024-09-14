@@ -24,7 +24,7 @@
     
   </head>
   <!-- menu checkbox周りを<>で囲う際はbodyないのものすべてを囲まないと設定したアニメーションが動かなくなります -->
-  <body>
+  <body class="ML">
     <div class="wrap">
       <div><a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='images/logo2.png')}}"></a></div>
     </div>
@@ -67,7 +67,7 @@
 
       <div class="s_WorkSpace">
         <div class="s_titleWrap">
-          <h1>上映中作品一覧</h1>
+          <h1 class="MT">上映中作品一覧</h1>
         </div>
 
         <div class="s_sliderBox">
@@ -93,8 +93,9 @@
                 <img src="{{ url_for('static', filename='images/movieimages/' + movie.MovieImageSide) }}" alt="{{ movie.MovieTitle }}"/>
               </div>
               <div class="s_MovieInfo">
-                <p>{{ movie.MovieTitle }}</p>
+                <p>映画タイトル　{{ movie.MovieTitle }}</p>
                 <p>
+                  キャスト　
                   {% for cast in movie.cast %}
                   {{ cast.CastName[:50] }}{% if cast.CastName|length > 50 %}...{% endif %}
                   {% endfor %}
@@ -119,9 +120,9 @@
       </div>
       
       <div class="space_2">
-        <input type="checkbox" id="H_1" name="space_2"><label for="H_1">H</label>
-        <input type="checkbox" id="A_2" name="space_2"><label for="A_2">A</label>
-        <input type="checkbox" id="L_3" name="space_2"><label for="L_3">L</label>
+        <a href="{{ url_for('views.movielist_h') }}"><input type="checkbox" id="H_1" name="space_2"><label for="H_1">H</label></a>
+        <a href="{{ url_for('views.movielist_a') }}"><input type="checkbox" id="A_2" name="space_2"><label for="A_2">A</label></a>
+        <a href="{{ url_for('views.movielist_l') }}"><input type="checkbox" id="L_3" name="space_2"><label for="L_3">L</label></a>
       </div>
 
 
