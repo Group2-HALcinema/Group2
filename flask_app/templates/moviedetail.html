@@ -67,7 +67,7 @@
 
 
 
-      <div id="wrap">
+      <div id="detailwrap">
         <div>
             <ul>
                 <li id="thumbnail">
@@ -104,10 +104,12 @@
         <div id="scheduleday">
           {% for date in showings_by_date.keys() %}
             <div>
-              <span>
-                <p class="day" data-date="{{ date }}"><a href="#">{{ format_japanese_day(date) }}</a></p> 
-                <p></p>
-              </span>
+              <a href="#">
+                <span>
+                  <p class="day" data-date="{{ date }}">{{ format_japanese_day(date) }}</p> 
+                  <p></p>
+                </span>
+              </a>
             </div>
           {% endfor %}
         </div>
