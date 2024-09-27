@@ -1,0 +1,63 @@
+body{
+    background-image: url(../images/eigakan.jpg);
+}
+
+#wrap{
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+
+    background-color: rgb(55, 55, 55);
+    color: white;
+}
+
+h1{
+    font-size: 1.8rem;
+    padding: 20px 0;
+}
+
+section{
+    padding: 0 0 20px 0;
+}
+
+h2.title{
+    font-size: 1.5rem;
+}
+
+section ul{
+    list-style: none;
+}
+
+#addMovieTable{
+    margin: 0 auto;
+}
+
+#deleteMovieTable{
+    margin: 0 auto;
+}
+#deleteMovieTable tr td{
+    padding: 10px;
+}
+
+#reservationTable p{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#reservationTable table{
+    border-collapse: collapse;
+    margin: 20px auto 0 auto;
+}
+
+#reservationTable th{
+    border: solid 1px;
+}
+#reservationTable td{
+    border: solid 1px;
+}
+
+#reservationTable th{
+    width: 150px;
+    height: 40px;
+    vertical-align: middle;
+}
