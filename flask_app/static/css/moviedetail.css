@@ -6,25 +6,25 @@ main{
 main footer{
   margin-top: auto;
 }
-main #wrap {
+main #detailwrap {
     width: 90%;
     margin: 4.5% auto;
     background-color: rgb(2, 2, 38);
     color: #fff;
     border-radius: 5px;
 }
-main #wrap div{
+main #detailwrap div{
     height: 28vw;
     display: flex;
 }
-main #wrap div ul{
+main #detailwrap div ul{
     width: 45%;
 }
-main #wrap div ul li{
+main #detailwrap div ul li{
     flex-grow: 1;
     display: inline-block;
 }
-main #wrap div ul li#thumbnail{
+main #detailwrap div ul li#thumbnail{
     margin-left: 1.5%;
     position: relative;
     align-items: center;
@@ -32,7 +32,7 @@ main #wrap div ul li#thumbnail{
     width: 100%;
     height: 100%;
 }
-main #wrap div ul li#thumbnail div{
+main #detailwrap div ul li#thumbnail div{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -42,46 +42,46 @@ main #wrap div ul li#thumbnail div{
     width: 100%;
     height: 90%;
 }
-main #wrap div ul li#thumbnail div img{
+main #detailwrap div ul li#thumbnail div img{
     /*コレ*/max-width: 100%;
     /*コレ*/height: auto;
     object-fit: contain;
 }
-main #wrap div #Synopsis{
+main #detailwrap div #Synopsis{
     flex-flow: column;
     width: 55%;
 }
-main #wrap div #Synopsis h2{
+main #detailwrap div #Synopsis h2{
     height: 70%;
     font-size: 1.15vw;
     font-weight: 400;
     padding: 3% 3% 0 3%;
     text-align: justify;
 }
-main #wrap div #Synopsis section{
+main #detailwrap div #Synopsis section{
     display: flex;
     height: 30%;
 }
-main #wrap div #Synopsis section h2{
+main #detailwrap div #Synopsis section h2{
     font-size: 1.5vw;
     font-weight: 800;
     text-align: justify;    
 
 }
-main #wrap div #Synopsis section ul{
+main #detailwrap div #Synopsis section ul{
     padding: 1% 3% 0 3%;
     display: flex;
 }
-main #wrap div #Synopsis section ul li{
+main #detailwrap div #Synopsis section ul li{
     font-size: 1.3vw;
     font-weight: 800;    
 }
-main #wrap div #Synopsis section div{
+main #detailwrap div #Synopsis section div{
     padding-top: 3%;
 }
-main #wrap div #Synopsis section div ul{}
-main #wrap div #Synopsis section div ul li{}    
-main #wrap div #Synopsis section div ul li p{
+main #detailwrap div #Synopsis section div ul{}
+main #detailwrap div #Synopsis section div ul li{}    
+main #detailwrap div #Synopsis section div ul li p{
     font-weight: 100;
     font-size: 1.1vw;  
 }
@@ -107,8 +107,14 @@ main #schedule span #scheduleday {
 main #schedule span #scheduleday div{
     width: 12vw;
     height: 8.5vw;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
     background-color: #9a9a9a;
+    cursor: pointer;
     /* margin: 0 6px 0 0; */
+}
+main #schedule span #scheduleday div:hover{
+    background-color: #6a6a6a;
+
 }
 main #schedule span #scheduleday div span p{
     margin: auto;
@@ -145,15 +151,23 @@ main #schedule span #scheduletime .screenbody section .screenwrap div{
     height: 6vw;
     margin: 0 0.5%;
     background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
     justify-content: center;
     border-radius: 4px;
 }
+main #schedule span #scheduletime .screenbody section .screenwrap div:hover{
+    background-color: #ddd;
+}
 main #schedule span #scheduletime .screenbody section .screenwrap div a{
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     cursor: pointer;
     text-align: center;
+    color: #000;
+}
+main #schedule span #scheduletime .screenbody section .screenwrap div a:active{
+    color: #b71c1c;
 }
 main #schedule span #scheduletime .screenbody section .screenwrap div a p{
     width: 100%;
@@ -190,9 +204,11 @@ a{
     text-decoration: none;
 
 }
-.day a{
+#scheduleday div a{
     color: #fff;
+    width: 100%;
+    height: auto;
 }
-.day a:active{
+#scheduleday div a:active{
     color: #b71c1c;
 }
