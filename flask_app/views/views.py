@@ -62,7 +62,7 @@ def SeatSelect():
 
 
 # 座席指定ページ(座席予約機能)
-@views_bp.route('/reserve_seat', methods=['POST'])
+@views_bp.route('/reserve_seat', methods=['GET', 'POST'])
 @login_required
 def reserve_seat():
     try:
@@ -97,6 +97,10 @@ def reserve_seat():
         if not price_id_matches:
             return jsonify({'status': 'error', 'message': 'プライスIDの形式が不正です'}), 400
         
+        # もしprice_id_matchesが1つだけで、selected_seat_listが複数ある場合
+        if len(price_id_matches) == 1 and len(selected_seat_list) > 1:
+            price_id_matches = [price_id_matches[0]] * len(selected_seat_list)
+        
         selected_price_list = price_id_matches
         print(f"抽出後の selected_price_list: {selected_price_list}")
         
@@ -106,7 +110,7 @@ def reserve_seat():
             showing_id = int(showing_id_match.group())
         else:
             return jsonify({'status': 'error', 'message': 'ShowingIDの形式が不正です'}), 400
-         # リストの長さが一致しない場合の対応
+        # リストの長さが一致しない場合の対応
         if len(selected_seat_list) != len(selected_price_list):
             return jsonify({'status': 'error', 'message': '座席と価格の数が一致しません'}), 400
         

@@ -123,17 +123,15 @@
                         {% for showing in showings_for_date %}
                           <div>
                             <h6>スクリーン{{ showing.screen.ScreenID }}</h6>
-                              <div class="showing-item">
-                                  <a href="{{ url_for('views.SeatSelect', showing_id=showing.ShowingID, date=date) }}">
-                                      <p class="time">
-                                          <span class="starttime">{{ showing.showtime.start_time.strftime('%H:%M') }}</span>
-                                          ~ <span class="endtime">{{ showing.end_time.strftime('%H:%M') }}</span>
-                                      </p>
-                                      <p class="info">{{ showing.Info }}</p>
-                                      <p class="status">{{ showing.Status }}</p>
-                                  </a>
-                              </div>
+                            <div class="showing-item">
+                                <a href="{{ url_for('views.SeatSelect', showing_id=showing.ShowingID, date=date) }}">
+                                  <p class="time">
+                                      <span class="starttime">{{ showing.showtime.start_time.strftime('%H:%M') }}</span>
+                                      ~ <span class="endtime">{{ showing.end_time.strftime('%H:%M') }}</span>
+                                  </p>
+                                </a>
                             </div>
+                          </div>
                         {% endfor %}
                     </div>
                 </section>
