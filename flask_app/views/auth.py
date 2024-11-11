@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 from datetime import date, timedelta
 import os
-import datetime
+from datetime import datetime
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -42,7 +42,19 @@ def index():
     #         db.session.add(seat)
     # db.session.commit()
 
-    return render_template('top.html')
+    # db.session.query(Showing).delete()
+    # db.session.commit()
+
+    # Showingテーブルから上映中のMovieIDを取得
+    showing_movie_ids = db.session.query(Showing.MovieID).distinct().all()
+    showing_movie_ids = [item[0] for item in showing_movie_ids]  # リスト内のタプルを展開
+
+    # 取得したMovieIDリストを使ってMovieテーブルから映画情報を取得
+    movies = db.session.query(Movie).filter(Movie.MovieID.in_(showing_movie_ids)).all()
+    upcoming_movies = db.session.query(Movie).filter(~Movie.MovieID.in_(showing_movie_ids)).all()
+    
+    return render_template('top.html',movies=movies, upcoming_movies=upcoming_movies)
+
 
 #アカウント作成
 @app.route("/signup", methods=['GET', 'POST'])
@@ -81,6 +93,7 @@ def signout():
     return redirect(url_for('signin'))
 
 
+# マイページ
 @app.route('/memberinfo', methods=["GET", "POST"])
 def memberinfo():
     """ユーザーの個人情報を更新する."""
@@ -92,12 +105,15 @@ def memberinfo():
     address_data = Address.query.filter_by(AccountID=current_user.get_id()).first()
     # 各予約の終了時間を計算
     for reservation in reservations:
-        start_time = reservation.showing.showtime.start_time
-        # datetime.datetime.combine を使って datetime オブジェクトに変換
-        start_datetime = datetime.datetime.combine(datetime.date.today(), start_time)
+        # start_time_str は既に datetime.time 型と仮定
+        start_time = reservation.showing.showtime.start_time  
+        # datetime.combine を使って datetime オブジェクトに変換
+        start_datetime = datetime.combine(datetime.today(), start_time)
         reservation.end_time = (
             start_datetime + timedelta(minutes=reservation.showing.movie.ShowTimes)
         )
+        reservation.seat_number = f"{reservation.seat.Row}{reservation.seat.Number}"
+
 
     # ログイン済みユーザーかどうかを確認
     if not current_user.is_authenticated:

@@ -1,3 +1,21 @@
+@charset "utf-8";
+@font-face {
+    font-family: "horror";
+    src: url(../font/ふぉんとうは怖い明朝体.otf);
+}
+body{
+    font-family: "horror";   
+}
+.nav{
+    background-color: #0404045e;
+}
+.s_titleWrap h1{
+    color: #fff;
+}
+.s_WorkSpace .s_MovieBlock{
+    border: solid 1px rgb(66, 66, 66);
+    background-color: rgba(0, 0, 0, 0.596);
+}
 /* --------------------------------------------上映中作品一覧ページ-------------------------------------------------- */
 .s_WorkSpace{
     width: 65%;
@@ -11,10 +29,12 @@
   
   .s_WorkSpace .s_titleWrap h1{
     font-size: 1.5rem;
-    font-family: "Yuji Boku", serif;
+    font-family: "Reggae One", system-ui;
     font-weight: 400;
     font-style: normal;
-    color: #ffffff;
+    background-color: #fff;
+    width: 350px;
+    text-align: center;
   }
   
   
@@ -25,12 +45,6 @@
   }
   .s_titleWrap_A h1{
     font-size: 1.7rem;
-    font-family: "Reggae One", system-ui;
-    font-weight: 400;
-    font-style: normal;
-    background-color: #fff;
-    width: 350px;
-    text-align: center;
   }
   
   .actionNav{
