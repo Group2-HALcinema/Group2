@@ -1,4 +1,3 @@
-
 @charset "utf-8";
 @font-face {
     font-family: "horror";
@@ -16,6 +15,7 @@ body{
 .s_WorkSpace .s_MovieBlock{
     border: solid 1px rgb(66, 66, 66);
     background-color: rgba(0, 0, 0, 0.596);
+}
 /* --------------------------------------------上映中作品一覧ページ-------------------------------------------------- */
 .s_WorkSpace{
     width: 65%;
@@ -360,5 +360,4 @@ body{
     border: solid 1px #00ff08;
     background-color: #e7ffe9;
     border-radius: 5px;
-
   }
