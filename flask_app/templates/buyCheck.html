@@ -46,7 +46,7 @@
                       <p id="titleName">{{ showing.movie.MovieTitle }}</p> <!-- 何文字以上で「映画タイトル...」みたいな感じに -->
                   </div>
                   <div id="dateTime">
-                    <p id="day">{{ format_japanese_day(calender.day) }}</p>
+                    <p id="day">{{ format_japanese_day(date) }}</p>
                     <p id="time">{{ start_time.strftime('%H:%M') }} 〜 {{ end_time.strftime('%H:%M') }}</p>
                   </div>
               </div>

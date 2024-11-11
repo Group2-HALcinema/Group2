@@ -125,25 +125,37 @@ main #schedule span #scheduleday div span p{
     text-align: center;
 }
 main #schedule span #scheduletime{
-    width: 95%;
+    width: 90%;
+    overflow-x: auto; /* 横スクロールを許可する */
+    white-space: nowrap; /* 改行を防止 */
     background-color: #4a4a4a;
     margin: 0 auto;
     margin-bottom: 10%;
     
 }
 main #schedule span #scheduletime #screenbody{
-    padding: 0 3%;
+    flex-direction: column; /* 縦のレイアウトを維持 */
+    overflow: hidden; /* 縦のスクロールバーを消す */
+    display: flex;
+    flex-wrap: nowrap; /* 要素を1行に並べる */
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px; /* 要素間のスペースを指定 */
 }
 main #schedule span #scheduletime .screenbody section{}
 main #schedule span #scheduletime .screenbody section h6{
     padding-left: 2%;
     padding-top: 0.5%;
     color: #fff;
+    background-color: #4a4a4a;
 }
 main #schedule span #scheduletime .screenbody section .screenwrap{
-    padding: 1% 2% 2% 1.5%;
-    display: flex;
-    background-color: #9a9a9a;
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: row; /* 横並びにする */
+    gap: 20px; /* 要素間の間隔を調整 */
+    min-width: 200px; /* 最小幅を設定して横並びを強制 */
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 main #schedule span #scheduletime .screenbody section .screenwrap div{

@@ -109,11 +109,8 @@
                 <button class="modal-close" aria-label="モーダルを閉じる">戻る</button>
                 
                 
-                <button class="btn modal-ok" type="button" aria-label="確認"><a href="{{url_for('views.buycomp')}}"></a></button>
-                <!-- データ受け渡しの場合
-                <form method="POST" action="{{ url_for('views.buycomp') }}">
-                  <button class="btn modal-ok" type="submit">購入する</button>
-                </form> -->
+                <a href="{{url_for('views.reserve_seat', selected_seats=selected_seats, showing_id=showing_id, selected_price_info=selected_price_info)}}"><button class="btn modal-ok" type="button" aria-label="確認"></button></a>
+                
                 
                 
 
