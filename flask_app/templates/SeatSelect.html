@@ -145,6 +145,7 @@
         <p id="selected-seat">選択された座席: </p>
         <form id="seatForm" action="{{ url_for('views.buyCheck') }}" method="GET">
             <input type="hidden" name="showing_id" value="{{ showing_id }}">
+            <input type="hidden" name="date" value="{{ date }}">
             <input type="hidden" name="selected_seats" id="selected-seats" value="">
             <button type="submit" class="reserve-button contentNew">購入確認へ</button>
         </form>

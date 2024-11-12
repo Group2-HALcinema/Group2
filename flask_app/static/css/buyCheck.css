@@ -1,170 +1,157 @@
-#Wrap{
-    width: 80vw;
-    margin: 0 auto;
+#Wrap {
+  width: 80vw;
+  margin: 0 auto;
 }
 
-
-#flexArea{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+#flexArea {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
-
 
 /* タイトル＆datetime */
-#buy_main{
-    margin: 30px auto 0 auto;
-    width: 50vw;
-    height: 160px;
-    background-color: #fff;
-    border: #000 1px solid;
-    border-radius: 0;
+#buy_main {
+  margin: 30px auto 0 auto;
+  width: 50vw;
+  height: 160px;
+  background-color: #fff;
+  border: #000 1px solid;
+  border-radius: 0;
 }
-#title{
-    margin: 3% 0 0 5%;
-    padding: 0 0 15px 0;
+#title {
+  margin: 3% 0 0 5%;
+  padding: 0 0 15px 0;
 }
-#titleName{
-    font-size: 1.9rem;
+#titleName {
+  font-size: 1.9rem;
 }
-#dateTime{
-    display: flex;
+#dateTime {
+  display: flex;
 }
-#day{
-    margin: 5px 0 0 10%;
-    font-size: 1.5rem;
+#day {
+  margin: 5px 0 0 10%;
+  font-size: 1.5rem;
 }
-#time{
-    margin: 0 0 0 20%;
-    font-size: 1.9rem;
-    font-weight: 600;
+#time {
+  margin: 0 0 0 20%;
+  font-size: 1.9rem;
+  font-weight: 600;
 }
-
 
 /* スクリーンとシート番号 */
-#seat{
-    margin: 50px auto 0 auto;
-    width: 50vw;
-    height: 150px;
-    background-color: #fff;
-    border: #000 1px solid;
-    border-radius: 0;
+#seat {
+  margin: 50px auto 0 auto;
+  width: 50vw;
+  height: 150px;
+  background-color: #fff;
+  border: #000 1px solid;
+  border-radius: 0;
 
-    display: flex;
+  display: flex;
 }
-#screen{
-    margin: auto;
-    width: 300px;
+#screen {
+  margin: auto;
+  width: 300px;
 }
-#screen p{
-    font-size: 1.6rem;
-    margin: 0 auto;
-    text-align: center;
+#screen p {
+  font-size: 1.6rem;
+  margin: 0 auto;
+  text-align: center;
 }
-#seatNumber{
-    margin: auto;
-    width: 500px;
+#seatNumber {
+  margin: auto;
+  width: 500px;
 }
-#seatNumber p{
-    font-size: 1.7rem;
-    font-weight: 600;
-    margin: 0 auto;
-    text-align: center;
-/* 要素数が多くなったら text-align: center;　にするかも*/
+#seatNumber p {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 0 auto;
+  text-align: center;
+  /* 要素数が多くなったら text-align: center;　にするかも*/
 
-    word-break: break-word;
-    white-space: normal;
+  word-break: break-word;
+  white-space: normal;
 }
-
-
-
 
 /* 金額区分と合計金額 */
-#total_price{
-    margin: 50px auto 0 auto;
-    width: 50vw;
-    height: 250px;
-    background-color: #fff;
-    border: #000 1px solid;
-    border-radius: 0;
+#total_price {
+  margin: 50px auto 0 auto;
+  width: 50vw;
+  height: 250px;
+  background-color: #fff;
+  border: #000 1px solid;
+  border-radius: 0;
 
-    display: flex;
+  display: flex;
 }
-#classiFication{
-    width: 28vw;
-    display: flex;
+#classiFication {
+  width: 28vw;
+  display: flex;
 }
-#classF{
-    width: 21vw;
-    margin: auto 0 auto 0;
+#classF {
+  width: 21vw;
+  margin: auto 0 auto 0;
 }
-#classF table{
-    margin: auto;
+#classF table {
+  margin: auto;
 }
-#classF table tr td{
-    font-size: 1.3rem;
+#classF table tr td {
+  font-size: 1.3rem;
 }
-#classF table tr .cl{
-    padding: 3px 40px 3px 0;
+#classF table tr .cl {
+  padding: 3px 40px 3px 0;
 }
-#classF table tr .qu{
-    padding: 0 0 0 0;
+#classF table tr .qu {
+  padding: 0 0 0 0;
 }
-#classF table tr .pl{
-    padding: 0 0 0 40px;
-}
-
-
-#total{
-    width: 7vw;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-}
-#total p{
-    margin: 0;
-    font-size: 1.5rem;
+#classF table tr .pl {
+  padding: 0 0 0 40px;
 }
 
-
-#priceArea{
-    width: 22vw;
-    display: flex;
+#total {
+  width: 7vw;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
 }
-#price{
-    margin: auto;
-    width: 18vw;
-    display: flex;
-
-    justify-content: space-between;
-}
-#priceG{
-    font-size: 2rem;
-}
-#priceY{
-    font-size: 2rem;
+#total p {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
+#priceArea {
+  width: 22vw;
+  display: flex;
+}
+#price {
+  margin: auto;
+  width: 18vw;
+  display: flex;
 
+  justify-content: space-between;
+}
+#priceG {
+  font-size: 2rem;
+}
+#priceY {
+  font-size: 2rem;
+}
 
 /* 決済方法の確認欄 */
 
-#payment{
-    margin: 50px auto 20px auto;
-    width: 50vw;
-    height: 250px;
-    background-color: #fff;
-    border: #000 1px solid;
+#payment {
+  margin: 50px auto 20px auto;
+  width: 50vw;
+  height: 250px;
+  background-color: #fff;
+  border: #000 1px solid;
 }
-
-
 
 /* 入力へ戻るand購入するボタン */
 
-
-#btnArea{
-    display: flex;
-    justify-content: center;
+#btnArea {
+  display: flex;
+  justify-content: center;
 }
 
 /* .submit-button{
@@ -182,73 +169,75 @@
     border-radius: 50px;
 } */
 
+.modal-close,
+.modal-ok {
+  width: 15%;
+  position: relative;
+  height: 4vw;
+  margin: 0 50px 50px 50px;
+  margin-top: 2%;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(
+    to right,
+    #77530a,
+    #ffd277,
+    #77530a,
+    #77530a,
+    #ffd277,
+    #77530a
+  );
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+.modal-ok a,
+.modal-close a {
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+}
+.modal-close::before,
+.modal-ok::before {
+  position: absolute;
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.842);
+  background-size: 200%;
+}
+/* 各自のボタン内テキストを入れてください */
+.modal-close::before {
+  content: '入力へ戻る';
+}
+.modal-ok::before {
+  content: '購入する';
+}
 
+.modal-close:hover,
+.modal-ok:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
 
+.modal-close:hover::before,
+.modal-ok:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
 
-
-
-
-
-
-
-
-
-
-.modal-close ,.modal-ok {
-    width: 15%;
-    position: relative;
-    height: 4vw;
-    margin: 0 50px 50px 50px;
-    margin-top: 2%;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
-    background-size: 250%;
-    background-position: left;
-    color: #ffd277;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition-duration: 1s; 
-    overflow: hidden;
-  }
-  .modal-ok a,.modal-close a{
-    z-index: 2;
-    height:100%;
-    width: 100%;
-  }
-  .modal-close::before ,.modal-ok::before{
-    position: absolute;
-    color: #ffd277;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 97%;
-    height: 90%;
-    border-radius: 8px;
-    transition-duration: 1s;
-    background-color: rgba(0, 0, 0, 0.842);
-    background-size: 200%;
-  }
-  /* 各自のボタン内テキストを入れてください */
-  .modal-close::before {
-    content: "入力へ戻る";
-  }
-  .modal-ok::before{
-    content: "購入する";
-  }
-   
-  .modal-close:hover,.modal-ok:hover {
-    background-position: right;
-    transition-duration: 1s;
-  }
-   
-  .modal-close:hover::before,.modal-ok:hover::before {
-    background-position: right;
-    transition-duration: 1s;
-  }
-   
-  .modal-close:active,.modal-ok:active {
-    transform: scale(0.95);
-  }
+.modal-close:active,
+.modal-ok:active {
+  transform: scale(0.95);
+}
